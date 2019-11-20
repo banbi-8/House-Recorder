@@ -1,0 +1,14 @@
+/* basic area */
+html, body {
+	height: 100%;
+}
+
+.header {
+	background-color: sandybrown;
+	height: 20%;
+}
+
+.contents {
+	background-color: lightgoldenrodyellow;
+	height: 80%;
+}

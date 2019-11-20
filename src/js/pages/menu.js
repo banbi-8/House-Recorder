@@ -4,12 +4,12 @@ import {View} from 'backbone';
 import {Util} from '../util/util';
 
 const Menu = View.extend({
-	el: '.menu-bar',
+	el: '.header',
 	events: {
 	},
 
 	render: function () {
-		this.$el.append(Util.getPageContent('menu.template'));
+		this.$el.append(Util.getPageContent('header.template'));
 	}
 });
 

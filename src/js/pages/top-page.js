@@ -2,12 +2,12 @@ import $ from 'jquery';
 import {View} from 'backbone';
 
 const TopPageView = View.extend({
-	el: $('.contents'),
+	el: '.contents',
 	events: {
 	},
 
 	render: function () {
-		console.log(2);
+		//this.$el.append(Util.getPageContent('top.template'));
 	}
 });
 

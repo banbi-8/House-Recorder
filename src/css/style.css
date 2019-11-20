@@ -1,7 +1,14 @@
-/* menu */
-#menu {
-	background-color: aquamarine;
+/* basic area */
+html, body {
+	height: 100%;
 }
-#title {
-	background-color: red;
+
+.header {
+	background-color: sandybrown;
+	height: 20%;
+}
+
+.contents {
+	background-color: lightgoldenrodyellow;
+	height: 80%;
 }

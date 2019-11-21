@@ -3,12 +3,24 @@ html, body {
 	height: 100%;
 }
 
+/* header */
 .header {
-	background-color: sandybrown;
 	height: 20%;
+	position: relative;
+}
+.header .header-content {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+}
+.header .header-content h1 {
+	margin-bottom: 16px;
 }
 
 .contents {
 	background-color: lightgoldenrodyellow;
 	height: 80%;
+}
+#menu-tab {
+	width: 100%;
 }

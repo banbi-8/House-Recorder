@@ -81,3 +81,11 @@ html, body {
 .record-content .buttons {
 	height: 10%;
 }
+
+/* transition content style */
+.transition-content {
+	height: 100%;
+}
+.transition-content .tansition-table {
+	height: 90%;
+}

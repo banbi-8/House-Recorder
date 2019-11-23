@@ -4,17 +4,19 @@ import {menuView} from '../pages/menu';
 import {homeView} from '../pages/home';
 import {recordView} from '../pages/record';
 import {transitionView} from '../pages/transition';
+import {badgetView} from '../pages/badget';
 
 const AppRouter = Router.extend({
 	routes: {
 		'': 'begin',
 		'home': 'moveHome',
 		'record': 'moveRecord',
-		'transition': 'moveTransition'
+		'transition': 'moveTransition',
+		'badget': 'moveBadget'
 	},
 	begin: function () {
 		menuView.render();
-		this.moveTransition();
+		this.moveBadget();
 	},
 	moveHome: function () {
 		homeView.render();
@@ -24,6 +26,9 @@ const AppRouter = Router.extend({
 	},
 	moveTransition: function () {
 		transitionView.render();	
+	},
+	moveBadget: function () {
+		badgetView.render();
 	}
 });
 

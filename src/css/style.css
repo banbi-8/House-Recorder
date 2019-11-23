@@ -1,9 +1,9 @@
-/* basic area */
+/* basic style */
 html, body {
 	height: 100%;
 }
 
-/* header */
+/* header style */
 .header-area {
 	height: 20%;
 	position: relative;
@@ -20,28 +20,31 @@ html, body {
 	width: 100%;
 }
 
-/* contents area*/
+/* contents area common style */
 .contents-area {
 	height: 80%;
 }
+.mselector-line {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+.mselector-line {
+	height: 10%;
+}
+.mselector-line > * {
+	display: inline;
+}
 
-/* home */
+/* home content style */
 .home-content,
 .home-content .pane1,
 .home-content .pane2 {
 	height: 100%;
 }
-.home-content .mselector-line,
 .home-content .pane1,
 .home-content .pane2 {
 	padding-top: 15px;
 	padding-bottom: 15px;
-}
-.home-content .mselector-line {
-	height: 10%;
-}
-.home-content .mselector-line > * {
-	display: inline;
 }
 .home-content .pane1 ul,
 .home-content .pane2 ul {
@@ -66,4 +69,15 @@ html, body {
 }
 .home-content .pane2 {
 	background-color: lightskyblue;
+}
+
+/* record content style */
+.record-content {
+	height: 100%;
+}
+.record-content .spread-sheet {
+	height: 80%;
+}
+.record-content .buttons {
+	height: 10%;
 }

@@ -89,3 +89,36 @@ html, body {
 .transition-content .tansition-table {
 	height: 90%;
 }
+
+/* badget content style */
+.badget-content {
+	height: 100%;
+}
+.badget-content .content{
+	height: 90%;
+	padding-top: 45px;
+	padding-bottom: 15px;
+}
+.badget-content .income-saving {
+	height: 20%;
+	margin-left: 15px;
+}
+.badget-content .income-saving div > input {
+	margin-left: 40px;
+	margin-top: 20px;
+}
+.badget-content .income-saving div > input + #unit {
+	font-size: 24px;
+}
+.badget-content #badget-table {
+	height: 70%;
+}
+.badget-content .footer {
+	height: 10%;
+}
+.badget-content .footer > * {
+	display: inline;
+}
+.badget-content .footer > #remain {
+	text-decoration: underline;
+}

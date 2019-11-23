@@ -1,0 +1,33 @@
+<div class="home-content row">
+	<div class="mselector-line col-md-12 col-lg-12">
+		<h4 id="previous"><</h4>
+		<h4 id="mselector">●●●●年●●月</h4>
+		<h4 id="next">></h4>
+	</div>
+	<div class="pane1 col-md-6 col-lg-6">
+		<ul>
+			<li class="income">
+				<h2 id="income-title">収入</h2>
+				<h4 id="income-value">〇〇〇〇〇〇〇〇円</h4>
+			</li>
+			<li class="savings">
+					<h2 id="savings-title">貯金目標額</h2>
+					<h4 id="income-value">〇〇〇〇〇〇〇〇円</h4>
+			</li>
+			<li class="remain">
+					<h2 id="remain-title">残金</h2>
+					<h4 id="income-value">〇〇〇〇〇〇〇〇円</h4>
+			</li>
+		</ul>
+	</div>
+	<div class="pane2 col-md-6 col-lg-6">
+		<ul>
+			<li class="budget">
+					<h2 id="badget-title">予算内訳</h2>
+			</li>
+			<li class="expense">
+				<h2 id="expense-title">出費内訳</h2>
+			</li>
+		</ul>
+	</div>
+</div>

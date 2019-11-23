@@ -4,7 +4,7 @@ import {View} from 'backbone';
 import {Util} from '../util/util';
 
 const MenuView = View.extend({
-	el: '.header',
+	el: '.header-area',
 	template_: null,
 	initialize: function() {
 		this.template_ = Util.getPageContent('header.template');

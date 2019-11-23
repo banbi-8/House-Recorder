@@ -4,7 +4,7 @@ import {View} from 'backbone';
 import {Util} from '../util/util';
 
 const HomeView = View.extend({
-	el: '.contents',
+	el: '.contents-area',
 	template_: null,
 	initialize: function() {
 		this.template_ = Util.getPageContent('home.template');

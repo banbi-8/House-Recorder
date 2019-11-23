@@ -1,0 +1,9 @@
+<div class="transition-content">
+	<div class="mselector-line col-md-12 col-lg-12">
+		<h2 id="previous"><</h2>
+		<h2 id="mselector">●●●●年●●月</h2>
+		<h2 id="next">></h2>
+	</div>
+	<div class="transition-table"></div>
+</div>
+	

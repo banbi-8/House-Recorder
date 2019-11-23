@@ -1,19 +1,19 @@
 import {Router} from 'backbone';
 
-import {menu} from '../pages/menu';
-import {topPageView} from '../pages/top-page';
+import {menuView} from '../pages/menu';
+import {homeView} from '../pages/home';
 
 const AppRouter = Router.extend({
 	routes: {
 		'': 'begin',
-		'top': 'top'
+		'home': 'home'
 	},
 	begin: function () {
-		menu.render();
-		this.top();
+		menuView.render();
+		this.home();
 	},
-	top: function () {
-		topPageView.render();
+	home: function () {
+		homeView.render();
 	}
 });
 

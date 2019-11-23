@@ -1,8 +1,8 @@
 <div class="home-content row">
 	<div class="mselector-line col-md-12 col-lg-12">
-		<h4 id="previous"><</h4>
-		<h4 id="mselector">●●●●年●●月</h4>
-		<h4 id="next">></h4>
+		<h2 id="previous"><</h2>
+		<h2 id="mselector">●●●●年●●月</h2>
+		<h2 id="next">></h2>
 	</div>
 	<div class="pane1 col-md-6 col-lg-6">
 		<ul>

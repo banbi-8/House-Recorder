@@ -7,7 +7,7 @@ const AppRouter = Router.extend({
 		this.homeView = views.homeView;
 		this.recordView = views.recordView;
 		this.transitionView = views.transitionView;
-		this.badgetView = views.transitionView;
+		this.badgetView = views.badgetView;
 
 		this.showMenuContent();
 		this.showHomeContent();

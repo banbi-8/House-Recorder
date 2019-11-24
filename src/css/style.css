@@ -36,10 +36,12 @@ html, body , .app {
 }
 
 /* home content style */
-.home-content,
+.home-content {
+	height: 100%;
+}
 .home-content .pane1,
 .home-content .pane2 {
-	height: 100%;
+	height: 90%;
 }
 .home-content .pane1,
 .home-content .pane2 {

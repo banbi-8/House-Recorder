@@ -1,35 +1,45 @@
+import $ from 'jquery';
 import {Router} from 'backbone';
 
-import {menuView} from '../pages/menu';
-import {homeView} from '../pages/home';
-import {recordView} from '../pages/record';
-import {transitionView} from '../pages/transition';
-import {badgetView} from '../pages/badget';
-
 const AppRouter = Router.extend({
+	initialize: function (views) {
+		this.menuView = views.menuView;
+		this.homeView = views.homeView;
+		this.recordView = views.recordView;
+		this.transitionView = views.transitionView;
+		this.badgetView = views.badgetView;
+
+		this.showMenuContent();
+		this.showHomeContent();
+	},
 	routes: {
-		'': 'begin',
-		'home': 'moveHome',
-		'record': 'moveRecord',
-		'transition': 'moveTransition',
-		'badget': 'moveBadget'
+		'home': 'showHomeContent',
+		'record': 'showRecordContent',
+		'transition': 'showTransitionContent',
+		'badget': 'showBadgetContent'
 	},
-	begin: function () {
-		menuView.render();
-		this.moveBadget();
+	removeContents: function() {
+		$('.contents-area').empty();
 	},
-	moveHome: function () {
-		homeView.render();
+	showMenuContent: function () {
+		this.menuView.render();
 	},
-	moveRecord: function () {
-		recordView.render();
+	showHomeContent: function () {
+		this.removeContents();
+		this.homeView.render();
 	},
-	moveTransition: function () {
-		transitionView.render();	
+	showRecordContent: function () {
+		this.removeContents();
+		this.recordView.render();
 	},
-	moveBadget: function () {
-		badgetView.render();
+	showTransitionContent: function () {
+		this.removeContents();
+		this.transitionView.render();	
+	},
+	showBadgetContent: function () {
+		this.removeContents();
+		this.badgetView.render();
 	}
 });
 
-export const router = new AppRouter();
+export {AppRouter};

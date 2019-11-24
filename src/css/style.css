@@ -1,5 +1,5 @@
 /* basic style */
-html, body {
+html, body , .app {
 	height: 100%;
 }
 
@@ -36,10 +36,12 @@ html, body {
 }
 
 /* home content style */
-.home-content,
+.home-content {
+	height: 100%;
+}
 .home-content .pane1,
 .home-content .pane2 {
-	height: 100%;
+	height: 90%;
 }
 .home-content .pane1,
 .home-content .pane2 {
@@ -60,9 +62,6 @@ html, body {
 }
 .home-content .pane2 ul > li {
 	height: 50%;
-}
-.home-content .mselector-line {
-	background-color: lightgray;
 }
 .home-content .pane1 {
 	background-color: lightgoldenrodyellow;

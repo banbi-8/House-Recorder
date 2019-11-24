@@ -1,9 +1,9 @@
 <div class="header-content">
 	<h1 id="title">わが家の家計簿</h1>
 	<ul class="nav nav-tabs nav-justified" role="tablists" id="menu-tab">
-		<li class="nav-item" role="tab"><a class="nav-link active" href="#">HOME</a></li>
-		<li class="nav-item" role="tab"><a class="nav-link" href="#">予算決め</a></li>
-		<li class="nav-item" role="tab"><a class="nav-link" href="#">収支記録</a></li>
-		<li class="nav-item" role="tab"><a class="nav-link" href="#">収支推移</a></li>
+		<li class="nav-item" role="tab"><a class="nav-link active" id="home">HOME</a></li>
+		<li class="nav-item" role="tab"><a class="nav-link" id="badget">予算決め</a></li>
+		<li class="nav-item" role="tab"><a class="nav-link" id="record">収支記録</a></li>
+		<li class="nav-item" role="tab"><a class="nav-link" id="transition">収支推移</a></li>
 	</ul>	
 </div>

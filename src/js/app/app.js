@@ -1,9 +1,8 @@
 import _ from "underscore";
-import {history} from "backbone";
 
-import  {router}  from "../util/router";
+import {AppView} from './app-view';
 
 // initialize i18next instance
 //import {i18next} from "../util/i18next";
 
-history.start();
+const appView = new AppView();

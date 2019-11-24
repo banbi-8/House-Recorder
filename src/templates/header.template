@@ -2,8 +2,8 @@
 	<h1 id="title">わが家の家計簿</h1>
 	<ul class="nav nav-tabs nav-justified" role="tablists" id="menu-tab">
 		<li class="nav-item"><a class="nav-link active" role="tab" href="#home" id="home">HOME</a></li>
-		<li class="nav-item"><a class="nav-link" role="tab" id="badget">予算決め</a></li>
-		<li class="nav-item"><a class="nav-link" role="tab"　href="#record" id="record">収支記録</a></li>
-		<li class="nav-item"><a class="nav-link" role="tab"　href="#transition" id="transition">収支推移</a></li>
+		<li class="nav-item"><a class="nav-link" role="tab" href="#badget"　id="badget">予算決め</a></li>
+		<li class="nav-item"><a class="nav-link" role="tab" href="#record" id="record">収支記録</a></li>
+		<li class="nav-item"><a class="nav-link" role="tab" href="#transition" id="transition">収支推移</a></li>
 	</ul>	
 </div>

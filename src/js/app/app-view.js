@@ -26,10 +26,7 @@ const AppView = View.extend({
 			badgetView: this.badgetView
 		});
 
-		this.listenTo(this.menuView, 'homeTab_OnClick', this.changeContent);
-		this.listenTo(this.menuView, 'badgetTab_OnClick', this.changeContent);
-		this.listenTo(this.menuView, 'recordTab_OnClick', this.changeContent);
-		this.listenTo(this.menuView, 'transitionTab_OnClick', this.changeContent);
+		this.listenTo(this.menuView, 'tab_OnClick', this.changeContent);
 	},
 	changeContent: function (eve) {
 		const id = eve.target.id;

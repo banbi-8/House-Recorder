@@ -6,6 +6,7 @@ import {Util} from '../util/util';
 const MenuView = View.extend({
 	el: '.header-area',
 	template_: null,
+	selectedTabID: 'home',
 	initialize: function() {
 		this.template_ = Util.getPageContent('header.template');
 	},
@@ -13,22 +14,17 @@ const MenuView = View.extend({
 		this.$el.append(this.template_);
 	},
 	events: {
-		'click #home': 'homeTab_OnClick',
-		'click #badget': 'badgetTab_OnClick',
-		'click #record': 'recordTab_OnClick',
-		'click #transition': 'transition_OnClick',
+		'click li': 'tab_OnClick'
 	},
-	homeTab_OnClick: function (eve) {
-		this.trigger('homeTab_OnClick', eve);
+	tab_OnClick: function (eve) {
+		this.updateTabsAttr(eve.target.id);
+		this.trigger('tab_OnClick', eve);
 	},
-	badgetTab_OnClick: function (eve) {
-		this.trigger('badgetTab_OnClick', eve);
-	},
-	recordTab_OnClick: function (eve) {
-		this.trigger('recordTab_OnClick', eve);
-	},
-	transition_OnClick: function (eve) {
-		this.trigger('transitionTab_OnClick', eve);
+	updateTabsAttr: function (id) {
+		$(`#${this.selectedTabID}`).removeClass('active');
+		
+		this.selectedTabID = id;
+		$(`#${this.selectedTabID}`).addClass('active');
 	}
 });
 

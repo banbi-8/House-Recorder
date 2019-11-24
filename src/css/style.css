@@ -63,9 +63,6 @@ html, body , .app {
 .home-content .pane2 ul > li {
 	height: 50%;
 }
-.home-content .mselector-line {
-	background-color: lightgray;
-}
 .home-content .pane1 {
 	background-color: lightgoldenrodyellow;
 }

@@ -12,8 +12,7 @@ const MenuView = Backbone.View.extend({
 	template_: null,
 	selectedTabID: 'home',
 	initialize: function() {
-		Util.getTemplate();
-		//this.template_ = temp;
+		Util.getTemplate('header');
 	},
 	render: function () {
 		this.$el.append(this.template_);

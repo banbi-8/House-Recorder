@@ -9,7 +9,7 @@ const BadgetView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		//this.template_ = Util.getPageContent('badget.template');
+		Util.getTemplate('badget');
 	},
 	events: {
 	},

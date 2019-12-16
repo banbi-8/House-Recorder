@@ -9,7 +9,7 @@ const HomeView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		//this.template_ = Util.getPageContent('home.template');
+		Util.getTemplate('home');
 	},
 	events: {
 	},

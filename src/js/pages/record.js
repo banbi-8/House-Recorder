@@ -9,7 +9,7 @@ const RecordView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		//this.template_ = Util.getPageContent('record.template');
+		Util.getTemplate('record');
 	},
 	events: {
 	},

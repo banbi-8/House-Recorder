@@ -9,7 +9,7 @@ const TransitionView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		//this.template_ = Util.getPageContent('transition.template');
+		Util.getTemplate('transition');
 	},
 	events: {
 	},

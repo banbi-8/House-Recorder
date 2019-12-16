@@ -1,20 +1,23 @@
-import fs from "fs";
-import $ from 'jquery';
-import _ from 'underscore';
-
-import {PathUtil} from './path-util';
-
+define([
+	'jquery',
+	'underscore'
+],
+function (
+	$,
+	_
+) {
 const Util = {
-	/** 
-	 * Get template from file name.
-	 */
-	getPageContent: function (fileName) {
-		const templatesDir = PathUtil.getTemplatesDirPath();
-		const path = templatesDir + fileName;
-		const res = fs.readFileSync(path, {encoding: "utf-8"});
+	getTemplate: function (fileName) {
+		$.ajax({
+			url: 'src/php/getTemplate.php',
+			dataType: 'text',
+			data: {'fileName': fileName},
+			success: function (contents) {
+				return _.template(contents);
+			}
+		});
+	}
+}
 
-		return _.template(res);	
-	},
-};
-
-export {Util};
+return Util;
+});

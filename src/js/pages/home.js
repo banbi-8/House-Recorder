@@ -1,15 +1,19 @@
 define([
 	'jquery',
 	'backbone',
+	'util/util',
+	'text!templates/home.template'
 ], function (
 	$,
 	Backbone,
+	Util,
+	template
 ) {
-const HomeView = Backbone.View.extend({
+return HomeView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		Util.getTemplate('home');
+		this.template_ = template;
 	},
 	events: {
 	},
@@ -18,5 +22,4 @@ const HomeView = Backbone.View.extend({
 		this.$el.append(this.template_);
 	}
 });
-return HomeView;
 });

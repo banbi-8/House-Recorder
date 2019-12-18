@@ -1,15 +1,19 @@
 define([
 	'jquery',
 	'backbone',
+	'util/util',
+	'text!templates/transition.template'
 ], function (
 	$,
 	Backbone,
+	Util,
+	template
 ) {
-const TransitionView = Backbone.View.extend({
+return TransitionView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		Util.getTemplate('transition');
+		this.template_ = template;
 	},
 	events: {
 	},
@@ -17,5 +21,4 @@ const TransitionView = Backbone.View.extend({
 		this.$el.append(this.template_);
 	}
 });
-return TransitionView;
 });

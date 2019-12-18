@@ -6,7 +6,7 @@ function (
 	$,
 	_
 ) {
-const Util = {
+return Util = {
 	getTemplate: function (fileName) {
 		$.ajax({
 			url: 'src/php/getTemplate.php',
@@ -18,6 +18,4 @@ const Util = {
 		});
 	}
 }
-
-return Util;
 });

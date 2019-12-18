@@ -1,18 +1,20 @@
 define([
 	'jquery',
 	'backbone',
-	'util/util'
+	'util/util',
+	'text!templates/header.template'
 ], function (
 	$,
 	Backbone,
-	Util
+	Util,
+	template
 ) {
-const MenuView = Backbone.View.extend({
+return MenuView = Backbone.View.extend({
 	el: '.header-area',
 	template_: null,
 	selectedTabID: 'home',
 	initialize: function() {
-		Util.getTemplate('header');
+		this.template_ = template;
 	},
 	render: function () {
 		this.$el.append(this.template_);
@@ -31,6 +33,4 @@ const MenuView = Backbone.View.extend({
 		$(`#${this.selectedTabID}`).addClass('active');
 	}
 });
-
-return MenuView;
 });

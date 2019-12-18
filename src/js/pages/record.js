@@ -1,15 +1,19 @@
 define([
 	'jquery',
 	'backbone',
+	'util/util',
+	'text!templates/record.template'
 ], function (
 	$,
 	Backbone,
+	Util,
+	template
 ) {
-const RecordView = Backbone.View.extend({
+return RecordView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		Util.getTemplate('record');
+		this.template_ = template;
 	},
 	events: {
 	},
@@ -17,5 +21,4 @@ const RecordView = Backbone.View.extend({
 		this.$el.append(this.template_);
 	}
 });
-return RecordView;
 });

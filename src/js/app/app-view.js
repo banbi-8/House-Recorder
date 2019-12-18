@@ -1,30 +1,16 @@
-import {View} from 'backbone';
-import {history} from "backbone";
-
-import {menuView} from '../pages/menu';
-import {homeView} from '../pages/home';
-import {recordView} from '../pages/record';
-import {transitionView} from '../pages/transition';
-import {badgetView} from '../pages/badget';
-import {AppRouter} from '../util/router';
-
-const AppView = View.extend({
+define([
+	'backbone',
+	'util/router'	
+], function (
+	Backbone,
+	AppRouter
+) {
+return AppView = Backbone.View.extend({
 	el: '.app',
 	initialize: function () {
-		this.menuView = menuView;
-		this.homeView = homeView;
-		this.recordView = recordView;
-		this.transitionView = transitionView;
-		this.badgetView = badgetView;
+		this.router = new AppRouter();
 
-		history.start();
-		this.router = new AppRouter({
-			menuView: this.menuView,
-			homeView: this.homeView,
-			recordView: this.recordView,
-			transitionView: this.transitionView,
-			badgetView: this.badgetView
-		});
+		Backbone.history.start();
 
 		this.listenTo(this.menuView, 'tab_OnClick', this.changeContent);
 	},
@@ -33,5 +19,4 @@ const AppView = View.extend({
 		this.router.navigate(id, {trigger: true});
 	},
 });
-
-export {AppView};
+});

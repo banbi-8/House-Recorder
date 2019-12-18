@@ -1,13 +1,19 @@
-import $ from 'jquery';
-import {View} from 'backbone';
-
-import {Util} from '../util/util';
-
-const RecordView = View.extend({
+define([
+	'jquery',
+	'backbone',
+	'util/util',
+	'text!templates/record.template'
+], function (
+	$,
+	Backbone,
+	Util,
+	template
+) {
+return RecordView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		this.template_ = Util.getPageContent('record.template');
+		this.template_ = template;
 	},
 	events: {
 	},
@@ -15,6 +21,4 @@ const RecordView = View.extend({
 		this.$el.append(this.template_);
 	}
 });
-
-
-export const recordView = new RecordView();
+});

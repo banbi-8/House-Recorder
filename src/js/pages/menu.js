@@ -1,14 +1,20 @@
-import $ from 'jquery';
-import {View} from 'backbone';
-
-import {Util} from '../util/util';
-
-const MenuView = View.extend({
+define([
+	'jquery',
+	'backbone',
+	'util/util',
+	'text!templates/header.template'
+], function (
+	$,
+	Backbone,
+	Util,
+	template
+) {
+return MenuView = Backbone.View.extend({
 	el: '.header-area',
 	template_: null,
 	selectedTabID: 'home',
 	initialize: function() {
-		this.template_ = Util.getPageContent('header.template');
+		this.template_ = template;
 	},
 	render: function () {
 		this.$el.append(this.template_);
@@ -27,6 +33,4 @@ const MenuView = View.extend({
 		$(`#${this.selectedTabID}`).addClass('active');
 	}
 });
-
-
-export const menuView = new MenuView();
+});

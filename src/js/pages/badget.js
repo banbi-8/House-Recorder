@@ -1,13 +1,19 @@
-import $ from 'jquery';
-import {View} from 'backbone';
-
-import {Util} from '../util/util';
-
-const BadgetView = View.extend({
+define([
+	'jquery',
+	'backbone',
+	'util/util',
+	'text!templates/badget.template'
+], function (
+	$,
+	Backbone,
+	Util,
+	template
+) {
+return BadgetView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		this.template_ = Util.getPageContent('badget.template');
+		this.template_ = template;
 	},
 	events: {
 	},
@@ -15,6 +21,4 @@ const BadgetView = View.extend({
 		this.$el.append(this.template_);
 	}
 });
-
-
-export const badgetView = new BadgetView();
+});

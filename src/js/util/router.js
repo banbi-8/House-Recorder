@@ -1,6 +1,8 @@
 define([
 	'jquery',
 	'backbone',
+	'pages/login',
+	'pages/login-title',
 	'pages/menu',
 	'pages/home',
 	'pages/record',
@@ -9,6 +11,8 @@ define([
 ], function (
 	$,
 	Backbone,
+	LoginView,
+	LoginTitleView,
 	MenuView,
 	HomeView,
 	RecordView,
@@ -17,16 +21,18 @@ define([
 ) {
 return AppRouter = Backbone.Router.extend({
 	initialize: function () {
+		this.loginView = new LoginView();
+		this.loginTitleView = new LoginTitleView();
 		this.menuView = new MenuView();
 		this.homeView = new HomeView;
 		this.recordView = new RecordView();
 		this.transitionView = new TransitionView();
 		this.badgetView = new BadgetView();	
 
-		this.showMenuContent();
-		this.showHomeContent();
+		this.showLoginContent();
 	},
 	routes: {
+		'login': 'showLoginContent',
 		'home': 'showHomeContent',
 		'record': 'showRecordContent',
 		'transition': 'showTransitionContent',
@@ -35,7 +41,13 @@ return AppRouter = Backbone.Router.extend({
 	removeContents: function() {
 		$('.contents-area').empty();
 	},
+	showLoginContent: function () {
+		this.removeContents();
+		this.loginTitleView.render();
+		this.loginView.render();
+	},
 	showMenuContent: function () {
+		this.removeContents();
 		this.menuView.render();
 	},
 	showHomeContent: function () {

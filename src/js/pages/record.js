@@ -1,12 +1,10 @@
 define([
 	'jquery',
 	'backbone',
-	'util/util',
 	'text!templates/record.template'
 ], function (
 	$,
 	Backbone,
-	Util,
 	template
 ) {
 return RecordView = Backbone.View.extend({

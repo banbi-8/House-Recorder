@@ -1,12 +1,10 @@
 define([
 	'jquery',
 	'backbone',
-	'util/util',
 	'text!templates/transition.template'
 ], function (
 	$,
 	Backbone,
-	Util,
 	template
 ) {
 return TransitionView = Backbone.View.extend({

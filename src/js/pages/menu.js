@@ -1,12 +1,10 @@
 define([
 	'jquery',
 	'backbone',
-	'util/util',
 	'text!templates/header.template'
 ], function (
 	$,
 	Backbone,
-	Util,
 	template
 ) {
 return MenuView = Backbone.View.extend({

@@ -1,12 +1,10 @@
 define([
 	'jquery',
 	'backbone',
-	'util/util',
 	'text!templates/login-title.template'
 ], function (
 	$,
 	Backbone,
-	Util,
 	template
 ) {
 return LoginView = Backbone.View.extend({

@@ -3,17 +3,31 @@ html, body , .app {
 	height: 100%;
 }
 
+.app {
+	background-color: whitesmoke;
+}
+
+.use_icon {
+	display: inline-block;
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
 /* header style */
 .header-area {
 	height: 20%;
 	position: relative;
 }
-.header-area .header-content {
+.header-area .menu-content {
 	position: absolute;
 	bottom: 0px;
 	width: 100%;
 }
-.header-area .header-content h1 {
+.header-area .menu-content h1 {
 	margin-bottom: 16px;
 }
 .header-area #menu-tab {
@@ -26,13 +40,71 @@ html, body , .app {
 }
 .mselector-line {
 	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-bottom: 15px;	
 }
 .mselector-line {
 	height: 10%;
 }
 .mselector-line > * {
 	display: inline;
+}
+
+/* app title style */
+.app-title {
+	height: 100%;
+	width: 400px;
+	position: relative;
+}
+
+.app-title #title {
+	position: absolute;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	margin: auto;
+	margin-bottom: 20px;
+}
+
+.app-title img {
+	width: 50px;
+	height: 50px;
+}
+
+/* login content */
+.login-content .form-box {
+	width: 400px;
+	height: 38px;
+	margin-bottom: 15px;	
+}
+
+.login-content .inline-items {
+	display: inline-block;
+}
+
+.login-content #checkbox-remember {
+	padding-top: 7px;
+}
+
+.login-content .other-controls {
+	width: 400px;
+	margin-bottom: 15px;	
+}
+
+/* create account content style */
+/* login content */
+.create-account-content .form-box {
+	width: 400px;
+	height: 38px;
+	margin-bottom: 15px;	
+}
+
+.create-account-content #title {
+	margin-bottom: 15px;
+	height: 48px;
+}
+
+.create-account-content .inline-items {
+	display: inline-block;
 }
 
 /* home content style */

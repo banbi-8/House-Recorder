@@ -1,6 +1,9 @@
 define([
 	'jquery',
 	'backbone',
+	'pages/login',
+	'pages/app-title',
+	'pages/create-account',
 	'pages/menu',
 	'pages/home',
 	'pages/record',
@@ -9,6 +12,9 @@ define([
 ], function (
 	$,
 	Backbone,
+	LoginView,
+	AppTitleView,
+	CreateAccountView,
 	MenuView,
 	HomeView,
 	RecordView,
@@ -17,29 +23,45 @@ define([
 ) {
 return AppRouter = Backbone.Router.extend({
 	initialize: function () {
+		this.loginView = new LoginView();
+		this.appTitleView = new AppTitleView();
+		this.createAccountView = new CreateAccountView();
 		this.menuView = new MenuView();
 		this.homeView = new HomeView;
 		this.recordView = new RecordView();
 		this.transitionView = new TransitionView();
 		this.badgetView = new BadgetView();	
 
-		this.showMenuContent();
-		this.showHomeContent();
+		this.showLoginContent();
 	},
 	routes: {
+		'login': 'showLoginContent',
+		'create_account': 'showCreateAccountContent',
 		'home': 'showHomeContent',
 		'record': 'showRecordContent',
 		'transition': 'showTransitionContent',
 		'badget': 'showBadgetContent'
 	},
+	removeHeaderContents: function() {
+		$('.header-area').empty();
+	},
 	removeContents: function() {
 		$('.contents-area').empty();
 	},
-	showMenuContent: function () {
-		this.menuView.render();
+	showLoginContent: function () {
+		this.removeHeaderContents();
+		this.removeContents();
+		this.appTitleView.render();
+		this.loginView.render();
+	},
+	showCreateAccountContent: function () {
+		this.removeContents();
+		this.createAccountView.render();
 	},
 	showHomeContent: function () {
+		this.removeHeaderContents();
 		this.removeContents();
+		this.menuView.render();
 		this.homeView.render();
 	},
 	showRecordContent: function () {

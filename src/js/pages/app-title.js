@@ -1,20 +1,21 @@
 define([
 	'jquery',
 	'backbone',
-	'text!templates/transition.template'
+	'text!templates/app-title.template'
 ], function (
 	$,
 	Backbone,
 	template
 ) {
-return TransitionView = Backbone.View.extend({
-	el: '.contents-area',
+return AppTitleView = Backbone.View.extend({
+	el: '.header-area',
 	template_: null,
 	initialize: function() {
 		this.template_ = template;
 	},
 	events: {
 	},
+
 	render: function () {
 		this.$el.append(this.template_);
 	}

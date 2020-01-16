@@ -1,12 +1,10 @@
 define([
 	'jquery',
 	'backbone',
-	'util/util',
 	'text!templates/home.template'
 ], function (
 	$,
 	Backbone,
-	Util,
 	template
 ) {
 return HomeView = Backbone.View.extend({

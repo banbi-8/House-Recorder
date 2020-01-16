@@ -1,0 +1,30 @@
+<div class="login-content">
+	<div class="form-box mx-auto">
+		<input id="user-name" class="form-control use_icon" type="text" placeholder="&#xf007; User name"/>
+	</div>
+	<div class="form-box mx-auto">
+		<input id="password" class="form-control use_icon" type="password" placeholder="&#xf084; Password"/>
+	</div>
+	<div class="form-box mx-auto">
+		<div class="form-check inline-items" id="checkbox-remember">
+			<input type="checkbox" class="form-check-input" id="remember">
+			<label class="form-check-label" for="remember">ログイン情報を記憶する</label>
+		</div>
+		<div class="inline-items float-right">
+			<button type="button" class="btn btn-primary" id="login"><i class="fas fa-sign-in-alt"></i> ログイン</button>
+		</div>
+	</div>
+
+	<hr width="400px">
+	
+	<div class="mx-auto other-controls">
+		<div class="text-right">
+			<a id="create-account" href="javascript:void(0)">新規アカウントの作成</a>
+		</div>
+		<div class="text-right">
+			<a id="reset-password" href="javascript:void(0)">パスワードのリセット</a>
+		</div>
+	</div>
+</div>
+
+	

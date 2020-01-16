@@ -1,12 +1,10 @@
 define([
 	'jquery',
 	'backbone',
-	'util/util',
 	'text!templates/badget.template'
 ], function (
 	$,
 	Backbone,
-	Util,
 	template
 ) {
 return BadgetView = Backbone.View.extend({

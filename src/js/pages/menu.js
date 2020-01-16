@@ -1,7 +1,7 @@
 define([
 	'jquery',
 	'backbone',
-	'text!templates/header.template'
+	'text!templates/menu.template'
 ], function (
 	$,
 	Backbone,

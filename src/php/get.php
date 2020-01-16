@@ -28,10 +28,10 @@
 		print json_encode($user);	
 	}
 
-	$table = $_GET['table'];
+	$tableName = $_GET['tableName'];
 
 	$dbh = connect();
-	switch ($table) {
+	switch ($tableName) {
 		case 'user':
 			getUserTable($dbh);
 		break;

@@ -22,12 +22,12 @@ html, body , .app {
 	height: 20%;
 	position: relative;
 }
-.header-area .header-content {
+.header-area .menu-content {
 	position: absolute;
 	bottom: 0px;
 	width: 100%;
 }
-.header-area .header-content h1 {
+.header-area .menu-content h1 {
 	margin-bottom: 16px;
 }
 .header-area #menu-tab {
@@ -49,14 +49,14 @@ html, body , .app {
 	display: inline;
 }
 
-/* login title */
-.login-title {
+/* app title style */
+.app-title {
 	height: 100%;
 	width: 400px;
 	position: relative;
 }
 
-.login-title #title {
+.app-title #title {
 	position: absolute;
 	right: 0;
 	left: 0;
@@ -65,20 +65,16 @@ html, body , .app {
 	margin-bottom: 20px;
 }
 
-.login-title img {
+.app-title img {
 	width: 50px;
 	height: 50px;
 }
 
+/* login content */
 .login-content .form-box {
 	width: 400px;
 	height: 38px;
 	margin-bottom: 15px;	
-}
-
-.login-content #title {
-	margin-bottom: 15px;
-	height: 48px;
 }
 
 .login-content .inline-items {
@@ -92,6 +88,23 @@ html, body , .app {
 .login-content .other-controls {
 	width: 400px;
 	margin-bottom: 15px;	
+}
+
+/* create account content style */
+/* login content */
+.create-account-content .form-box {
+	width: 400px;
+	height: 38px;
+	margin-bottom: 15px;	
+}
+
+.create-account-content #title {
+	margin-bottom: 15px;
+	height: 48px;
+}
+
+.create-account-content .inline-items {
+	display: inline-block;
 }
 
 /* home content style */

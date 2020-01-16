@@ -1,0 +1,16 @@
+<div class="create-account-content">
+	<div class="form-box mx-auto">
+		<input id="user-name" class="form-control use_icon" type="text" placeholder="&#xf007; User name"/>
+	</div>
+	<div class="form-box mx-auto">
+		<input id="password" class="form-control use_icon" type="text" placeholder="&#xf084; Password"/>
+	</div>
+	<div class="form-box mx-auto">
+		<div class="inline-items float-right">
+			<button type="button" class="btn btn-primary" id="create-user"><i class="fas fa-users"></i> アカウント作成</button>
+			<button type="button" class="btn btn-primary" id="cancel">キャンセル</button>
+		</div>
+	</div>
+</div>
+
+	

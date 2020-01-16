@@ -1,13 +1,13 @@
 define([
 	'jquery',
 	'backbone',
-	'text!templates/login-title.template'
+	'text!templates/app-title.template'
 ], function (
 	$,
 	Backbone,
 	template
 ) {
-return LoginView = Backbone.View.extend({
+return AppTitleView = Backbone.View.extend({
 	el: '.header-area',
 	template_: null,
 	initialize: function() {

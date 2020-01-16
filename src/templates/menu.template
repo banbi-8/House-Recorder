@@ -1,4 +1,4 @@
-<div class="header-content">
+<div class="menu-content">
 	<h1 id="title">わが家の家計簿</h1>
 	<ul class="nav nav-tabs nav-justified" role="tablists" id="menu-tab">
 		<li class="nav-item"><a class="nav-link active" role="tab" href="#home" id="home">HOME</a></li>

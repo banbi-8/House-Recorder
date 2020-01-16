@@ -2,11 +2,13 @@ define([
 	'jquery',
 	'backbone',
 	'util/db',
+	'util/util',
 	'text!templates/login.template'
 ], function (
 	$,
 	Backbone,
 	DB,
+	Util,
 	template
 ) {
 return LoginView = Backbone.View.extend({
@@ -16,7 +18,8 @@ return LoginView = Backbone.View.extend({
 		this.template_ = template;
 	},
 	events: {
-		'click #login': 'login_'
+		'click #login': 'login_',
+		'click #create-account': 'showCreateAccountPage'
 	},
 	// public
 	render: function () {
@@ -34,18 +37,21 @@ return LoginView = Backbone.View.extend({
 			}
 		});
 	},
+	showCreateAccountPage: function () {
+		Backbone.history.navigate('create_account', true);
+	},
 
 	// private
 	getInputValue_: function () {
 		const input = {
 			name: $('#user-name').val(),
-			password: $('#password').val()
+			password: Util.createHash($('#password').val())
 		};
 		return input;
 	},
 	existsUser_: function (input) {
 		return $.when(
-			DB.getUserTable()
+			DB.getTable('user')
 		)
 		.then((users) => {
 			let exists = false;

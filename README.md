@@ -17,3 +17,7 @@ Webアプリケーションとして作成。
 - MySQL
 - PHP
 - apache
+
+### 開発手順
+1. MAMPでwebサーバーを起動
+2. vscodeでF5で起動

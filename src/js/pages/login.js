@@ -2,12 +2,14 @@ define([
 	'jquery',
 	'backbone',
 	'util/db',
+	'util/session',
 	'util/util',
 	'text!templates/login.template'
 ], function (
 	$,
 	Backbone,
 	DB,
+	Session,
 	Util,
 	template
 ) {
@@ -28,10 +30,11 @@ return LoginView = Backbone.View.extend({
 	
 	// for events
 	login_: function () {
-		this.existsUser_(this.getInputValue_())
-		.then((exists) => {
-			if (exists) {
-				Backbone.history.navigate('home', true)
+		this.findUserIfExist_(this.getInputValue_())
+		.then((user) => {
+			if (user) {
+				$.when(Session.setUser(user))
+				.then(() => Backbone.history.navigate('home', true));
 			} else {
 				alert('not exist input user');
 			}
@@ -49,21 +52,11 @@ return LoginView = Backbone.View.extend({
 		};
 		return input;
 	},
-	existsUser_: function (input) {
-		return $.when(
-			DB.getTable('user')
-		)
-		.then((users) => {
-			let exists = false;
-			exists = _.find((users), (user) => {
-				if (input.name === user.name &&
-					input.password === user.password) {
-					return true; 
-				}
-			});
-
-			return exists;
-		})
+	findUserIfExist_: function (input) {
+		return $.when(DB.getTable('user'))
+			.then((users) => {
+				return _.findWhere((users), {name: input.name, password: input.password});
+			})
 	}
 });
 });

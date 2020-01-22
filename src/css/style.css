@@ -38,14 +38,14 @@ html, body , .app {
 .contents-area {
 	height: 80%;
 }
-.mselector-line {
+.dselector-line > #dselector {
 	padding-top: 15px;
 	padding-bottom: 15px;	
 }
-.mselector-line {
+.dselector-line > #dselector {
 	height: 10%;
 }
-.mselector-line > * {
+.dselector-line > #dselector > * {
 	display: inline;
 }
 

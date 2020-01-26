@@ -1,5 +1,5 @@
 <div id="dselector">
-	<h2 id="previous"><</h2>
+	<h2 id="previous"><<</h2>
 	<h2 id="date"><%= year %>年<%= month %>月</h2>
-	<h2 id="next">></h2>
+	<h2 id="next">>></h2>
 </div>

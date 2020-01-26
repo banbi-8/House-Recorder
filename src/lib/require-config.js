@@ -1,11 +1,15 @@
 require.config({
 	baseUrl: "src/js",
 	paths: {
-		jquery: '../lib/jquery-min',
-		underscore: '../lib/underscore-min',
-		backbone: '../lib/backbone-min',
-		templates: '../templates/',
-		text: '../lib/text'
+		'jquery': '../lib/jquery-min',
+		'underscore': '../lib/underscore-min',
+		'backbone': '../lib/backbone-min',
+		'templates': '../templates/',
+		'text': '../lib/text',
+		'bootstrap': "../lib/bootstrap.bundle.min",
+		'datatables.net': '../lib/DataTables/DataTables-1.10.20/js/jquery.dataTables.min',
+		'datatables.bs': '../lib/DataTables/DataTables-1.10.20/js/dataTables.bootstrap.min',
+		'datatables': '../lib/DataTables/datatables.min'
 	},
 	shim: {
 		'backbone': {
@@ -21,6 +25,12 @@ require.config({
 		},
 		'jquery': {
 			exports: '$'
+		},
+		'bootstrap': {
+			deps: ['jquery'],
+		},
+		'datatables': {
+			deps: ['jquery']
 		}
 	}
 });

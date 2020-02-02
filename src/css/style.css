@@ -38,14 +38,14 @@ html, body , .app {
 .contents-area {
 	height: 85%;
 }
-.dselector-line > #dselector {
+.mselector-line > #mselector {
 	padding-top: 15px;
 	padding-bottom: 5px;	
 }
-.dselector-line > #dselector {
+.mselector-line > #mselector {
 	height: 10%;
 }
-.dselector-line > #dselector > * {
+.mselector-line > #mselector > * {
 	display: inline;
 }
 
@@ -170,4 +170,17 @@ html, body , .app {
 .badget-content .table-container {
 	width: 50%;
 	height: 100%;
+}
+
+/* badget table style */
+.table-container #plus-button {
+	color: deepskyblue; 
+}
+
+.table-container #edit-button {
+	margin-right: 1em;
+}
+
+.table-container #save {
+	width: 100%;
 }

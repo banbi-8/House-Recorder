@@ -1,16 +1,17 @@
 define([
 	'jquery',
 	'backbone',
-	'text!templates/dselector.template'
+	'text!templates/month-selector.template'
 ], function (
 	$,
 	Backbone,
 	template
 ) {
-return mSelectorView = Backbone.View.extend({
-	el: '.contents-area',
+return mSelector = Backbone.View.extend({
+	elSelector_: null,
 	template_: null,
-	initialize: function() {
+	initialize: function(opts) {
+		this.elSelector_ = opts.elSelector;
 		this.date = this.getCurrentDate();
 		this.template_ = _.template(template);
 	},
@@ -18,13 +19,14 @@ return mSelectorView = Backbone.View.extend({
 	},
 	// public
 	render: function () {
-		$('.dselector-line').html(this.template_(this.date));
+		this.setElement(this.elSelector_);
+		this.$el.html(this.template_(this.date));
 	},
 
 	// for events
 	events: {
-		'click #dselector > #previous': 'previous',
-		'click #dselector > #next': 'next'
+		'click #mselector > #previous': 'previous',
+		'click #mselector > #next': 'next'
 	},
 
 	// private
@@ -54,6 +56,9 @@ return mSelectorView = Backbone.View.extend({
 		}
 
 		this.render();
+	},
+	getDisplayingDate: function () {
+		return this.date;
 	}
 });
 });

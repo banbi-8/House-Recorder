@@ -7,9 +7,6 @@ require.config({
 		'templates': '../templates/',
 		'text': '../lib/text',
 		'bootstrap': "../lib/bootstrap.bundle.min",
-		'datatables.net': '../lib/DataTables/DataTables-1.10.20/js/jquery.dataTables.min',
-		'datatables.bs': '../lib/DataTables/DataTables-1.10.20/js/dataTables.bootstrap.min',
-		'datatables': '../lib/DataTables/datatables.min'
 	},
 	shim: {
 		'backbone': {
@@ -28,9 +25,6 @@ require.config({
 		},
 		'bootstrap': {
 			deps: ['jquery'],
-		},
-		'datatables': {
-			deps: ['jquery']
 		}
 	}
 });

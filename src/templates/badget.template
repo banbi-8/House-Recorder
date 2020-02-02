@@ -1,49 +1,8 @@
 <div class="badget-content">
-	<div class="dselector-line col-md-12 col-lg-12">
+	<div class="mselector-line col-md-12 col-lg-12">
 	</div>
 	<div class="content">
-		<div class="table-container">
-			<table id="badget-table" class="cell-border hover stripe">
-				<thead>
-						<tr>
-								<th><div contenteditabled>Column 1</div></th>
-								<th>Column 2</th>
-						</tr>
-				</thead>
-				<tbody>
-						<tr>
-								<td>Row 1 Data 1</td>
-								<td>Row 1 Data 2</td>
-						</tr>
-						<tr>
-								<td>Row 2 Data 1</td>
-								<td>Row 2 Data 2</td>
-						</tr>
-				</tbody>
-			</table>
-		</div>
+		<div class="table-container"></div>
 	</div>
-
-  <!-- モーダルウィンドウを起動するボタン -->
-  <button id="test" type="button" class="btn btn-danger" data-toggle="modal">MODAL</button><br>
-
-  <!-- ここからモーダル -->
-  <div class="modal fade" id="MODAL1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <div class="modal-header">
-            ヘッダ
-        </div>
-        <div class="modal-body">
-            ボディ
-        </div>
-        <div class="modal-footer">
-            フッター
-        </div>
-
-      </div> <!-- modal-content -->
-    </div>  <!-- modal-dialog -->
-  </div>  <!-- modal fade -->
 </div>
 		

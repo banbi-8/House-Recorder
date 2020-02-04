@@ -2,13 +2,11 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'model/table-item-model',
 	'text!templates/badget-table-item.template'
 ], function (
 	$,
 	_,
 	Backbone,
-	TableItem,
 	template
 ) {
 return BadgetTableItemView = Backbone.View.extend({

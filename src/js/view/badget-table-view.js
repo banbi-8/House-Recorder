@@ -21,16 +21,36 @@ return BadgetTableView = Backbone.View.extend({
 	views_: [],
 	initialize: function(opts) {
 		this.elSelector_ = opts.elSelector;
-		this.items_ = new TableItemCollection();
 		this.template_ = _.template(template);
+		this.items_ = new TableItemCollection();
 	},
+
+	entry: function () {
+		this.setElement(this.elSelector_);
+
+		$.when(
+			this.items_.fetch()
+		)
+		.then(() => {
+			this.render();
+		});
+	},
+
 	events: {
 		'click #plus-button': 'addListItem_',
 	},
+
 	// public
 	render: function () {
-		this.setElement(this.elSelector_);
 		this.$el.html(this.template_());
+
+		$('tbody').empty();
+			
+		_.each((this.items_.models), (item) => {
+			const itemView = new TableItemView(item);
+			$('tbody').append(itemView.html());
+		});
+
 	},
 
 	// for events
@@ -39,21 +59,17 @@ return BadgetTableView = Backbone.View.extend({
 		const itemView = new TableItemView(item);
 
 		this.items_.add(item);
-		this.views_.push(itemView);
 		$('tbody').append(itemView.html());
 	},
 
 	saveBadgetItems: function (date) {
 		_.each((this.items_.models), (item) => {
 			item.set({
-				date: `${date.year}/${date.month}`,
-				name: item.get('name'),
-				badget: item.get('value'),
-				suppliment: item.get('suppliment')
+				date: `${date.year}/${date.month}`
 			});
+		});
 
-			item.save();
-		})
+		this.items_.save();
 	}
 });
 });

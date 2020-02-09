@@ -20,16 +20,16 @@
 	function getAllBadgetItem() {
 		$db = new DB();
 		$uid = $_SESSION['LOGIN_ID'];
-		$sql = "select * from badget where user_id='$uid'";
+		$sql = "select * from badget where uid='$uid'";
 			
 		$res = array();
 		foreach($db->Inst()->query($sql) as $row) {
 			$res[] = array(
-				'id'=>$row['badget_id'],
+				'id'=>$row['id'],
 				'name'=>$row['name'],
-				'value'=>$row['badget'],
+				'value'=>$row['value'],
 				'date'=>$row['date'],
-				'suppliment'=>$row['suppliment']
+				'memo'=>$row['memo']
 			);
 		}
 
@@ -41,19 +41,19 @@
 		$putData = json_decode(file_get_contents('php://input'), TRUE);
 
 		// parse data
-		$badgetID = (int)$putData['id'];
+		$bid = (int)$putData['id'];
 		$name = (string)$putData['name'];
 		$value = (int)$putData['value'];
-		$suppliment = (string)$putData['suppliment'];
+		$memo = (string)$putData['memo'];
 		$date = (string)$putData['date'];
 
 		// prepare sql statement
-		$statement = $db->Inst()->prepare("UPDATE	badget SET name=:name, badget=:badget, suppliment=:suppliment, date=:date WHERE badget_id=:badgetID");
+		$statement = $db->Inst()->prepare("UPDATE	badget SET name=:name, value=:value, memo=:memo, date=:date WHERE id=:bid");
 		$statement->bindParam(':name', $name, PDO::PARAM_STR);
-		$statement->bindParam(':badget', $value, PDO::PARAM_INT);
-		$statement->bindParam(':suppliment', $suppliment, PDO::PARAM_STR);
+		$statement->bindParam(':value', $value, PDO::PARAM_INT);
+		$statement->bindParam(':memo', $memo, PDO::PARAM_STR);
 		$statement->bindParam(':date', $date, PDO::PARAM_STR);
-		$statement->bindParam(':badgetID', $badgetID, PDO::PARAM_INT);
+		$statement->bindParam(':bid', $bid, PDO::PARAM_INT);
 
 		$statement->execute();
 
@@ -65,18 +65,18 @@
 		$postedData = json_decode(file_get_contents('php://input'), TRUE);
 
 		// parse data
-		$loginID = (int)$_SESSION['LOGIN_ID'];
-		$name = (string)$putData['name'];
-		$value = (int)$putData['value'];
-		$suppliment = (string)$postedData['suppliment'];
+		$uid = (int)$_SESSION['LOGIN_ID'];
+		$name = (string)$postedData['name'];
+		$value = (int)$postedData['value'];
+		$memo = (string)$postedData['memo'];
 		$date = (string)$postedData['date'];
 
 		// prepare sql statement
-		$statement = $db->Inst()->prepare("INSERT INTO badget(user_id, name, badget, suppliment, date) VALUES (:userID, :name, :badget, :suppliment, :date)");
-		$statement->bindParam(':userID', $loginID, PDO::PARAM_INT);
+		$statement = $db->Inst()->prepare("INSERT INTO badget(uid, name, value, memo, date) VALUES (:uid, :name, :value, :memo, :date)");
+		$statement->bindParam(':uid', $uid, PDO::PARAM_INT);
 		$statement->bindParam(':name', $name, PDO::PARAM_STR);
-		$statement->bindParam(':badget', $value, PDO::PARAM_INT);
-		$statement->bindParam(':suppliment', $suppliment, PDO::PARAM_STR);
+		$statement->bindParam(':value', $value, PDO::PARAM_INT);
+		$statement->bindParam(':memo', $memo, PDO::PARAM_STR);
 		$statement->bindParam(':date', $date, PDO::PARAM_STR);
 
 		$statement->execute();

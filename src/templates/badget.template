@@ -1,6 +1,5 @@
 <div class="badget-content">
-	<div class="mselector-line col-md-12 col-lg-12">
-	</div>
+	<div class="mselector-line"></div>
 	<div class="content">
 		<div class="table-container"></div>
 	</div>

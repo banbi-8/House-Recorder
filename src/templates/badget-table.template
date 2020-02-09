@@ -1,25 +1,34 @@
-<table class="table table-hover table-striped table-bordered" style="table-layout: fixed;">
-	<thead>
-		<span class="float-right mr-2 mb-3">
-			<a href="javascript:void(0)" class="text-success"><i class="fas fa-plus fa-lg" id="plus-button" aria-hidden="true"></i></a>
-		</span>
-		<tr>
-			<th width="5%" scope="col">#</th>
-			<th width="30%" scope="col">予算の分類</th>
-			<th width="20%" scope="col">予算額</th>
-			<th width="25%" scope="col">補足</th>
-			<th width="20%" scope="col">削除</th>
-		</tr>
-	</thead>
-	<tbody>
-	</tbody>
-	<tfoot>
-		<tr>
-			<td></td>
-			<td></td>
-			<td><div class="float-right" id="sum">合計</div></td>
-			<td></td>
-			<td><button type="button" class="btn btn-primary" id="save">保存</button></td>
-		<tr>
-	</tfoot>
-</table>
+<div class="thead">
+	<span class="float-right mr-2 mb-3">
+		<a href="javascript:void(0)" class="text-success"><i class="fas fa-plus fa-lg" id="plus-button" aria-hidden="true"></i></a>
+	</span>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="tcol1">予算の分類</th>
+				<th class="tcol2">予算額</th>
+				<th class="tcol3">補足</th>
+				<th class="tcol4">削除</th>	
+			</tr>
+		</thead>
+	</table>
+</div>
+
+<div class="tbody">
+	<table class="table">
+		<tbody>
+		</tbody>
+	</table>
+</div>
+
+<div class="tfoot">
+	<table class="table">
+		<tfoot>
+			<tr>
+				<td class="tcol2">合計</td>
+				<td class="tcol3">円</td>
+				<td class="tcol4"><button type="button" class="btn btn-primary" id="save">保存</button></td>	
+			</tr>
+		</tfoot>
+	</table>
+</div>

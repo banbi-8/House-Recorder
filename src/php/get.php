@@ -5,8 +5,8 @@
 		$user = array();
 		foreach($db->Inst()->query($sql) as $row) {
 			$user[] = array(
-				'id'=>$row['user_id'],
-				'name'=>$row['user_name'],
+				'id'=>$row['id'],
+				'name'=>$row['name'],
 				'password'=>$row['password']
 			);
 		}

@@ -2,7 +2,6 @@ define([
 	'jquery',
 	'backbone',
 	'view/login',
-	'view/app-title',
 	'view/create-account',
 	'view/menu',
 	'view/home',
@@ -13,7 +12,6 @@ define([
 	$,
 	Backbone,
 	LoginView,
-	AppTitleView,
 	CreateAccountView,
 	MenuView,
 	HomeView,
@@ -24,7 +22,6 @@ define([
 return AppRouter = Backbone.Router.extend({
 	initialize: function () {
 		this.loginView = new LoginView();
-		this.appTitleView = new AppTitleView();
 		this.createAccountView = new CreateAccountView();
 		this.menuView = new MenuView();
 		this.homeView = new HomeView;
@@ -51,7 +48,6 @@ return AppRouter = Backbone.Router.extend({
 	showLoginContent: function () {
 		this.removeHeaderContents();
 		this.removeContents();
-		this.appTitleView.render();
 		this.loginView.render();
 	},
 	showCreateAccountContent: function () {

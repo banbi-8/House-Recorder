@@ -1,18 +1,16 @@
 define([
 	'jquery',
 	'backbone',
-	'model/table-item-model',
-	'collection/table-item-collection',
+	'model/badget-table-item-model',
+	'collection/badget-table-item-collection',
 	'view/badget-table-item-view',
-	'util/db',
 	'text!templates/badget-table.template'
 ], function (
 	$,
 	Backbone,
-	TableItem,
-	TableItemCollection,
-	TableItemView,
-	DB,
+	BadgetTableItem,
+	BadgetTableItemCollection,
+	BadgetTableItemView,
 	template
 ) {
 return BadgetTableView = Backbone.View.extend({
@@ -22,7 +20,7 @@ return BadgetTableView = Backbone.View.extend({
 	initialize: function(opts) {
 		this.elSelector_ = opts.elSelector;
 		this.template_ = _.template(template);
-		this.items_ = new TableItemCollection();
+		this.items_ = new BadgetTableItemCollection();
 	},
 
 	entry: function () {
@@ -32,6 +30,10 @@ return BadgetTableView = Backbone.View.extend({
 			this.items_.fetch()
 		)
 		.then(() => {
+			// prepare table items to suitable display.
+			while (this.items_.length < 8) {
+				this.items_.add(new TableItem());
+			}
 			this.render();
 		});
 	},
@@ -47,7 +49,7 @@ return BadgetTableView = Backbone.View.extend({
 		$('tbody').empty();
 			
 		_.each((this.items_.models), (item) => {
-			const itemView = new TableItemView(item);
+			const itemView = new BadgetTableItemView(item);
 			$('tbody').append(itemView.html());
 		});
 
@@ -55,8 +57,8 @@ return BadgetTableView = Backbone.View.extend({
 
 	// for events
 	addListItem_: function () {
-		const item = new TableItem();
-		const itemView = new TableItemView(item);
+		const item = new BadgetTableItem();
+		const itemView = new BadgetTableItemView(item);
 
 		this.items_.add(item);
 		$('tbody').append(itemView.html());

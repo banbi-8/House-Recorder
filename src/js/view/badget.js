@@ -23,26 +23,19 @@ return BadgetView = Backbone.View.extend({
 		this.template_ = _.template(template);
 	},
 
-	entry: function () {
-		this.render();
-
-		this.mSelectorView_.entry();
-		this.tableView_.entry();
-	},
-
 	events: {
-		'click #save': 'clickOnSaveButton'
 	},
 	// public
 	render: function () {
 		this.$el.append(this.template_());
+
+		this.mSelectorView_.render();
+		this.tableView_.render();
+
+		this.tableView_.date = this.mSelectorView_.getDisplayingDate();
 	},
 	
 	// for events
-	clickOnSaveButton: function () {
-		const date = this.mSelectorView_.getDisplayingDate();
-		this.tableView_.saveBadgetItems(date);
-	}
 
 	// private
 });

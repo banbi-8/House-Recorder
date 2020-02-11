@@ -38,6 +38,7 @@ return BadgetTableItems= CollectionBase.extend({
 			})
 			.then((attrs) => {
 				_.each((attrs), (attr) => {
+					attr.value = Number(attr.value);
 					this.add(new BadgetTableItem(attr));
 				});
 			});

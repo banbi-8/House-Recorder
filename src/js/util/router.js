@@ -23,11 +23,6 @@ return AppRouter = Backbone.Router.extend({
 	initialize: function () {
 		this.loginView = new LoginView();
 		this.createAccountView = new CreateAccountView();
-		this.menuView = new MenuView();
-		this.homeView = new HomeView;
-		this.recordView = new RecordView();
-		this.transitionView = new TransitionView();
-		this.badgetView = new BadgetView();	
 
 		this.showLoginContent();
 	},
@@ -38,6 +33,13 @@ return AppRouter = Backbone.Router.extend({
 		'record': 'showRecordContent',
 		'transition': 'showTransitionContent',
 		'badget': 'showBadgetContent'
+	},
+	prepareContentViews: function () {
+		this.badgetView = new BadgetView();	
+		this.menuView = new MenuView();
+		this.homeView = new HomeView;
+		this.recordView = new RecordView();
+		this.transitionView = new TransitionView();
 	},
 	removeHeaderContents: function() {
 		$('.header-area').empty();
@@ -55,6 +57,8 @@ return AppRouter = Backbone.Router.extend({
 		this.createAccountView.render();
 	},
 	showHomeContent: function () {
+		this.prepareContentViews();
+		
 		this.removeHeaderContents();
 		this.removeContents();
 		this.menuView.render();
@@ -70,7 +74,7 @@ return AppRouter = Backbone.Router.extend({
 	},
 	showBadgetContent: function () {
 		this.removeContents();
-		this.badgetView.entry();
+		this.badgetView.render();
 	}
 });
 });

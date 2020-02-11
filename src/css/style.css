@@ -173,16 +173,20 @@ html, body , .app {
 
 .table-container .tcol1 {
 	width: 30%;
+	outline: 0;
 }
 
 .table-container .tcol2 {
 	width: 25%;
+	outline: 0;
 }
 
 .table-container .tcol3 {
 	width: 30%;
+	outline: 0;
 }
 
 .table-container .tcol4 {
 	width: 15%;
+	outline: 0;
 }

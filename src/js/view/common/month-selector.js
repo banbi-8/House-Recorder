@@ -15,9 +15,6 @@ return mSelector = Backbone.View.extend({
 		this.date = this.getCurrentDate();
 		this.template_ = _.template(template);
 	},
-	entry: function () {
-		this.render();
-	},
 
 	events: {
 	},

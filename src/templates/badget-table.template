@@ -2,7 +2,7 @@
 	<span class="float-right mr-2 mb-3">
 		<a href="javascript:void(0)" class="text-success"><i class="fas fa-plus fa-lg" id="plus-button" aria-hidden="true"></i></a>
 	</span>
-	<table class="table">
+	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th class="tcol1">予算の分類</th>
@@ -15,7 +15,7 @@
 </div>
 
 <div class="tbody">
-	<table class="table">
+	<table class="table table-bordered">
 		<tbody>
 		</tbody>
 	</table>
@@ -25,8 +25,8 @@
 	<table class="table">
 		<tfoot>
 			<tr>
-				<td class="tcol2">合計</td>
-				<td class="tcol3">円</td>
+				<td class="tcol2">予算の合計</td>
+				<td class="tcol3"><div id="badget-sum"></div></td>
 				<td class="tcol4"><button type="button" class="btn btn-primary" id="save">保存</button></td>	
 			</tr>
 		</tfoot>

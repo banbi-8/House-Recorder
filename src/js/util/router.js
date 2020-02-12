@@ -74,7 +74,7 @@ return AppRouter = Backbone.Router.extend({
 	},
 	showBadgetContent: function () {
 		this.removeContents();
-		this.badgetView.render();
+		this.badgetView.entry();
 	}
 });
 });

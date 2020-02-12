@@ -16,26 +16,30 @@ return BadgetTableItemView = Backbone.View.extend({
 		this.model = model;
 		this.template_ = _.template(template);
 	},
+	
 	events: {
 		'focusout td': 'updateModelWithInputValue',
-		'click #delete': 'deleteIconOnClick'
+		'click #delete': 'destroy'
 	},
+
 	render: function () {
 		this.delegateEvents();
 		return this.$el.html(this.template_(this.model.attributes));
 	},
+
 	updateModelWithInputValue: function (eve) {
 		const key = eve.target.id;
 		const value = eve.target.innerHTML;
 
 		if (key === 'value') {
 			this.model.set({[key]: Number(value)});
-			this.model.trigger('updatedSum');
+			this.model.trigger('updateSum');
 		} else {
 			this.model.set({[key]: value});
 		}
 	},
-	deleteIconOnClick: function () {
+
+	destroy: function () {
 		this.model.destroy({data: this.model.id});
 	}
 });

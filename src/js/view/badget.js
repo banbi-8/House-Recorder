@@ -18,21 +18,24 @@ return BadgetView = Backbone.View.extend({
 	template_: null,
 	initialize: function() {
 		this.mSelectorView_ = new MSelectorView({elSelector: '.mselector-line'});
-		this.tableView_ = new BadgetTableView({elSelector: '.table-container'});
+		this.tableView_ = new BadgetTableView({elSelector: '.table-container', date: this.mSelectorView_.getDate()});
 
 		this.template_ = _.template(template);
 	},
 
+	entry: function () {
+		this.$el.append(this.template_());
+		this.mSelectorView_.entry();
+		this.tableView_.entry();
+	},
+
 	events: {
 	},
+	
 	// public
 	render: function () {
-		this.$el.append(this.template_());
-
 		this.mSelectorView_.render();
 		this.tableView_.render();
-
-		this.tableView_.date = this.mSelectorView_.getDisplayingDate();
 	},
 	
 	// for events

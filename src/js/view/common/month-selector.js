@@ -12,11 +12,13 @@ return mSelector = Backbone.View.extend({
 	template_: null,
 	initialize: function(opts) {
 		this.elSelector_ = opts.elSelector;
-		this.date = this.getCurrentDate();
 		this.template_ = _.template(template);
+
+		this.setDate_();
 	},
 
-	events: {
+	entry: function () {
+		this.render();
 	},
 
 	// public
@@ -32,9 +34,9 @@ return mSelector = Backbone.View.extend({
 	},
 
 	// private
-	getCurrentDate: function () {
+	setDate_: function () {
 		const date = new Date();
-		return {
+		this.date = {
 			year: date.getFullYear(),
 			month: date.getMonth() + 1
 		};
@@ -62,7 +64,7 @@ return mSelector = Backbone.View.extend({
 		this.render();
 	},
 
-	getDisplayingDate: function () {
+	getDate: function () {
 		return this.date;
 	}
 });

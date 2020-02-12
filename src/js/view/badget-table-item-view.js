@@ -21,6 +21,7 @@ return BadgetTableItemView = Backbone.View.extend({
 		'click #delete': 'deleteIconOnClick'
 	},
 	render: function () {
+		this.delegateEvents();
 		return this.$el.html(this.template_(this.model.attributes));
 	},
 	updateModelWithInputValue: function (eve) {
@@ -35,7 +36,7 @@ return BadgetTableItemView = Backbone.View.extend({
 		}
 	},
 	deleteIconOnClick: function () {
-		this.model.destroy();
+		this.model.destroy({data: this.model.id});
 	}
 });
 });

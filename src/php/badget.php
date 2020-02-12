@@ -13,6 +13,8 @@
 		case 'POST': // model is not saved yet
 			saveBadgetItem();
 		break;
+		case 'DELETE':
+			deleteBadgetItem();
 	}
 
 	exit();
@@ -85,5 +87,17 @@
 		$postedData['id'] = $db->Inst()->lastInsertId();
 
 		print json_encode($postedData);
+	}
+
+	function deleteBadgetItem () {
+		$db = new DB();
+		$delid = json_decode(file_get_contents('php://input'), TRUE);
+
+		// prepare sql statement
+		$statement = $db->Inst()->prepare("DELETE FROM badget where id=:delid");
+		$statement->bindParam(':delid', $delid, PDO::PARAM_INT);
+		$statement->execute();
+
+		print json_encode($delid);
 	}
 ?>

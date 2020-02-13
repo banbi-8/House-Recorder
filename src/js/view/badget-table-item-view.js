@@ -40,7 +40,7 @@ return BadgetTableItemView = Backbone.View.extend({
 	},
 
 	destroy: function () {
-		this.model.destroy({data: this.model.id});
+		this.model.destroy();
 	}
 });
 });

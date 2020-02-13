@@ -18,5 +18,8 @@ return TableItem = Backbone.Model.extend({
 			date: _.has(attr, 'date') ? attr.date : ''
 		});
 	},
+	destroy: function () {
+		return Backbone.Model.prototype.destroy.call(this, {data: this.id});
+	}
 });
 });

@@ -6,7 +6,8 @@ require.config({
 		'backbone': '../lib/backbone-min',
 		'templates': '../templates/',
 		'text': '../lib/text',
-		'bootstrap': "../lib/bootstrap.bundle.min",
+		'bootstrap': '../lib/bootstrap.bundle.min',
+		'chart': '../lib/Chart.bundle.min'
 	},
 	shim: {
 		'backbone': {

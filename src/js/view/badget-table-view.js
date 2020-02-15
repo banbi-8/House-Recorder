@@ -4,7 +4,6 @@ define([
 	'model/badget-table-item-model',
 	'collection/badget-table-item-collection',
 	'view/badget-table-item-view',
-	'util/util',
 	'text!templates/badget-table.template'
 ], function (
 	$,
@@ -12,7 +11,6 @@ define([
 	BadgetTableItem,
 	BadgetTableItemCollection,
 	BadgetTableItemView,
-	Util,
 	template
 ) {
 return BadgetTableView = Backbone.View.extend({
@@ -33,7 +31,7 @@ return BadgetTableView = Backbone.View.extend({
 			this.items_.fetch()
 		)
 		.then(() => {
-			while (this.items_.length < 8) {
+			while (this.items_.length < 20) {
 				this.items_.add(new TableItem());
 			}
 

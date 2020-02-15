@@ -44,6 +44,10 @@ html, body , .app {
 	padding-bottom: 5px;	
 }
 
+.mselector-line > #mselector > h2 {
+	display: inline-block;
+}
+
 /* login content */
 .login-content .form-box {
 	width: 400px;
@@ -144,9 +148,11 @@ html, body , .app {
 	height: 90%;
 }
 
-.badget-content .table-container {
+.badget-content .table-container,
+.badget-content .chart-container {
 	width: 50%;
-	height: 70%;
+	height: 100%;
+	float: left;
 }
 
 /* badget table style */

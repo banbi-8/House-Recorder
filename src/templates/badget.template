@@ -2,6 +2,7 @@
 	<div class="mselector-line"></div>
 	<div class="content">
 		<div class="table-container"></div>
+		<div class="chart-container"></div>
 	</div>
 </div>
 		

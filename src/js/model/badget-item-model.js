@@ -7,7 +7,7 @@ define([
 	_,
 	Backbone,
 ) {
-return TableItem = Backbone.Model.extend({
+return BadgetItem = Backbone.Model.extend({
 	urlRoot: 'src/php/badget.php',
 	initialize: function (attr) {
 		this.set({
@@ -20,6 +20,9 @@ return TableItem = Backbone.Model.extend({
 	},
 	destroy: function () {
 		return Backbone.Model.prototype.destroy.call(this, {data: this.id});
-	}
+	},
+	canSave: function () {
+		return this.get('name') !== '' && this.get('value') !== null;
+	},
 });
 });

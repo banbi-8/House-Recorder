@@ -35,11 +35,11 @@ return AppRouter = Backbone.Router.extend({
 		'badget': 'showBadgetContent'
 	},
 	prepareContentViews: function () {
-		this.badgetView = new BadgetView();	
-		this.menuView = new MenuView();
-		this.homeView = new HomeView;
-		this.recordView = new RecordView();
-		this.transitionView = new TransitionView();
+		if (!this.homeView) { this.homeView = new HomeView; }
+		if (!this.menuView) { this.menuView = new MenuView(); }
+		if (!this.badgetView) { this.badgetView = new BadgetView(); }
+		if (!this.recordView) { this.recordView = new RecordView(); }
+		if (!this.transitionView) { this.transitionView = new TransitionView(); }
 	},
 	removeHeaderContents: function() {
 		$('.header-area').empty();

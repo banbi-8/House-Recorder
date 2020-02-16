@@ -1,15 +1,13 @@
 define([
 	'jquery',
 	'backbone',
-	'model/badget-table-item-model',
-	'collection/badget-table-item-collection',
+	'model/badget-item-model',
 	'view/badget-table-item-view',
 	'text!templates/badget-table.template'
 ], function (
 	$,
 	Backbone,
 	BadgetTableItem,
-	BadgetTableItemCollection,
 	BadgetTableItemView,
 	template
 ) {
@@ -19,28 +17,33 @@ return BadgetTableView = Backbone.View.extend({
 	initialize: function(opts) {
 		this.elSelector_ = opts.elSelector;
 		this.date_ = opts.date;
+		this.items_ = opts.items;
 		this.template_ = _.template(template);
-		this.items_ = new BadgetTableItemCollection();
 
-		this.listenTo(this.items_, 'updateSum' , this.setBadgetSum_);
-		this.listenTo(this.items_, 'destroy', this.removeView_);
+		this.needsPrepare = true;
 	},
 
 	entry: function () {
-		$.when(
-			this.items_.fetch()
-		)
-		.then(() => {
-			while (this.items_.length < 20) {
-				this.items_.add(new TableItem());
-			}
-
+		if (this.needsPrepare) {
 			_.each((this.items_.models), (item) => {
 				const itemView = new BadgetTableItemView(item);
+				this.listenTo(itemView, 'updatedValue' , this.setBadgetSum_);
+				this.listenTo(item, 'destroy', this.removeView_);
 				this.views_.push(itemView);
 			});
-		})
-		.then(() => this.render());
+	
+			while (this.views_.length < 20) {
+				const item = new BadgetTableItem();
+				const itemView = new BadgetTableItemView(item);
+				this.listenTo(itemView, 'updatedValue' , this.setBadgetSum_);
+				this.listenTo(item, 'destroy', this.removeView_);
+				this.views_.push(itemView);
+			}	
+
+			this.needsPrepare = false;
+		}
+
+		this.render();
 	},
 
 	events: {
@@ -66,16 +69,20 @@ return BadgetTableView = Backbone.View.extend({
 	addListItem_: function () {
 		const item = new BadgetTableItem();
 		const itemView = new BadgetTableItemView(item);
+		this.listenTo(itemView, 'updatedValue' , this.setBadgetSum_);
 
-		this.items_.add(item);
+		this.views_.add(itemView);
 		$('tbody').append(itemView.render());
 	},
 
 	saveBadgetItems_: function () {
-		_.each((this.items_.models), (item) => {
-			item.set({
-				date: `${this.date_.year}/${this.date_.month}`
-			});
+		_.each((this.views_), (view) => {
+			if (view.model.canSave()) {
+				view.model.set({
+					date: `${this.date_.year}/${this.date_.month}`
+				});
+				this.items_.add(view.model);
+			}
 		});
 
 		this.items_.save();
@@ -84,21 +91,21 @@ return BadgetTableView = Backbone.View.extend({
 	setBadgetSum_: function () {
 		let sum = 0;
 
-		_.each((this.items_.models), (item) => {
-			sum += item.get('value') !== null ? item.get('value') : 0;
+		_.each((this.views_), (view) => {
+			sum += view.model.get('value') !== null ? view.model.get('value') : 0;
 		});
 		$('tfoot #badget-sum').html(sum + ' 円');
 	},
 
 	removeView_: function (eve) {
-		const delView = this.findItemViewWithViewId_(eve.id);
+		const delView = this.findItemViewWithCid_(eve.cid);
 		this.views_ = _.without(this.views_, delView);
 		this.render();
 	},
 
-	findItemViewWithViewId_: function (viewId) {
+	findItemViewWithCid_: function (cid) {
 		return _.find(this.views_, (view) => {
-			return view.id === viewId;
+			return view.model.cid === cid;
 		});
 	}
 });

@@ -3,7 +3,7 @@ define([
 	'underscore',
 	'backbone',
 	'chart',
-	'collection/badget-table-item-collection',
+	'collection/badget-item-collection',
 ], function (
 	$,
 	_,
@@ -16,6 +16,8 @@ return BadgetChartView = Backbone.View.extend({
 	chart_: null,
 	initialize: function (opts) {
 		this.elSelector_ = opts.elSelector;
+		this.items_ = opts.items;
+
 		this.template_ = $('<canvas></canvas>');
 		const ctx = this.template_[0].getContext('2d');
 		this.chart_ = new Chart(ctx, {
@@ -41,24 +43,21 @@ return BadgetChartView = Backbone.View.extend({
 				}
 			}
 		});
-		this.items_ = new BadgetTableItemCollection();
 	},
 
 	entry: function () {
-		$.when(this.items_.fetch())
-		.then(() => {
-			_.each(this.items_.models, (item) => {
-				this.chart_.data.labels.push(item.get('name'));
-				this.chart_.data.datasets[0].data.push(item.get('value'));
-				
-				const color = this.generateColor_();
-				const backgroundOption = this.optionFormatter.backgroundColor(color);
-				this.chart_.data.datasets[0].backgroundColor.push(backgroundOption);
-				const borderOption = this.optionFormatter.borderColor(color);
-				this.chart_.data.datasets[0].borderColor.push(borderOption);
-			});
-		})
-		.then(() => this.render());
+		_.each(this.items_.models, (item) => {
+			this.chart_.data.labels.push(item.get('name'));
+			this.chart_.data.datasets[0].data.push(item.get('value'));
+			
+			const color = this.generateColor_();
+			const backgroundOption = this.optionFormatter.backgroundColor(color);
+			this.chart_.data.datasets[0].backgroundColor.push(backgroundOption);
+			const borderOption = this.optionFormatter.borderColor(color);
+			this.chart_.data.datasets[0].borderColor.push(borderOption);
+		});
+
+		this.render();
 	},
 
 	render: function () {

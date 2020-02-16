@@ -47,14 +47,16 @@ return BadgetChartView = Backbone.View.extend({
 
 	entry: function () {
 		_.each(this.items_.models, (item) => {
-			this.chart_.data.labels.push(item.get('name'));
-			this.chart_.data.datasets[0].data.push(item.get('value'));
-			
-			const color = this.generateColor_();
-			const backgroundOption = this.optionFormatter.backgroundColor(color);
-			this.chart_.data.datasets[0].backgroundColor.push(backgroundOption);
-			const borderOption = this.optionFormatter.borderColor(color);
-			this.chart_.data.datasets[0].borderColor.push(borderOption);
+			if (item.isValid()) {
+				this.chart_.data.labels.push(item.get('name'));
+				this.chart_.data.datasets[0].data.push(item.get('value'));
+				
+				const color = this.generateColor_();
+				const backgroundOption = this.optionFormatter.backgroundColor(color);
+				this.chart_.data.datasets[0].backgroundColor.push(backgroundOption);
+				const borderOption = this.optionFormatter.borderColor(color);
+				this.chart_.data.datasets[0].borderColor.push(borderOption);
+			}
 		});
 
 		this.render();

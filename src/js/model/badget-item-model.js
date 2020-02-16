@@ -21,7 +21,7 @@ return BadgetItem = Backbone.Model.extend({
 	destroy: function () {
 		return Backbone.Model.prototype.destroy.call(this, {data: this.id});
 	},
-	canSave: function () {
+	isValid: function () {
 		return this.get('name') !== '' && this.get('value') !== null;
 	},
 });

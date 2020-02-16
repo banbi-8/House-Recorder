@@ -27,17 +27,22 @@ return BadgetTableView = Backbone.View.extend({
 		if (this.needsPrepare) {
 			_.each((this.items_.models), (item) => {
 				const itemView = new BadgetTableItemView(item);
-				this.listenTo(itemView, 'updatedValue' , this.setBadgetSum_);
-				this.listenTo(item, 'destroy', this.removeView_);
+
 				this.views_.push(itemView);
+
+				this.listenTo(item, 'destroy', this.removeView_);
+				this.listenTo(itemView, 'updatedValue' , this.setBadgetSum_);
 			});
 	
-			while (this.views_.length < 20) {
+			while (this.items_.length < 20) {
 				const item = new BadgetTableItem();
 				const itemView = new BadgetTableItemView(item);
-				this.listenTo(itemView, 'updatedValue' , this.setBadgetSum_);
-				this.listenTo(item, 'destroy', this.removeView_);
+				
+				this.items_.add(item);
 				this.views_.push(itemView);
+
+				this.listenTo(item, 'destroy', this.removeView_);
+				this.listenTo(itemView, 'updatedValue' , this.setBadgetSum_);
 			}	
 
 			this.needsPrepare = false;
@@ -76,16 +81,22 @@ return BadgetTableView = Backbone.View.extend({
 	},
 
 	saveBadgetItems_: function () {
-		_.each((this.views_), (view) => {
-			if (view.model.canSave()) {
-				view.model.set({
+		const dfds = [];
+		_.each((this.items_.models), (item) => {
+			if (item.isValid()) {
+				const dfd = $.Deferred();
+				item.set({
 					date: `${this.date_.year}/${this.date_.month}`
 				});
-				this.items_.add(view.model);
+				
+				$.when(item.save())
+				.then(() => dfd.resolve());
+
+				dfds.push(dfd);
 			}
 		});
 
-		this.items_.save();
+		return $.when.apply($, dfds);
 	},
 
 	setBadgetSum_: function () {

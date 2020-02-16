@@ -43,11 +43,27 @@ return BadgetChartView = Backbone.View.extend({
 				}
 			}
 		});
+		this.chart_.displayingIDs = [];
+
+		this.listenTo(this.items_, 'updatedValue', this.updateChartContext_);
+		this.listenTo(this.items_, 'destroy', this.removeChartContext_);
 	},
 
 	entry: function () {
+		this.render();
+	},
+
+	render: function () {
+		this.setElement(this.elSelector_);
+		this.$el.html(this.template_);
+		this.updateChartContext_();
+	},
+
+	updateChartContext_: function () {
 		_.each(this.items_.models, (item) => {
-			if (item.isValid()) {
+			const isNew = this.chart_.displayingIDs.indexOf(item.cid) === -1;
+			if (item.isValid() && isNew) {
+				this.chart_.displayingIDs.push(item.cid);
 				this.chart_.data.labels.push(item.get('name'));
 				this.chart_.data.datasets[0].data.push(item.get('value'));
 				
@@ -59,12 +75,18 @@ return BadgetChartView = Backbone.View.extend({
 			}
 		});
 
-		this.render();
+		this.chart_.update();
 	},
 
-	render: function () {
-		this.setElement(this.elSelector_);
-		this.$el.html(this.template_);
+	removeChartContext_: function (eve) {
+		const index = this.chart_.displayingIDs.indexOf(eve.cid);
+		this.chart_.displayingIDs.splice(index, 1);
+		this.chart_.data.labels.splice(index, 1);
+		this.chart_.data.datasets[0].data.splice(index, 1);
+		this.chart_.data.datasets[0].backgroundColor.splice(index, 1);
+		this.chart_.data.datasets[0].borderColor.splice(index, 1);
+
+		this.chart_.update();
 	},
 
 	generateColor_: function () {

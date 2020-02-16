@@ -21,6 +21,8 @@ return BadgetTableView = Backbone.View.extend({
 		this.template_ = _.template(template);
 
 		this.needsPrepare = true;
+
+		this.listenTo(this.items_, 'updatedValue', this.setBadgetSum_);
 	},
 
 	entry: function () {
@@ -31,7 +33,6 @@ return BadgetTableView = Backbone.View.extend({
 				this.views_.push(itemView);
 
 				this.listenTo(item, 'destroy', this.removeView_);
-				this.listenTo(itemView, 'updatedValue' , this.setBadgetSum_);
 			});
 	
 			while (this.items_.length < 20) {
@@ -42,7 +43,6 @@ return BadgetTableView = Backbone.View.extend({
 				this.views_.push(itemView);
 
 				this.listenTo(item, 'destroy', this.removeView_);
-				this.listenTo(itemView, 'updatedValue' , this.setBadgetSum_);
 			}	
 
 			this.needsPrepare = false;
@@ -74,7 +74,6 @@ return BadgetTableView = Backbone.View.extend({
 	addListItem_: function () {
 		const item = new BadgetTableItem();
 		const itemView = new BadgetTableItemView(item);
-		this.listenTo(itemView, 'updatedValue' , this.setBadgetSum_);
 
 		this.views_.add(itemView);
 		$('tbody').append(itemView.render());

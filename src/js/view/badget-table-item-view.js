@@ -33,7 +33,7 @@ return BadgetTableItemView = Backbone.View.extend({
 
 		if (key === 'value') {
 			this.model.set({[key]: Number(value)});
-			this.trigger('updatedValue');
+			this.model.trigger('updatedValue');
 		} else {
 			this.model.set({[key]: value});
 		}

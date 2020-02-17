@@ -54,6 +54,7 @@ return BadgetChartView = Backbone.View.extend({
 	render: function () {
 		this.setElement(this.elSelector_);
 		this.$el.html(this.template_);
+		this.resetContext();
 		this.updateChartContext_();
 	},
 
@@ -97,6 +98,14 @@ return BadgetChartView = Backbone.View.extend({
     const g = Math.floor(Math.random() * 255);
   	const b = Math.floor(Math.random() * 255);
     return {r, g, b};
+	},
+
+	resetContext: function () {
+		this.chart_.displayingIDs = [];
+		this.chart_.data.labels = [];
+		this.chart_.data.datasets[0].data = [];		
+		this.chart_.data.datasets[0].backgroundColor = [];
+		this.chart_.data.datasets[0].borderColor = [];	
 	},
 
 	optionFormatter: {

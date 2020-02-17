@@ -26,29 +26,28 @@ return BadgetTableView = Backbone.View.extend({
 	},
 
 	entry: function () {
-		if (this.needsPrepare) {
-			_.each((this.items_.models), (item) => {
-				const itemView = new BadgetTableItemView(item);
-
-				this.views_.push(itemView);
-
-				this.listenTo(item, 'destroy', this.removeView_);
-			});
-	
-			while (this.items_.length < 20) {
-				const item = new BadgetTableItem();
-				const itemView = new BadgetTableItemView(item);
-				
-				this.items_.add(item);
-				this.views_.push(itemView);
-
-				this.listenTo(item, 'destroy', this.removeView_);
-			}	
-
-			this.needsPrepare = false;
-		}
-
 		this.render();
+	},
+
+	prepare: function () {
+		this.views_ = [];
+		_.each((this.items_.models), (item) => {
+			const itemView = new BadgetTableItemView(item);
+
+			this.views_.push(itemView);
+
+			this.listenTo(item, 'destroy', this.removeView_);
+		});
+
+		while (this.items_.length < 20) {
+			const item = new BadgetTableItem();
+			const itemView = new BadgetTableItemView(item);
+			
+			this.items_.add(item);
+			this.views_.push(itemView);
+
+			this.listenTo(item, 'destroy', this.removeView_);
+		}	
 	},
 
 	events: {
@@ -60,6 +59,7 @@ return BadgetTableView = Backbone.View.extend({
 	render: function () {
 		this.setElement(this.elSelector_);
 
+		this.prepare();
 		this.$el.html(this.template_());
 		$('tbody').empty;
 

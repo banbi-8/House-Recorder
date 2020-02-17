@@ -13,36 +13,22 @@ define([
 ) {
 return BadgetTableItems= CollectionBase.extend({
 	model: BadgetTableItem,
-	fetch: function () {		
-		if (this.length > 0) {
-			// fetch correspond models.
-			const dfds = [];
-
-			_.each((this.models), (model) => {
-				const dfd = $.Deferred();
-				
-				$.when(model.fetch())
-				.then(() => dfd.resolve());
-	
-				dfds.push(dfd);
+	fetch: function (ctx) {	
+		this.reset();	
+		return $.get({
+			url: 'src/php/badget.php',
+			dataType: 'json',
+			data: {date: `${ctx.date.year}/${ctx.date.month}`},
+			success: function (attrs) {
+				return attrs;
+			}
+		})
+		.then((attrs) => {
+			_.each((attrs), (attr) => {
+				attr.value = Number(attr.value);
+				this.add(new BadgetTableItem(attr));
 			});
-	
-			return $.when.apply($, dfds);
-		} else {
-			return $.get({
-				url: 'src/php/badget.php',
-				dataType: 'json',
-				success: function (attrs) {
-					return attrs;
-				}
-			})
-			.then((attrs) => {
-				_.each((attrs), (attr) => {
-					attr.value = Number(attr.value);
-					this.add(new BadgetTableItem(attr));
-				});
-			});
-		}
+		});
 	},
 	save: function () {
 		const dfds = [];

@@ -27,13 +27,14 @@ return BadgetView = Backbone.View.extend({
 		this.chartView_ = new BadgetChartView({elSelector: '.chart-container', items: this.items_});
 
 		this.template_ = _.template(template);
+		this.listenTo(this.mSelectorView_, 'changedMonth', this.render);
 	},
 
 	entry: function () {
 		this.$el.append(this.template_());
 
 		$.when(
-			this.items_.fetch()
+			this.items_.fetch({date: this.mSelectorView_.getDate()})
 		)
 		.done(() => {
 			this.mSelectorView_.entry();
@@ -47,8 +48,13 @@ return BadgetView = Backbone.View.extend({
 
 	// public
 	render: function () {
-		this.mSelectorView_.render();
-		this.tableView_.render();
+		$.when(
+			this.items_.fetch({date: this.mSelectorView_.getDate()})
+		)
+		.done(() => {
+			this.tableView_.render();
+			this.chartView_.render();	
+		});
 	},
 	
 	// for events

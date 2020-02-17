@@ -22,7 +22,8 @@
 	function getAllBadgetItem() {
 		$db = new DB();
 		$uid = $_SESSION['LOGIN_ID'];
-		$sql = "select * from badget where uid='$uid'";
+		$date = $_GET['date'];
+		$sql = "select * from badget where uid='$uid' and date='$date'";
 			
 		$res = array();
 		foreach($db->Inst()->query($sql) as $row) {

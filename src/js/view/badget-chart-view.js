@@ -2,14 +2,12 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'chart',
-	'collection/badget-item-collection',
+	'chart'
 ], function (
 	$,
 	_,
 	Backbone,
-	Chart,
-	BadgetTableItemCollection
+	Chart
 ) {
 return BadgetChartView = Backbone.View.extend({
 	elSelector_: null,
@@ -61,17 +59,22 @@ return BadgetChartView = Backbone.View.extend({
 
 	updateChartContext_: function () {
 		_.each(this.items_.models, (item) => {
-			const isNew = this.chart_.displayingIDs.indexOf(item.cid) === -1;
-			if (item.isValid() && isNew) {
-				this.chart_.displayingIDs.push(item.cid);
-				this.chart_.data.labels.push(item.get('name'));
-				this.chart_.data.datasets[0].data.push(item.get('value'));
-				
-				const color = this.generateColor_();
-				const backgroundOption = this.optionFormatter.backgroundColor(color);
-				this.chart_.data.datasets[0].backgroundColor.push(backgroundOption);
-				const borderOption = this.optionFormatter.borderColor(color);
-				this.chart_.data.datasets[0].borderColor.push(borderOption);
+			if (item.isValid()) {
+				const index = this.chart_.displayingIDs.indexOf(item.cid);
+				if (index >= 0) {
+					this.chart_.data.labels[index] = item.get('name');
+					this.chart_.data.datasets[0].data[index] = item.get('value');					
+				} else {
+					this.chart_.displayingIDs.push(item.cid);
+					this.chart_.data.labels.push(item.get('name'));
+					this.chart_.data.datasets[0].data.push(item.get('value'));
+					
+					const color = this.generateColor_();
+					const backgroundOption = this.optionFormatter.backgroundColor(color);
+					this.chart_.data.datasets[0].backgroundColor.push(backgroundOption);
+					const borderOption = this.optionFormatter.borderColor(color);
+					this.chart_.data.datasets[0].borderColor.push(borderOption);	
+				}
 			}
 		});
 

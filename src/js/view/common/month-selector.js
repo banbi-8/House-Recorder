@@ -51,6 +51,7 @@ return mSelector = Backbone.View.extend({
 		}
 
 		this.render();
+		this.trigger('changedMonth');
 	},
 
 	previous: function () {
@@ -62,6 +63,7 @@ return mSelector = Backbone.View.extend({
 		}
 
 		this.render();
+		this.trigger('changedMonth');
 	},
 
 	getDate: function () {

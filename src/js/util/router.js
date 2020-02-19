@@ -1,19 +1,17 @@
 define([
 	'jquery',
 	'backbone',
-	'pages/login',
-	'pages/app-title',
-	'pages/create-account',
-	'pages/menu',
-	'pages/home',
-	'pages/record',
-	'pages/transition',
-	'pages/badget'
+	'view/login',
+	'view/create-account',
+	'view/menu',
+	'view/home',
+	'view/record',
+	'view/transition',
+	'view/badget'
 ], function (
 	$,
 	Backbone,
 	LoginView,
-	AppTitleView,
 	CreateAccountView,
 	MenuView,
 	HomeView,
@@ -24,13 +22,7 @@ define([
 return AppRouter = Backbone.Router.extend({
 	initialize: function () {
 		this.loginView = new LoginView();
-		this.appTitleView = new AppTitleView();
 		this.createAccountView = new CreateAccountView();
-		this.menuView = new MenuView();
-		this.homeView = new HomeView;
-		this.recordView = new RecordView();
-		this.transitionView = new TransitionView();
-		this.badgetView = new BadgetView();	
 
 		this.showLoginContent();
 	},
@@ -42,6 +34,13 @@ return AppRouter = Backbone.Router.extend({
 		'transition': 'showTransitionContent',
 		'badget': 'showBadgetContent'
 	},
+	prepareContentViews: function () {
+		if (!this.homeView) { this.homeView = new HomeView; }
+		if (!this.menuView) { this.menuView = new MenuView(); }
+		if (!this.badgetView) { this.badgetView = new BadgetView(); }
+		if (!this.recordView) { this.recordView = new RecordView(); }
+		if (!this.transitionView) { this.transitionView = new TransitionView(); }
+	},
 	removeHeaderContents: function() {
 		$('.header-area').empty();
 	},
@@ -51,7 +50,6 @@ return AppRouter = Backbone.Router.extend({
 	showLoginContent: function () {
 		this.removeHeaderContents();
 		this.removeContents();
-		this.appTitleView.render();
 		this.loginView.render();
 	},
 	showCreateAccountContent: function () {
@@ -59,6 +57,8 @@ return AppRouter = Backbone.Router.extend({
 		this.createAccountView.render();
 	},
 	showHomeContent: function () {
+		this.prepareContentViews();
+		
 		this.removeHeaderContents();
 		this.removeContents();
 		this.menuView.render();
@@ -74,7 +74,7 @@ return AppRouter = Backbone.Router.extend({
 	},
 	showBadgetContent: function () {
 		this.removeContents();
-		this.badgetView.render();
+		this.badgetView.entry();
 	}
 });
 });

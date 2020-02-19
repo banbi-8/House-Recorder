@@ -1,9 +1,12 @@
-<div class="login-content">
-	<div class="form-box mx-auto">
-		<input id="user-name" class="form-control use_icon" type="text" placeholder="&#xf007; User name"/>
+<div class="login-content mx-auto">
+	<div class="app-title mx-auto">
+		<h1 class="text-center" id="title">わが家の家計簿</h1>
 	</div>
 	<div class="form-box mx-auto">
-		<input id="password" class="form-control use_icon" type="password" placeholder="&#xf084; Password"/>
+		<input id="user-name" class="form-control use_icon" type="text" placeholder="&#xf007; User name" value="ysaito"/>
+	</div>
+	<div class="form-box mx-auto">
+		<input id="password" class="form-control use_icon" type="password" placeholder="&#xf084; Password" value="ysaito"/>
 	</div>
 	<div class="form-box mx-auto">
 		<div class="form-check inline-items" id="checkbox-remember">

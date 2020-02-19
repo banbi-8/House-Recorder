@@ -1,30 +1,8 @@
 <div class="badget-content">
-	<div class="mselector-line col-md-12 col-lg-12">
-		<h2 id="previous"><</h2>
-		<h2 id="mselector">●●●●年●●月</h2>
-		<h2 id="next">></h2>
-	</div>
+	<div class="mselector-line"></div>
 	<div class="content">
-		<div class="income-saving row">
-			<div class="income col-lg-6 col-md-6">
-				<h2 id="income-title">収入</h2>
-				<input type="number" id="income-input"></input>
-				<span id="unit">円</span>
-			</div>
-			<div class="savings col-lg-6 col-md-6">
-				<h2 id="saving-title">貯金目標</h2>
-				<input type="number" id="saving-input"></input>
-				<span id="unit">円</span>
-			</div>
-		</div>
-		<div class="col-lg-12 col-md-12" id="badget-table"></div>
-		<div class="footer col-lg-12 col-md-12">
-			<h2 id="remain">残〇〇〇〇円</h2>
-			<div class="buttons float-lg-right float-md-right">
-				<button class="btn btn-primary">予算項目の追加</button>
-				<button class="btn btn-primary">予算項目の削除</button>
-			</div>
-		</div>
+		<div class="table-container"></div>
+		<div class="chart-container"></div>
 	</div>
 </div>
 		

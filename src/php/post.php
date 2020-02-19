@@ -1,21 +1,6 @@
 <?php
-	function connect() {
-		$dsn = 'mysql:dbname=house_recorder;host=localhost;charset=utf8mb4';
-		$user = 'manager';
-		$pass = 'test';
-	
-		try {
-			$dbh = new PDO($dsn, $user, $pass);
-
-			return $dbh;
-		} catch (PDOException $err) {
-			print('Error:'.$err->getMessage());
-		}
-	
-	}
-
-	function putUserTable(&$dbh, &$row) {
-		$statement = $dbh->prepare("INSERT INTO user(user_name, password) VALUES (:name, :password)");
+	function putUserTable(&$db, &$row) {
+		$statement = $db->Inst()->prepare("INSERT INTO user(name, password) VALUES (:name, :password)");
 		$statement->bindParam(':name', $row['name'], PDO::PARAM_STR);
 		$statement->bindParam(':password', $row['password'], PDO::PARAM_STR);
 		
@@ -25,18 +10,23 @@
 		print json_encode([]);
 	}
 
+	require_once('db.php');
+
+	$postedData = json_decode(file_get_contents('php://input'), TRUE);
+	print_r($_POST);
+	
 	$tableName = $_POST['tableName'];
 	$row = $_POST['row'];
 
-	$dbh = connect();
+	$db = new DB();
+
 	switch ($tableName) {
 		case 'user':
-			putUserTable($dbh, $row);
+			putUserTable($db, $row);
 		break;
 		default:
-			print 'do nothing';
+			echo '指定したテーブルへの処理が存在しません';
 	}
 
-	$dbh = NULL;
 	exit();
 ?>

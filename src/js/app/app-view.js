@@ -12,7 +12,7 @@ return AppView = Backbone.View.extend({
 
 		Backbone.history.start();
 
-		this.listenTo(this.menuView, 'tab_OnClick', this.changeContent);
+		this.listenTo(this.menuView, 'tabOnClick', this.changeContent);
 	},
 	changeContent: function (eve) {
 		const id = eve.target.id;

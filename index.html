@@ -4,19 +4,29 @@
 		<meta charset="UTF-8">
 		<title>わが家の家計簿</title>
 
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="./src/css/lib/bootstrap.min.css">
+		
+		<!-- my css -->
 		<link rel="stylesheet" type="text/css" href="./src/css/style.css">
 
+		<!-- data tables -->
+		<link rel="stylesheet" type="text/css" href="./src/css/lib/datatables.min.css"></link>
+
+		<!-- font awesome -->
 		<script src="https://kit.fontawesome.com/6b5d52863a.js" crossorigin="anonymous"></script>
+
+		<!-- jsSha -->
 		<script type="text/javascript" src="./src/lib/jsSHA/src/sha256.js"></script>
 
+		<!-- requirejs -->
 		<script src="./src/lib/require-min.js"></script>
 		<script src="./src/lib/require-config.js"></script>
 	</head>
 	<body>
-		<div class="app">
-			<div class="container-fluid header-area"></div>
-			<div class="container-fluid contents-area"></div>
+		<div class="app container-fluid">
+			<div class="header-area"></div>
+			<div class="contents-area"></div>
 		</div>
 
 		<script src="./src/js/app/app.js"></script>

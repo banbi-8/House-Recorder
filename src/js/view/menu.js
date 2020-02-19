@@ -18,11 +18,11 @@ return MenuView = Backbone.View.extend({
 		this.$el.append(this.template_);
 	},
 	events: {
-		'click li': 'tab_OnClick'
+		'click li': 'tabOnClick'
 	},
-	tab_OnClick: function (eve) {
+	tabOnClick: function (eve) {
 		this.updateTabsAttr(eve.target.id);
-		this.trigger('tab_OnClick', eve);
+		this.trigger('tabOnClick', eve);
 	},
 	updateTabsAttr: function (id) {
 		$(`#${this.selectedTabID}`).removeClass('active');

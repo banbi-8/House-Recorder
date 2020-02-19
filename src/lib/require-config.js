@@ -1,11 +1,13 @@
 require.config({
 	baseUrl: "src/js",
 	paths: {
-		jquery: '../lib/jquery-min',
-		underscore: '../lib/underscore-min',
-		backbone: '../lib/backbone-min',
-		templates: '../templates/',
-		text: '../lib/text'
+		'jquery': '../lib/jquery-min',
+		'underscore': '../lib/underscore-min',
+		'backbone': '../lib/backbone-min',
+		'templates': '../templates/',
+		'text': '../lib/text',
+		'bootstrap': '../lib/bootstrap.bundle.min',
+		'chart': '../lib/Chart.bundle.min'
 	},
 	shim: {
 		'backbone': {
@@ -21,6 +23,9 @@ require.config({
 		},
 		'jquery': {
 			exports: '$'
+		},
+		'bootstrap': {
+			deps: ['jquery'],
 		}
 	}
 });

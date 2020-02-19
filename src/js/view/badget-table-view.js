@@ -20,34 +20,7 @@ return BadgetTableView = Backbone.View.extend({
 		this.items_ = opts.items;
 		this.template_ = _.template(template);
 
-		this.needsPrepare = true;
-
 		this.listenTo(this.items_, 'updatedValue', this.setBadgetSum_);
-	},
-
-	entry: function () {
-		this.render();
-	},
-
-	prepare: function () {
-		this.views_ = [];
-		_.each((this.items_.models), (item) => {
-			const itemView = new BadgetTableItemView(item);
-
-			this.views_.push(itemView);
-
-			this.listenTo(item, 'destroy', this.removeView_);
-		});
-
-		while (this.items_.length < 20) {
-			const item = new BadgetTableItem();
-			const itemView = new BadgetTableItemView(item);
-			
-			this.items_.add(item);
-			this.views_.push(itemView);
-
-			this.listenTo(item, 'destroy', this.removeView_);
-		}	
 	},
 
 	events: {
@@ -59,7 +32,7 @@ return BadgetTableView = Backbone.View.extend({
 	render: function () {
 		this.setElement(this.elSelector_);
 
-		this.prepare();
+		this.prepare_();
 		this.$el.html(this.template_());
 		$('tbody').empty;
 
@@ -117,6 +90,27 @@ return BadgetTableView = Backbone.View.extend({
 		return _.find(this.views_, (view) => {
 			return view.model.cid === cid;
 		});
-	}
+	},
+
+	prepare_: function () {
+		this.views_ = [];
+		_.each((this.items_.models), (item) => {
+			const itemView = new BadgetTableItemView(item);
+
+			this.views_.push(itemView);
+
+			this.listenTo(item, 'destroy', this.removeView_);
+		});
+
+		while (this.items_.length < 20) {
+			const item = new BadgetTableItem();
+			const itemView = new BadgetTableItemView(item);
+			
+			this.items_.add(item);
+			this.views_.push(itemView);
+
+			this.listenTo(item, 'destroy', this.removeView_);
+		}	
+	},
 });
 });

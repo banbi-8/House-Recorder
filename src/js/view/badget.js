@@ -32,18 +32,9 @@ return BadgetView = Backbone.View.extend({
 
 	entry: function () {
 		this.$el.append(this.template_());
+		this.mSelectorView_.entry();
 
-		$.when(
-			this.items_.fetch({date: this.mSelectorView_.getDate()})
-		)
-		.done(() => {
-			this.mSelectorView_.entry();
-			this.tableView_.entry();
-			this.chartView_.entry();	
-		});
-	},
-
-	events: {
+		this.render();
 	},
 
 	// public
@@ -55,10 +46,6 @@ return BadgetView = Backbone.View.extend({
 			this.tableView_.render();
 			this.chartView_.render();	
 		});
-	},
-	
-	// for events
-
-	// private
+	}
 });
 });

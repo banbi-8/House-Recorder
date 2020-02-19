@@ -47,10 +47,6 @@ return BadgetChartView = Backbone.View.extend({
 		this.listenTo(this.items_, 'destroy', this.removeChartContext_);
 	},
 
-	entry: function () {
-		this.render();
-	},
-
 	render: function () {
 		this.setElement(this.elSelector_);
 		this.$el.html(this.template_);

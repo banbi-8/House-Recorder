@@ -32,7 +32,7 @@ return BadgetView = Backbone.View.extend({
 
 	entry: function () {
 		this.$el.append(this.template_());
-		this.mSelectorView_.entry();
+		this.mSelectorView_.render();
 
 		this.render();
 	},

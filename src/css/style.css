@@ -15,7 +15,7 @@ html, body , .app {
 	height: 85%;
 }
 
-.use_icon {
+.icon {
 	display: inline-block;
 	font-family: FontAwesome;
 	font-style: normal;
@@ -25,6 +25,9 @@ html, body , .app {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-color {
+	color: rgb(113, 164, 240);
+}
 
 /* menu  and app name style */
 .header-area h1 {
@@ -123,11 +126,62 @@ html, body , .app {
 .record-content {
 	height: 100%;
 }
-.record-content .spread-sheet {
-	height: 80%;
+
+.record-content .content {
+	height: 90%;
+	display: flex;
+	padding-bottom: 20px;
 }
-.record-content .buttons {
-	height: 10%;
+
+.record-content .content .carender-container[shrink=true] {
+	width: 50%;
+}
+
+.record-content .content .carender-container[shrink=false] {
+	width: 100%;
+}
+
+.record-content .content .carender-container,
+.record-content .content .carender {
+	height: 100%;
+	margin-bottom: 0;
+}
+
+.record-content .content .carender > tbody > tr > td {
+	height: 16%;
+	position: relative;
+}
+
+.record-content .content .carender > tbody > tr > td > div:first {
+	width: 100%;
+}
+
+.record-content .content .carender #edit,
+.record-content .content .carender #value {
+	position: absolute;
+	right: 20px;
+}
+
+.record-content .content .edit-area[showing=true] {
+	width: 50%;
+	padding: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+	background-color: ghostwhite;
+	border: solid 0px;
+	border-radius: 9px;
+}
+
+.record-content .content .edit-area[showing=true] > #detail {
+	margin: 20px 0 20px auto;
+	width: 50%;
+}
+
+.record-content .content .edit-area[showing=true] > #type-selector {
+	width: 50%;
+}
+
+.record-content .content .edit-area[showing=true] > .table-container {
 }
 
 /* transition content style */
@@ -156,43 +210,39 @@ html, body , .app {
 }
 
 /* badget table style */
-.table-container #plus-button {
-	color: deepskyblue; 
-}
-
-.table-container #edit-button {
+.badget-content .table-container #edit-button {
 	margin-right: 1em;
 }
 
-.table-container #save {
+.badget-content .table-container #save {
 	width: 100%;
 }
 
-.table-container .thead > table {
+.badget-content .table-container .thead > table {
 	margin-bottom: 0;
 }
 
-.table-container .tbody {
+.badget-content .table-container .tbody {
 	height: 400px;
 	overflow: auto;
 }
 
-.table-container .tcol1 {
+.badget-content .table-container .btcol1 {
 	width: 30%;
 	outline: 0;
 }
 
-.table-container .tcol2 {
+.badget-content .table-container .btcol2 {
 	width: 25%;
 	outline: 0;
 }
 
-.table-container .tcol3 {
+.badget-content .table-container .btcol3 {
 	width: 30%;
 	outline: 0;
 }
 
-.table-container .tcol4 {
+.badget-content .table-container .btcol4 {
 	width: 15%;
 	outline: 0;
 }

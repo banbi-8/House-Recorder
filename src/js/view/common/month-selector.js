@@ -17,10 +17,6 @@ return mSelector = Backbone.View.extend({
 		this.setDate_();
 	},
 
-	entry: function () {
-		this.render();
-	},
-
 	// public
 	render: function () {
 		this.setElement(this.elSelector_);

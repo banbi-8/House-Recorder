@@ -1,13 +1,13 @@
 define([
 	'jquery',
 	'backbone',
-	'view/login',
-	'view/create-account',
-	'view/menu',
-	'view/home',
-	'view/record',
-	'view/transition',
-	'view/badget'
+	'page/login/view/login',
+	'page/account/view/create-account',
+	'page/menu',
+	'page/home',
+	'page/record/view/record',
+	'page/transition',
+	'page/badget/view/badget'
 ], function (
 	$,
 	Backbone,

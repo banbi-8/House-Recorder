@@ -2,8 +2,8 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'view/record/edit-view',
-	'text!templates/record/carender-date.template'	
+	'page/record/view/edit-view',
+	'text!page/record/template/carender-date.template'	
 ], function (
 	$,
 	_,

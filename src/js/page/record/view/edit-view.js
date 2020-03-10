@@ -1,7 +1,7 @@
 define([
 	'jquery',
 	'backbone',
-	'text!templates/record/edit-area.template'
+	'text!page/record/template/edit-area.template'
 ], function (
 	$,
 	Backbone,

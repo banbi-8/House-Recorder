@@ -1,11 +1,11 @@
 define([
 	'jquery',
 	'backbone',
-	'collection/badget-item-collection',
-	'view/common/month-selector',
-	'view/badget-chart-view',
-	'view/badget-table-view',
-	'text!templates/badget.template',
+	'page/badget/collection/badget-item-collection',
+	'page/common/view/month-selector',
+	'page/badget/view/badget-chart-view',
+	'page/badget/view/badget-table-view',
+	'text!page/badget/template/badget.template',
 	// no var
 	'bootstrap',
 ], function (

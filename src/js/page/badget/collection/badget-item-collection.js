@@ -2,8 +2,8 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'model/badget-item-model',
-	'collection/collection-base'
+	'page/badget/model/badget-item-model',
+	'page/common/collection/collection-base'
 ], function (
 	$,
 	_,

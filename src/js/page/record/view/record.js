@@ -1,10 +1,10 @@
 define([
 	'jquery',
 	'backbone',
-	'view/common/month-selector',
-	'view/record/carender-view',
-	'view/record/edit-view',
-	'text!templates/record/record.template'
+	'page/common/view/month-selector',
+	'page/record/view/carender-view',
+	'page/record/view/edit-view',
+	'text!page/record/template/record.template'
 ], function (
 	$,
 	Backbone,

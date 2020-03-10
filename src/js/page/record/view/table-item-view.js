@@ -2,7 +2,7 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'text!templates/record-table-item.template'
+	'text!page/record/template/record-table-item.template'
 ], function (
 	$,
 	_,

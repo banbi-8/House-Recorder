@@ -1,7 +1,7 @@
 define([
 	'jquery',
 	'backbone',
-	'text!templates/month-selector.template'
+	'text!page/common/template/month-selector.template'
 ], function (
 	$,
 	Backbone,

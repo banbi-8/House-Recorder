@@ -2,7 +2,7 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'text!templates/badget-table-item.template'
+	'text!page/badget/template/badget-table-item.template'
 ], function (
 	$,
 	_,

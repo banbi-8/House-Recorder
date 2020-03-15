@@ -53,7 +53,7 @@ return CarenderView = Backbone.View.extend({
 
 		_.each(baseArr, (week, i) => {
 			_.each(week, (date) => {
-				const view = new DateView({month: this.date_.month, date: date, th: nowMonthLastDate});
+				const view = new DateView({date: {year: this.date_.year, month: this.date_.month, date: date}, th: nowMonthLastDate});
 				this.listenTo(view, 'clickedEditButton', this.showEditArea);
 				views[i].push(view);
 			});
@@ -68,15 +68,32 @@ return CarenderView = Backbone.View.extend({
 		let dom = $();
 		this.dateViews_ = this.initDateViews_();
 
-		_.each(this.dateViews_, (week) => {
-			const tr = $('<tr></tr>');
-			_.each(week, (view) => {
-				tr.append(view.render());
-			});
-			dom = dom.add(tr);
-		});
+		$.when()
+		.then(() => {
+			const dfds = [];
 
-		$('tbody').html(dom);
+			_.each(this.dateViews_, (week) => {
+				const tr = $('<tr></tr>');
+				_.each(week, (view) => {
+					const dfd = $.Deferred();
+					
+					$.when()
+					.then(() => view.render())
+					.then((html) => {
+						tr.append(html);
+						dfd.resolve();
+					});
+
+					dfds.push(dfd);
+				});
+				dom = dom.add(tr);
+			});
+			
+			return $.when.apply($, dfds);	
+		})
+		.done(() => {
+			$('tbody').html(dom);
+		});
 	},
 
 	showEditArea: function (cid) {

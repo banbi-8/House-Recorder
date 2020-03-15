@@ -23,16 +23,17 @@
 		<table class="carender table table-bordered">
 			<thead>
 				<tr>
-				<th>分類</th>	
-				<th>金額</th>
-				<th>メモ</th>
+				<th class="tcol1">分類</th>	
+				<th class="tcol2">金額</th>
+				<th class="tcol3">メモ</th>
+				<th class="tcol4">削除</th>
 				</tr>
 			</thead>
 		</table>
 	</div>
 	<div class="tbody">
 		<table class="table table-bordered">
-			<tbody></tbody>
+			<tbody id="edit-tbody"></tbody>
 		</table>
 	</div>
 </div>

@@ -3,7 +3,7 @@ define([
 	'backbone',
 	'page/common/view/month-selector',
 	'page/record/view/carender-view',
-	'page/record/view/edit-view',
+	'page/record/view/edit-area-view',
 	'text!page/record/template/record.template'
 ], function (
 	$,
@@ -41,7 +41,7 @@ return RecordView = Backbone.View.extend({
 	},
 
 	showEditView_: function (selecteDateView) {
-		this.editView_.setView(selecteDateView);
+		this.editView_.setCtx(selecteDateView);
 		this.carenderView_.shrink();
 
 		this.editView_.render();

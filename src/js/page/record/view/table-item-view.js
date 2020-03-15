@@ -12,7 +12,10 @@ define([
 return RecordTableItemView = Backbone.View.extend({
 	tagName: 'tr',
 	template_: null,
-	initialize: function () {
+	initialize: function (model) {
+		if (model) {
+			this.model_ = model;
+		}
 		this.template_ = _.template(template);
 	},
 	

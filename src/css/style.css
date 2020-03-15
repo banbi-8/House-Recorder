@@ -227,22 +227,23 @@ html, body , .app {
 	overflow: auto;
 }
 
-.badget-content .table-container .btcol1 {
+/* common: table column style */
+.table-container .tcol1 {
 	width: 30%;
 	outline: 0;
 }
 
-.badget-content .table-container .btcol2 {
+.table-container .tcol2 {
 	width: 25%;
 	outline: 0;
 }
 
-.badget-content .table-container .btcol3 {
+.table-container .tcol3 {
 	width: 30%;
 	outline: 0;
 }
 
-.badget-content .table-container .btcol4 {
+.table-container .tcol4 {
 	width: 15%;
 	outline: 0;
 }

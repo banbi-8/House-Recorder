@@ -2,12 +2,14 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
+	'page/common/model/model-base'
 ], function (
 	$,
 	_,
 	Backbone,
+	ModelBase
 ) {
-return BadgetItem = Backbone.Model.extend({
+return BadgetItem = ModelBase.extend({
 	urlRoot: 'src/php/badget.php',
 	initialize: function (attr) {
 		this.set({
@@ -17,9 +19,6 @@ return BadgetItem = Backbone.Model.extend({
 			memo: _.has(attr, 'memo') ? attr.memo : '',
 			date: _.has(attr, 'date') ? attr.date : ''
 		});
-	},
-	destroy: function () {
-		return Backbone.Model.prototype.destroy.call(this, {data: this.id});
 	},
 	isValid: function () {
 		return this.get('name') !== '' && this.get('value') !== null;

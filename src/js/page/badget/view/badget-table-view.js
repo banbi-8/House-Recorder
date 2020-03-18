@@ -34,7 +34,7 @@ return BadgetTableView = Backbone.View.extend({
 
 		this.prepare_();
 		this.$el.html(this.template_());
-		$('tbody').empty;
+		$('tbody').empty();
 
 		_.each((this.views_), (view) => {
 			$('tbody').append(view.render());

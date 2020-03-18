@@ -3,6 +3,7 @@ define([
 	'underscore',
 	'backbone',
 	'page/record/collection/income-collection',
+	'page/record/collection/expense-collection',
 	'page/record/view/edit-view',
 	'text!page/record/template/carender-date.template'	
 ], function (
@@ -10,6 +11,7 @@ define([
 	_,
 	Backbone,
 	IncomeItems,
+	ExpenseItems,
 	EditView,
 	template
 ) {
@@ -23,13 +25,15 @@ return CarenderView = Backbone.View.extend({
 		this.template_ = _.template(template);
 		this.editView_ = new EditView({elSelector: '.edit-area'});
 		this.incomeItems_ = new IncomeItems({date: this.date_});
+		this.expenseItems_ = new ExpenseItems({date: this.date_});
 	},
 
 	render: function () {
 		this.delegateEvents();
 		
 		return $.when(
-			this.incomeItems_.fetch()
+			this.incomeItems_.fetch(),
+			this.expenseItems_.fetch()
 		)
 		.then(() => {
 			const date = this.date_.date > 0 && this.date_.date <= this.th_ ? String(this.date_.date) : '';

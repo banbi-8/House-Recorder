@@ -22,7 +22,7 @@ return CarenderView = Backbone.View.extend({
 		this.setElement(this.elSelector_);
 
 		this.$el.html(this.template_());
-		this.setDate_();
+		this.renderDates();
 	},
 
 	getNowMonthLastDate: function () {
@@ -62,8 +62,8 @@ return CarenderView = Backbone.View.extend({
 		return views;
 	},
 
-	setDate_: function () {
-		$('tbody').empty();
+	renderDates: function () {
+		$('#carender-tbody').empty();
 
 		let dom = $();
 		this.dateViews_ = this.initDateViews_();
@@ -77,7 +77,7 @@ return CarenderView = Backbone.View.extend({
 				_.each(week, (view) => {
 					const dfd = $.Deferred();
 					
-					$.when()
+					$.when.apply($, dfds)
 					.then(() => view.render())
 					.then((html) => {
 						tr.append(html);
@@ -92,7 +92,7 @@ return CarenderView = Backbone.View.extend({
 			return $.when.apply($, dfds);	
 		})
 		.done(() => {
-			$('tbody').html(dom);
+			$('#carender-tbody').html(dom);
 		});
 	},
 

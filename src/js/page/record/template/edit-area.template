@@ -11,9 +11,9 @@
 		<span id="value"></span>
 	</h4>
 </div>
-<div class="btn-group btn-group-toggle" data-toggle="buttons" id="type-selector">
-  <label class="btn btn-outline-primary active"><input type="checkbox" autocomplete="off" checked>収入</label>
-  <label class="btn btn-outline-primary"><input type="checkbox" autocomplete="off">支出</label>
+<div class="btn-group btn-group-toggle" data-toggle="buttons" id="selector">
+  <label class="btn btn-outline-primary active"><input type="radio" autocomplete="off" value="income">収入</label>
+  <label class="btn btn-outline-primary"><input type="radio" autocomplete="off" value="expense">支出</label>
 </div>
 <div class="table-container">
 	<div class="thead">

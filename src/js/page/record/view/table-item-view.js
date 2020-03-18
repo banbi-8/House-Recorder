@@ -9,19 +9,17 @@ define([
 	Backbone,
 	template
 ) {
-return RecordTableItemView = Backbone.View.extend({
+return TableItemView = Backbone.View.extend({
 	tagName: 'tr',
 	template_: null,
 	initialize: function (model) {
-		if (model) {
-			this.model_ = model;
-		}
+		this.model_ = model;
 		this.template_ = _.template(template);
 	},
 	
 	events: {
 		'focusout td': 'updateModelWithInputValue',
-		'click #delete': 'destroy'
+		'click #trash': 'clear'
 	},
 
 	render: function () {
@@ -30,9 +28,18 @@ return RecordTableItemView = Backbone.View.extend({
 	},
 
 	updateModelWithInputValue: function (eve) {
+		const key = eve.target.id;
+		let value = eve.target.innerHTML;
+
+		if (key === 'value') {
+			value = Number(value);
+		}
+		this.model_.set({[key]: value});
 	},
 
-	destroy: function () {
+	clear: function () {
+		this.model_.clear();
+		this.$el.html(this.template_());
 	}
 });
 });

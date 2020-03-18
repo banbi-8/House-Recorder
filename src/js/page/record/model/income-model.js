@@ -11,5 +11,10 @@ define([
 ) {
 return BadgetItem = ModelBase.extend({
 	urlRoot: 'src/php/income.php',
+	defaults: {
+		class: '',
+		value: 0,
+		memo: ''
+	}
 });
 });

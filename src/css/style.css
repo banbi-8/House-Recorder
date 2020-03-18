@@ -177,7 +177,7 @@ html, body , .app {
 	width: 50%;
 }
 
-.record-content .content .edit-area[showing=true] > #type-selector {
+.record-content .content .edit-area[showing=true] > #selector {
 	width: 50%;
 }
 
@@ -224,6 +224,10 @@ html, body , .app {
 
 .badget-content .table-container .tbody {
 	height: 400px;
+	overflow: auto;
+}
+
+.table-container .tbody {
 	overflow: auto;
 }
 

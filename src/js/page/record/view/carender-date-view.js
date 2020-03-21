@@ -4,7 +4,7 @@ define([
 	'backbone',
 	'page/record/collection/income-collection',
 	'page/record/collection/expense-collection',
-	'page/record/view/edit-view',
+	'page/record/view/edit-area-view',
 	'text!page/record/template/carender-date.template'	
 ], function (
 	$,

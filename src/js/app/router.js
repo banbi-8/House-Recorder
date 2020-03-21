@@ -35,7 +35,7 @@ return AppRouter = Backbone.Router.extend({
 		'badget': 'showBadgetContent'
 	},
 	prepareContentViews: function () {
-		if (!this.homeView) { this.homeView = new HomeView; }
+		if (!this.homeView) { this.homeView = new HomeView(); }
 		if (!this.menuView) { this.menuView = new MenuView(); }
 		if (!this.badgetView) { this.badgetView = new BadgetView(); }
 		if (!this.recordView) { this.recordView = new RecordView(); }

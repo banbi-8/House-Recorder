@@ -1,7 +1,7 @@
 define([
 	'jquery',
 	'backbone',
-	'text!templates/month-selector.template'
+	'text!page/common/template/month-selector.template'
 ], function (
 	$,
 	Backbone,
@@ -15,10 +15,6 @@ return mSelector = Backbone.View.extend({
 		this.template_ = _.template(template);
 
 		this.setDate_();
-	},
-
-	entry: function () {
-		this.render();
 	},
 
 	// public

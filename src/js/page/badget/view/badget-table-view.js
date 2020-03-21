@@ -1,9 +1,9 @@
 define([
 	'jquery',
 	'backbone',
-	'model/badget-item-model',
-	'view/badget-table-item-view',
-	'text!templates/badget-table.template'
+	'page/badget/model/badget-item-model',
+	'page/badget/view/badget-table-item-view',
+	'text!page/badget/template/badget-table.template'
 ], function (
 	$,
 	Backbone,
@@ -34,7 +34,7 @@ return BadgetTableView = Backbone.View.extend({
 
 		this.prepare_();
 		this.$el.html(this.template_());
-		$('tbody').empty;
+		$('tbody').empty();
 
 		_.each((this.views_), (view) => {
 			$('tbody').append(view.render());

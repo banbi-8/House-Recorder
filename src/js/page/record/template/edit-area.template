@@ -1,0 +1,39 @@
+<h3 id="edit-date"><%= month %>月<%= date %>日の収支記録</h3>
+<div id="detail">
+	<h4 id="income">
+		<span>収入</span>
+		<span id="separator-collon">:</span>
+		<span id="value"></span>
+	</h4>
+	<h4 id="expense">
+		<span>支出</span>
+		<span id="separator-collon">:</span>
+		<span id="value"></span>
+	</h4>
+</div>
+<div class="btn-group btn-group-toggle" data-toggle="buttons" id="selector">
+  <label class="btn btn-outline-primary active"><input type="radio" autocomplete="off" value="income">収入</label>
+  <label class="btn btn-outline-primary"><input type="radio" autocomplete="off" value="expense">支出</label>
+</div>
+<div class="table-container">
+	<div class="thead">
+		<span class="float-right mr-2 mb-3">
+			<a href="javascript:void(0)" class="text-success"><i class="fas fa-plus fa-lg icon icon-color" id="plus-button" aria-hidden="true"></i></a>
+		</span>
+		<table class="carender table table-bordered">
+			<thead>
+				<tr>
+				<th class="tcol1">分類</th>	
+				<th class="tcol2">金額</th>
+				<th class="tcol3">メモ</th>
+				<th class="tcol4">削除</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<div class="tbody">
+		<table class="table table-bordered">
+			<tbody id="edit-tbody"></tbody>
+		</table>
+	</div>
+</div>

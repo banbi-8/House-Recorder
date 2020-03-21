@@ -4,7 +4,7 @@ define([
 	'util/db',
 	'util/session',
 	'util/util',
-	'text!templates/login.template'
+	'text!page/login/template/login.template'
 ], function (
 	$,
 	Backbone,

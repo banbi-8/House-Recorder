@@ -2,23 +2,26 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'model/badget-item-model',
-	'collection/collection-base'
+	'page/record/model/expense-model',
+	'page/common/collection/collection-base'
 ], function (
 	$,
 	_,
 	Backbone,
-	BadgetTableItem,
+	ExpenseItem,
 	CollectionBase
 ) {
-return BadgetTableItems= CollectionBase.extend({
-	model: BadgetTableItem,
-	fetch: function (ctx) {	
+return IncomeItems = CollectionBase.extend({
+	model: ExpenseItem,
+	initialize: function (attr) {
+		this.date_ = attr.date;
+	},
+	fetch: function () {	
 		this.reset();	
 		return $.get({
-			url: 'src/php/badget.php',
+			url: 'src/php/income.php',
 			dataType: 'json',
-			data: {date: `${ctx.date.year}/${ctx.date.month}`},
+			data: {date: `${this.date_.year}/${this.date_.month}/${this.date_.date}`},
 			success: function (attrs) {
 				return attrs;
 			}
@@ -26,7 +29,7 @@ return BadgetTableItems= CollectionBase.extend({
 		.then((attrs) => {
 			_.each((attrs), (attr) => {
 				attr.value = Number(attr.value);
-				this.add(new BadgetTableItem(attr));
+				this.add(new ExpenseItem(attr));
 			});
 		});
 	},
@@ -49,7 +52,7 @@ return BadgetTableItems= CollectionBase.extend({
 	needsSave: function (model) {
 		let needsSave = true;
 
-		needsSave = model.get('name') !== '' ? true : false;
+		needsSave = model.get('category') !== '' ? true : false;
 		needsSave = needsSave && (model.get('value') !== null) ? true : false;
 		needsSave = needsSave && (model.get('date') !== '') ? true : false;
 

@@ -17,6 +17,7 @@ return Util = {
 		);
 		return dfd.promise();
 	},
+	
 	createHash: function (str) {
 		var shaObj = new jsSHA('SHA-256', 'TEXT');
 		shaObj.update(str);

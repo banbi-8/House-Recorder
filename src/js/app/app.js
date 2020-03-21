@@ -1,9 +1,10 @@
 require([
-	'underscore', 
-	'app/app-view'
-], function(
-	_,
-	AppView
+	'backbone',
+	'app/router'	
+], function (
+	Backbone,
+	Router
 ) {
-	const appView = new AppView();
+new Router();
+Backbone.history.start();
 });

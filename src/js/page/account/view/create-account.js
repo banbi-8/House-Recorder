@@ -3,7 +3,7 @@ define([
 	'backbone',
 	'util/db',
 	'util/util',
-	'text!templates/create-account.template'
+	'text!page/account/template/create-account.template'
 ], function (
 	$,
 	Backbone,

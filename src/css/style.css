@@ -207,6 +207,8 @@ html, body , .app {
 	width: 50%;
 	height: 100%;
 	float: left;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 /* badget table style */
@@ -218,7 +220,7 @@ html, body , .app {
 	width: 100%;
 }
 
-.badget-content .table-container .thead > table {
+.badget-content .table-container .table {
 	margin-bottom: 0;
 }
 

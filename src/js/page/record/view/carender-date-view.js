@@ -47,10 +47,10 @@ return CarenderView = Backbone.View.extend({
 	},
 
 	events: {
-		'click #edit': 'clickedEditButton'
+		'click #edit': 'clickOnEditButton'
 	},
 
-	clickedEditButton: function () {
+	clickOnEditButton: function () {
 		this.trigger('clickedEditButton', this.cid);
 	}
 });

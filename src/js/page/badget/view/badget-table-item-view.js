@@ -19,7 +19,7 @@ return BadgetTableItemView = Backbone.View.extend({
 	
 	events: {
 		'focusout td': 'updateModelWithInputValue',
-		'click #delete': 'destroy'
+		'click #trash': 'destroy'
 	},
 
 	render: function () {

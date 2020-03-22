@@ -24,9 +24,9 @@
 			<thead>
 				<tr>
 				<th class="tcol1">分類</th>	
-				<th class="tcol2">金額</th>
+				<th class="tcol2">金額（円）</th>
 				<th class="tcol3">メモ</th>
-				<th class="tcol4">削除</th>
+				<th class="tcol4">保存/削除</th>
 				</tr>
 			</thead>
 		</table>

@@ -48,30 +48,45 @@ return EditView = Backbone.View.extend({
 	prepareTableItems: function () {
 		this.editItemViews_ = [];
 
-		if (this.selector_ === 'income') {
-			_.each(this.incomeItems_.models, (item) => {
-				const view = new TableItemView(item);
+		return $.when()
+		.then(() => {
+			if (this.selector_ === 'income') {
+				return $.when(this.incomeItems_.fetch())
+					.then(() => {
+						_.each(this.incomeItems_.models, (item) => {
+							const view = new TableItemView(item);
+							this.editItemViews_.push(view);
+						});
+					});
+			} else { // this.selector === expense
+				return $.when(this.expenseItems_.fetch())
+					.then(() => {
+						_.each(this.expenseItems_.models, (item) => {
+							const view = new TableItemView(item);
+							this.editItemViews_.push(view);
+						});	
+					})
+			}
+		})
+		.then(() => {
+			while (this.editItemViews_.length < 8) {
+				const attr = {};
+				attr.date = `${this.date_.year}/${this.date_.month}/${this.date_.date}`;
+				const model = this.selector_ === 'income' ? new IncomeModel(attr) : new ExpenseModel(attr);
+				const view = new TableItemView(model);
 				this.editItemViews_.push(view);
-			});
-		} else {
-			_.each(this.expenseItems_.models, (item) => {
-				const view = new TableItemView(item);
-				this.editItemViews_.push(view);
-			});
-		}
-
-		while (this.editItemViews_.length < 8) {
-			const model = this.selector_ === 'income' ? new IncomeModel() : new ExpenseModel();
-			const view = new TableItemView(model);
-			this.editItemViews_.push(view);
-		}	
+			}	
+		});
 	},
 
 	updateTableItems_: function () {
-		this.prepareTableItems();
-		$('#edit-tbody').empty();
-		_.each((this.editItemViews_), (view) => {
-			$('#edit-tbody').append(view.render());
+		return $.when()
+		.then(() => this.prepareTableItems())
+		.then(() => {
+			$('#edit-tbody').empty();
+			_.each((this.editItemViews_), (view) => {
+				$('#edit-tbody').append(view.render());
+			});	
 		});
 	},
 

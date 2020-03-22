@@ -19,12 +19,13 @@ return TableItemView = Backbone.View.extend({
 	
 	events: {
 		'focusout td': 'updateModelWithInputValue',
-		'click #trash': 'clear'
+		'click #save': 'clickOnSaveIcon',
+		'click #trash': 'clickOnTrashIcon'
 	},
 
 	render: function () {
 		this.delegateEvents();
-		return this.$el.html(this.template_());
+		return this.$el.html(this.template_(this.model_.attributes));
 	},
 
 	updateModelWithInputValue: function (eve) {
@@ -37,9 +38,14 @@ return TableItemView = Backbone.View.extend({
 		this.model_.set({[key]: value});
 	},
 
-	clear: function () {
-		this.model_.clear();
-		this.$el.html(this.template_());
-	}
+	clickOnSaveIcon: function () {
+		this.model_.save();
+	},
+
+	clickOnTrashIcon: function () {
+		this.model_.destroy();
+		this.model_.clearAttrExceptDate();
+		this.$el.html(this.template_(this.model_.attributes));
+	},
 });
 });

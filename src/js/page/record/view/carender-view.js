@@ -117,6 +117,10 @@ return CarenderView = Backbone.View.extend({
 
 	shrink: function () {
 		$(this.elSelector_).attr('shrink', true);
+	},
+
+	expand: function () {
+		$(this.elSelector_).attr('shrink', false);
 	}
 });
 });

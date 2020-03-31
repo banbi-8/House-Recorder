@@ -5,25 +5,25 @@
 	$reqType = $_SERVER["REQUEST_METHOD"];
 	switch ($reqType) {
 		case 'GET':
-			getIncomeItemWithDate();
+			getExpenseItemWithDate();
 		break;
 		case 'PUT': // already exist model
-			updateIncomeItem();
+			updateExpenseItem();
 		break;
 		case 'POST': // model is not saved yet
-			saveIncomeItem();
+			saveExpenseItem();
 		break;
 		case 'DELETE':
-			deleteIncomeItem();
+			deleteExpenseItem();
 	}
 
 	exit();
 
-	function getIncomeItemWithDate() {
+	function getExpenseItemWithDate() {
 		$db = new DB();
 		$uid = $_SESSION['LOGIN_ID'];
 		$date = $_GET['date'];
-		$sql = "select * from income where uid='$uid' and date='$date'";
+		$sql = "select * from expense where uid='$uid' and date='$date'";
 			
 		$res = array();
 		foreach($db->Inst()->query($sql) as $row) {
@@ -39,7 +39,7 @@
 		print json_encode($res);	
 	}
 	
-	function updateIncomeItem() {
+	function updateExpenseItem() {
 		$db = new DB();
 		$putData = json_decode(file_get_contents('php://input'), TRUE);
 
@@ -51,7 +51,7 @@
 		$date = (string)$putData['date'];
 
 		// prepare sql statement
-		$statement = $db->Inst()->prepare("UPDATE	income SET category=:category, value=:value, memo=:memo, date=:date WHERE id=:id");
+		$statement = $db->Inst()->prepare("UPDATE	expense SET category=:category, value=:value, memo=:memo, date=:date WHERE id=:id");
 		$statement->bindParam(':category', $category, PDO::PARAM_STR);
 		$statement->bindParam(':value', $value, PDO::PARAM_INT);
 		$statement->bindParam(':memo', $memo, PDO::PARAM_STR);
@@ -63,7 +63,7 @@
 		print json_encode($putData);
 	}
 
-	function saveIncomeItem() {
+	function saveExpenseItem() {
 		$db = new DB();
 		$postedData = json_decode(file_get_contents('php://input'), TRUE);
 
@@ -75,7 +75,7 @@
 		$date = (string)$postedData['date'];
 
 		// prepare sql statement
-		$statement = $db->Inst()->prepare("INSERT INTO income(uid, category, value, memo, date) VALUES (:uid, :category, :value, :memo, :date)");
+		$statement = $db->Inst()->prepare("INSERT INTO expense(uid, category, value, memo, date) VALUES (:uid, :category, :value, :memo, :date)");
 		$statement->bindParam(':uid', $uid, PDO::PARAM_INT);
 		$statement->bindParam(':category', $category, PDO::PARAM_STR);
 		$statement->bindParam(':value', $value, PDO::PARAM_INT);
@@ -90,12 +90,12 @@
 		print json_encode($postedData);
 	}
 
-	function deleteIncomeItem () {
+	function deleteExpenseItem () {
 		$db = new DB();
 		$delid = json_decode(file_get_contents('php://input'), TRUE);
 
 		// prepare sql statement
-		$statement = $db->Inst()->prepare("DELETE FROM income where id=:delid");
+		$statement = $db->Inst()->prepare("DELETE FROM expense where id=:delid");
 		$statement->bindParam(':delid', $delid, PDO::PARAM_INT);
 		$statement->execute();
 

@@ -5,10 +5,10 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th class="tcol1">予算の分類</th>
-				<th class="tcol2">予算額</th>
+				<th class="tcol1">分類</th>
+				<th class="tcol2">金額（円）</th>
 				<th class="tcol3">メモ</th>
-				<th class="tcol4">削除</th>	
+				<th class="tcol4">保存/削除</th>	
 			</tr>
 		</thead>
 	</table>
@@ -25,7 +25,7 @@
 	<table class="table">
 		<tfoot>
 			<tr>
-				<td class="tcol2">予算の合計</td>
+				<td class="tcol2">予算の合計金額</td>
 				<td class="tcol3"><div id="badget-sum"></div></td>
 				<td class="tcol4"><button type="button" class="btn btn-primary" id="save">保存</button></td>	
 			</tr>

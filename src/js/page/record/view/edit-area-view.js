@@ -4,6 +4,7 @@ define([
 	'page/record/model/income-model',
 	'page/record/model/expense-model',
 	'page/record/view/table-item-view',
+	'page/record/view/edit-area-detail-view',
 	'text!page/record/template/edit-area.template'
 ], function (
 	$,
@@ -11,25 +12,31 @@ define([
 	IncomeModel,
 	ExpenseModel,
 	TableItemView,
+	DetailView,
 	template
 ) {
-return EditView = Backbone.View.extend({
+return EditAreaView = Backbone.View.extend({
 	template_: null,
-	editItemViews_: [],
+	incomeItemViews_: [],
+	expenseItemViews_: [],
 	initialize: function(opts) {
 		this.elSelector_ = opts.elSelector;
 		this.template_ = _.template(template);
+		this.detailView_ = new DetailView({elSelector: '#detail'});
 		this.selector_ = 'income';
 	},
 	events: {
-		'click #selector > label > input': 'clickOnSelector_'
+		'click #selector > label > input': 'clickOnSelector_',
+		'click #close-button': 'clickOnCloseButton_'
 	},
 	render: function () {
 		this.setElement(this.elSelector_);
+
 		$(this.elSelector_).attr('showing', true);
 		this.$el.html(this.template_({month: this.date_.month, date: this.date_.date}));
 		this.adjustAreaHight();	
 
+		this.updateDetailValue_();
 		this.updateTableItems_();
 	},
 
@@ -45,34 +52,80 @@ return EditView = Backbone.View.extend({
 		this.expenseItems_ = ctx.expenseItems_;
 	},
 
-	prepareTableItems: function () {
-		this.editItemViews_ = [];
-
-		if (this.selector_ === 'income') {
-			_.each(this.incomeItems_.models, (item) => {
-				const view = new TableItemView(item);
-				this.editItemViews_.push(view);
-			});
-		} else {
-			_.each(this.expenseItems_.models, (item) => {
-				const view = new TableItemView(item);
-				this.editItemViews_.push(view);
-			});
-		}
-
-		while (this.editItemViews_.length < 8) {
-			const model = this.selector_ === 'income' ? new IncomeModel() : new ExpenseModel();
-			const view = new TableItemView(model);
-			this.editItemViews_.push(view);
-		}	
+	unsetCtx: function () {
+		this.date_ = null;
+		this.incomeItems_ = null;
+		this.expenseItems_ = null;
 	},
 
 	updateTableItems_: function () {
-		this.prepareTableItems();
-		$('#edit-tbody').empty();
-		_.each((this.editItemViews_), (view) => {
-			$('#edit-tbody').append(view.render());
+		return $.when(
+			this.prepareTableItemViewsForIncome_(),
+			this.prepareTableItemViewsForExpense_()
+		)
+		.then(() => {
+			$('#edit-tbody').empty();
+			const dispViews = this.selector_ === 'income' ? this.incomeItemViews_ : this.expenseItemViews_;
+			_.each((dispViews), (view) => {
+				$('#edit-tbody').append(view.render());
+			});	
 		});
+	},
+
+	prepareTableItemViewsForIncome_: function () {
+		const dfd = $.Deferred();
+		this.incomeItemViews_ = [];
+
+		$.when(this.incomeItems_.fetch())
+		.then(() => {
+			_.each(this.incomeItems_.models, (model) => {
+				const view = new TableItemView(model);
+				this.listenTo(view, 'updatedValue', this.updateDetailValue_);
+				this.listenTo(view, 'clickedSaveIcon', this.notifyClickedSaveIcon_);
+				this.incomeItemViews_.push(view);
+			});
+
+			while(this.incomeItems_.length < 8) {
+				const model = new IncomeModel();
+				this.incomeItems_.add(model);
+				const view = new TableItemView(model);
+				this.listenTo(view, 'updatedValue', this.updateDetailValue_);
+				this.listenTo(view, 'clickedSaveIcon', this.notifyClickedSaveIcon_);
+				this.incomeItemViews_.push(view);
+			}
+
+			dfd.resolve();
+		});
+
+		return dfd.promise();
+	},
+
+	prepareTableItemViewsForExpense_: function () {
+		const dfd = $.Deferred();
+		this.expenseItemViews_ = [];
+
+		$.when(this.expenseItems_.fetch())
+		.then(() => {
+			_.each(this.expenseItems_.models, (model) => {
+				const view = new TableItemView(model);
+				this.listenTo(view, 'updatedValue', this.updateDetailValue_);
+				this.listenTo(view, 'clickedSaveIcon', this.notifyClickedSaveIcon_);
+				this.expenseItemViews_.push(view);
+			});
+
+			while(this.expenseItems_.length < 8) {
+				const model = new ExpenseModel();
+				this.expenseItems_.add(model);
+				const view = new TableItemView(model);
+				this.listenTo(view, 'updatedValue', this.updateDetailValue_);
+				this.listenTo(view, 'clickedSaveIcon', this.notifyClickedSaveIcon_);
+				this.expenseItemViews_.push(view);
+			}
+
+			dfd.resolve();
+		});
+
+		return dfd.promise();
 	},
 
 	clickOnSelector_: function (eve) {
@@ -87,6 +140,25 @@ return EditView = Backbone.View.extend({
 
 	isChangedSelector_: function (value) {
 		return this.selector_ !== value;
+	},
+
+	updateDetailValue_: function () {
+		this.detailView_.setValue({
+			income: this.incomeItems_.getTotalValue(),
+			expense: this.expenseItems_.getTotalValue()
+		});
+		this.detailView_.render();
+	},
+
+	clickOnCloseButton_: function () {
+		$(this.elSelector_).attr('showing', false);
+		this.$el.empty();
+
+		this.trigger('hiddenEditView');
+	},
+
+	notifyClickedSaveIcon_: function () {
+		this.trigger('clickedSaveIcon', this.date_);
 	}
 });
 });

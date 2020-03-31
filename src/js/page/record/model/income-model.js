@@ -9,12 +9,30 @@ define([
 	Backbone,
 	ModelBase
 ) {
-return BadgetItem = ModelBase.extend({
+return IncomeModel = ModelBase.extend({
 	urlRoot: 'src/php/income.php',
 	defaults: {
-		class: '',
+		category: '',
 		value: 0,
-		memo: ''
+		memo: '',
+		date: ''
+	},
+	initialize: function (attr) {
+		if (attr) {
+			this.set({
+				'category': attr.category ? attr.category : '',
+				'value': attr.value ? attr.value : 0,
+				'memo': attr.memo ? attr.memo : '',
+				'date': attr.date ? attr.date : ''
+			});
+		}
+	},
+
+	clearAttrExceptDate: function () {
+		const dateStr = this.get('date');
+		this.clear();
+		this.attributes = _.clone(this.defaults);
+		this.set({'date': dateStr});
 	}
 });
 });

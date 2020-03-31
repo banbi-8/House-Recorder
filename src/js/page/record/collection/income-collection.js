@@ -8,11 +8,11 @@ define([
 	$,
 	_,
 	Backbone,
-	IncomeItem,
+	IncomeModel,
 	CollectionBase
 ) {
 return IncomeItems = CollectionBase.extend({
-	model: IncomeItem,
+	model: IncomeModel,
 	initialize: function (attr) {
 		this.date_ = attr.date;
 	},
@@ -29,7 +29,7 @@ return IncomeItems = CollectionBase.extend({
 		.then((attrs) => {
 			_.each((attrs), (attr) => {
 				attr.value = Number(attr.value);
-				this.add(new IncomeItem(attr));
+				this.add(new IncomeModel(attr));
 			});
 		});
 	},
@@ -57,6 +57,14 @@ return IncomeItems = CollectionBase.extend({
 		needsSave = needsSave && (model.get('date') !== '') ? true : false;
 
 		return needsSave;
+	},
+	getTotalValue: function () {
+		let res = 0;
+		_.each(this.models, (model) => {
+			res += model.get('value');
+		});
+
+		return res;
 	}
 });
 });

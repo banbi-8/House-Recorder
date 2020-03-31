@@ -19,7 +19,7 @@ return IncomeItems = CollectionBase.extend({
 	fetch: function () {	
 		this.reset();	
 		return $.get({
-			url: 'src/php/income.php',
+			url: 'src/php/expense.php',
 			dataType: 'json',
 			data: {date: `${this.date_.year}/${this.date_.month}/${this.date_.date}`},
 			success: function (attrs) {
@@ -57,6 +57,14 @@ return IncomeItems = CollectionBase.extend({
 		needsSave = needsSave && (model.get('date') !== '') ? true : false;
 
 		return needsSave;
+	},
+	getTotalValue: function () {
+		let res = 0;
+		_.each(this.models, (model) => {
+			res += model.get('value');
+		});
+
+		return res;
 	}
 });
 });

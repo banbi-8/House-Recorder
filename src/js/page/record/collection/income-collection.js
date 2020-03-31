@@ -57,6 +57,14 @@ return IncomeItems = CollectionBase.extend({
 		needsSave = needsSave && (model.get('date') !== '') ? true : false;
 
 		return needsSave;
+	},
+	getTotalValue: function () {
+		let res = 0;
+		_.each(this.models, (model) => {
+			res += model.get('value');
+		});
+
+		return res;
 	}
 });
 });

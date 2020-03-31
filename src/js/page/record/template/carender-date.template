@@ -2,4 +2,4 @@
 	<span><%= date %></span>
 	<i class="fas fa-edit icon icon-color" id="edit"></i>
 </div>
-<div id="value"> <%= value %> 円</div>
+<div id="value"><%= value %> 円</div>

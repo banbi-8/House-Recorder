@@ -37,7 +37,10 @@ return CarenderView = Backbone.View.extend({
 		)
 		.then(() => {
 			const date = this.date_.date > 0 && this.date_.date <= this.th_ ? String(this.date_.date) : '';
-			this.$el.append(this.template_({date: date, value: 200}));
+			const incomeTotal = this.incomeItems_.getTotalValue();
+			const expenseTotal = this.expenseItems_.getTotalValue();
+			const value = incomeTotal - expenseTotal;
+			this.$el.append(this.template_({date: date, value: value}));
 			if (date === '') {
 				this.$('#edit').attr('hidden', true);
 				this.$('#value').attr('hidden', true);

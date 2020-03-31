@@ -9,6 +9,7 @@ html, body , .app {
 
 .header-area {
 	height: 15%;
+	padding-top: 20px;
 }
 
 .contents-area {
@@ -172,6 +173,15 @@ html, body , .app {
 	border-radius: 9px;
 }
 
+.record-content .content .edit-area[showing=true] > .edit-area-header > span {
+	font-size: 1.75em;
+}
+
+.record-content .content .edit-area[showing=true] > .edit-area-header > #close-button {
+	float: right;
+	margin-right: 20px;
+}
+
 .record-content .content .edit-area[showing=true] > #detail {
 	margin: 20px 0 20px auto;
 	width: 50%;
@@ -181,7 +191,9 @@ html, body , .app {
 	width: 50%;
 }
 
-.record-content .content .edit-area[showing=true] > .table-container {
+.record-content .content .edit-area[showing=true] > #detail > h4 > #value {
+	float: right;
+	margin-right: 20px;
 }
 
 /* transition content style */

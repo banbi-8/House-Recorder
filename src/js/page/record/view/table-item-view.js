@@ -28,18 +28,25 @@ return TableItemView = Backbone.View.extend({
 		return this.$el.html(this.template_(this.model_.attributes));
 	},
 
+	getModelCid: function () {
+		return this.model_.cid;
+	},
+
 	updateModelWithInputValue: function (eve) {
 		const key = eve.target.id;
 		let value = eve.target.innerHTML;
 
 		if (key === 'value') {
-			value = Number(value);
+			this.model_.set({[key]: Number(value)});
+			this.trigger('updatedValue');
+		} else {
+			this.model_.set({[key]: value});
 		}
-		this.model_.set({[key]: value});
 	},
 
 	clickOnSaveIcon: function () {
 		this.model_.save();
+		this.trigger('clickedSaveIcon');
 	},
 
 	clickOnTrashIcon: function () {

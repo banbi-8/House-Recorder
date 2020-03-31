@@ -24,6 +24,8 @@ return RecordView = Backbone.View.extend({
 
 		this.listenTo(this.mSelectorView_, 'changedMonth', this.render);
 		this.listenTo(this.carenderView_, 'showEditView', this.showEditView_);
+		this.listenTo(this.editView_, 'clickedSaveIcon', this.updateTotalValueByClickedSaveButton_);
+		this.listenTo(this.editView_, 'hiddenEditView', this.hiddenEditView_);
 	},
 
 	entry: function () {
@@ -45,6 +47,15 @@ return RecordView = Backbone.View.extend({
 		this.carenderView_.shrink();
 
 		this.editView_.render();
+	},
+
+	hiddenEditView_: function () {
+		this.editView_.unsetCtx();
+		this.carenderView_.expand();
+	},
+
+	updateTotalValueByClickedSaveButton_: function (date) {
+		console.log(date);
 	}
 });
 });

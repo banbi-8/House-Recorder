@@ -1,9 +1,9 @@
 define([
 	'jquery',
 	'backbone',
-	'util/db',
-	'util/session',
-	'util/util',
+	'common/db',
+	'common/session',
+	'common/util',
 	'text!page/login/template/login.template'
 ], function (
 	$,

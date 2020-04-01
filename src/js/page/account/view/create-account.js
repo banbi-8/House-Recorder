@@ -1,8 +1,8 @@
 define([
 	'jquery',
 	'backbone',
-	'util/db',
-	'util/util',
+	'common/db',
+	'common/util',
 	'text!page/account/template/create-account.template'
 ], function (
 	$,

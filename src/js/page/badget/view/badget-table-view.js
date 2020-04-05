@@ -3,12 +3,15 @@ define([
 	'backbone',
 	'page/badget/model/badget-item-model',
 	'page/badget/view/badget-table-item-view',
+	'common/mediator',
 	'text!page/badget/template/badget-table.template'
 ], function (
 	$,
 	Backbone,
 	BadgetTableItem,
 	BadgetTableItemView,
+	// var
+	mediator,
 	template
 ) {
 return BadgetTableView = Backbone.View.extend({
@@ -20,12 +23,23 @@ return BadgetTableView = Backbone.View.extend({
 		this.items_ = opts.items;
 		this.template_ = _.template(template);
 
-		this.listenTo(this.items_, 'updatedValue', this.setBadgetSum_);
+		mediator.addView('badgetTableView', this);
 	},
 
 	events: {
 		'click #plus-button': 'addListItem_',
 		'click #save': 'saveBadgetItems_'
+	},
+
+	receive: function (event, opt_data) {
+		switch (event) {
+			case 'destroy':
+				this.removeView_(opt_data.cid);
+				break;
+			case 'updatedItemValue':
+				this.setBadgetSum_();
+				break;
+		}
 	},
 
 	// public
@@ -80,13 +94,13 @@ return BadgetTableView = Backbone.View.extend({
 		$('tfoot #badget-sum').html(sum + ' 円');
 	},
 
-	removeView_: function (eve) {
-		const delView = this.findItemViewWithCid_(eve.cid);
+	removeView_: function (cid) {
+		const delView = this.findItemViewWithModelCid_(cid);
 		this.views_ = _.without(this.views_, delView);
 		this.render();
 	},
 
-	findItemViewWithCid_: function (cid) {
+	findItemViewWithModelCid_: function (cid) {
 		return _.find(this.views_, (view) => {
 			return view.model.cid === cid;
 		});
@@ -98,8 +112,6 @@ return BadgetTableView = Backbone.View.extend({
 			const itemView = new BadgetTableItemView(item);
 
 			this.views_.push(itemView);
-
-			this.listenTo(item, 'destroy', this.removeView_);
 		});
 
 		while (this.items_.length < 20) {
@@ -108,8 +120,6 @@ return BadgetTableView = Backbone.View.extend({
 			
 			this.items_.add(item);
 			this.views_.push(itemView);
-
-			this.listenTo(item, 'destroy', this.removeView_);
 		}	
 	},
 });

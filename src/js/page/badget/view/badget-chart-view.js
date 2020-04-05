@@ -2,12 +2,15 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'chart'
+	'chart',
+	'common/mediator'
 ], function (
 	$,
 	_,
 	Backbone,
-	Chart
+	Chart,
+	// var
+	mediator
 ) {
 return BadgetChartView = Backbone.View.extend({
 	elSelector_: null,
@@ -42,9 +45,7 @@ return BadgetChartView = Backbone.View.extend({
 			}
 		});
 		this.chart_.displayingIDs = [];
-
-		this.listenTo(this.items_, 'updatedValue', this.updateChartContext_);
-		this.listenTo(this.items_, 'destroy', this.removeChartContext_);
+		mediator.addView('badgetChartView', this);
 	},
 
 	render: function () {
@@ -52,6 +53,17 @@ return BadgetChartView = Backbone.View.extend({
 		this.$el.html(this.template_);
 		this.resetContext();
 		this.updateChartContext_();
+	},
+
+	receive: function (event, opt_data) {
+		switch (event) {
+			case 'destroy':
+				this.removeChartContext_(opt_data.cid);
+				break;
+			case 'updatedItemValue':
+				this.updateChartContext_();
+				break;
+		}
 	},
 
 	updateChartContext_: function () {
@@ -78,8 +90,8 @@ return BadgetChartView = Backbone.View.extend({
 		this.chart_.update();
 	},
 
-	removeChartContext_: function (eve) {
-		const index = this.chart_.displayingIDs.indexOf(eve.cid);
+	removeChartContext_: function (cid) {
+		const index = this.chart_.displayingIDs.indexOf(cid);
 		this.chart_.displayingIDs.splice(index, 1);
 		this.chart_.data.labels.splice(index, 1);
 		this.chart_.data.datasets[0].data.splice(index, 1);

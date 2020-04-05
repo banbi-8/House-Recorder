@@ -2,12 +2,15 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'page/common/model/model-base'
+	'page/common/model/model-base',
+	'common/mediator',
 ], function (
 	$,
 	_,
 	Backbone,
-	ModelBase
+	ModelBase,
+	// var
+	mediator
 ) {
 return BadgetItem = ModelBase.extend({
 	urlRoot: 'src/php/badget.php',
@@ -23,5 +26,10 @@ return BadgetItem = ModelBase.extend({
 	isValid: function () {
 		return this.get('name') !== '' && this.get('value') !== null;
 	},
+	destroy: function () {
+		Backbone.Model.prototype.destroy.call(this, {data: this.id});
+		mediator.send('destroy', 'badgetTableView', {cid: this.cid});
+		mediator.send('destroy', 'badgetChartView', {cid: this.cid});
+	}
 });
 });

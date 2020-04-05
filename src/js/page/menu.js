@@ -1,9 +1,11 @@
 define([
 	'jquery',
+	'underscore',
 	'backbone',
 	'text!templates/menu.template'
 ], function (
 	$,
+	_,
 	Backbone,
 	template
 ) {
@@ -12,7 +14,7 @@ return MenuView = Backbone.View.extend({
 	template_: null,
 	selectedTabID: 'home',
 	initialize: function() {
-		this.template_ = template;
+		this.template_ = _.template(template);
 	},
 	render: function () {
 		this.$el.append(this.template_);

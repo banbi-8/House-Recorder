@@ -56,11 +56,9 @@ return CarenderView = Backbone.View.extend({
 
 	clickOnEditButton: function () {
 		mediator.send('clickOnEditButton', 'recordView', {
-			data: {
-				date: this.date_,
-				incomeItems: this.incomeItems_,
-				expenseItems: this.expenseItems_
-			}
+			date: this.date_,
+			incomeItems: this.incomeItems_,
+			expenseItems: this.expenseItems_
 		});
 	}
 });

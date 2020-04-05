@@ -13,8 +13,8 @@ Mediator = Backbone.View.extend({
 	addView: function (name, view) {
 		this.views[name] = view;
 	},
-	send: function (event, to, opts) {
-		this.views[to].receive(event, opts);
+	send: function (event, to, opt_data) {
+		this.views[to].receive(event, opt_data);
 	}
 });
 

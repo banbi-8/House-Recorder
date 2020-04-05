@@ -32,10 +32,10 @@ return RecordView = Backbone.View.extend({
 	events: {
 	},
 
-	receive: function (event, opts) {
+	receive: function (event, opt_data) {
 		switch (event) {
 			case 'clickOnEditButton':
-				this.showEditView_(opts.data);
+				this.showEditView_(opt_data);
 				break;
 			case 'clickOnEditAreaViewCloseButton':
 				this.closeEditView_();

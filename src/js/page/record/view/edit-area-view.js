@@ -36,7 +36,7 @@ return EditAreaView = Backbone.View.extend({
 		'click #close-button': 'clickOnEditAreaViewCloseButton_'
 	},
 
-	receive: function (event, opts) {
+	receive: function (event, opt_data) {
 		switch (event) {
 			case 'updatedItemValue':
 				this.updateDetailValue_();

@@ -4,13 +4,16 @@ define([
 	'page/common/view/month-selector',
 	'page/record/view/carender-view',
 	'page/record/view/edit-area-view',
-	'text!page/record/template/record.template'
+	'common/mediator',
+	'text!page/record/template/record.template',
 ], function (
 	$,
 	Backbone,
 	MSelectorView,
 	CarenderView,
 	EditView,
+	// var
+	mediator,
 	template
 ) {
 return RecordView = Backbone.View.extend({
@@ -19,38 +22,44 @@ return RecordView = Backbone.View.extend({
 	initialize: function() {
 		this.mSelectorView_ = new MSelectorView({elSelector: '.mselector-line'});
 		this.carenderView_ = new CarenderView({elSelector: '.carender-container', date: this.mSelectorView_.getDate()});
-		this.editView_ = new EditView({elSelector: '.edit-area'});
+		this.editAreaView_ = new EditView({elSelector: '.edit-area'});
 		this.template_ = template;
+		mediator.addView('recordView', this);
 
 		this.listenTo(this.mSelectorView_, 'changedMonth', this.render);
-		this.listenTo(this.carenderView_, 'showEditView', this.showEditView_);
-		this.listenTo(this.editView_, 'clickedSaveIcon', this.updateTotalValueByClickedSaveButton_);
-		this.listenTo(this.editView_, 'hiddenEditView', this.hiddenEditView_);
-	},
-
-	entry: function () {
-		this.$el.append(this.template_);
-		this.mSelectorView_.render();
-
-		this.render();
 	},
 
 	events: {
 	},
 
+	receive: function (event, opts) {
+		switch (event) {
+			case 'clickOnEditButton':
+				this.showEditView_(opts.data);
+				break;
+			case 'clickOnEditAreaViewCloseButton':
+				this.closeEditView_();
+				break;
+			case 'clickOnEditItemViewSaveIcon':
+				this.updateTotalValueByClickedSaveButton_();
+				break;
+		}
+	},
+
 	render: function () {
+		this.$el.html(this.template_);
+		this.mSelectorView_.render();
 		this.carenderView_.render();
 	},
 
-	showEditView_: function (selecteDateView) {
-		this.editView_.setCtx(selecteDateView);
+	showEditView_: function (ctx) {
+		this.editAreaView_.setCtx(ctx);
 		this.carenderView_.shrink();
-
-		this.editView_.render();
+		this.editAreaView_.render();
 	},
 
-	hiddenEditView_: function () {
-		this.editView_.unsetCtx();
+	closeEditView_: function () {
+		this.editAreaView_.unsetCtx();
 		this.carenderView_.expand();
 	},
 

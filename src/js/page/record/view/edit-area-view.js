@@ -5,6 +5,7 @@ define([
 	'page/record/model/expense-model',
 	'page/record/view/table-item-view',
 	'page/record/view/edit-area-detail-view',
+	'common/mediator',
 	'text!page/record/template/edit-area.template'
 ], function (
 	$,
@@ -13,6 +14,8 @@ define([
 	ExpenseModel,
 	TableItemView,
 	DetailView,
+	// var
+	mediator,
 	template
 ) {
 return EditAreaView = Backbone.View.extend({
@@ -24,11 +27,23 @@ return EditAreaView = Backbone.View.extend({
 		this.template_ = _.template(template);
 		this.detailView_ = new DetailView({elSelector: '#detail'});
 		this.selector_ = 'income';
+
+		mediator.addView('editAreaView', this);
 	},
+
 	events: {
 		'click #selector > label > input': 'clickOnSelector_',
-		'click #close-button': 'clickOnCloseButton_'
+		'click #close-button': 'clickOnEditAreaViewCloseButton_'
 	},
+
+	receive: function (event, opts) {
+		switch (event) {
+			case 'updatedItemValue':
+				this.updateDetailValue_();
+				break;
+		}
+	},
+
 	render: function () {
 		this.setElement(this.elSelector_);
 
@@ -47,9 +62,9 @@ return EditAreaView = Backbone.View.extend({
 	},
 
 	setCtx: function (ctx) {
-		this.date_ = ctx.date_;
-		this.incomeItems_ = ctx.incomeItems_;
-		this.expenseItems_ = ctx.expenseItems_;
+		this.date_ = ctx.date;
+		this.incomeItems_ = ctx.incomeItems;
+		this.expenseItems_ = ctx.expenseItems;
 	},
 
 	unsetCtx: function () {
@@ -74,23 +89,20 @@ return EditAreaView = Backbone.View.extend({
 
 	prepareTableItemViewsForIncome_: function () {
 		const dfd = $.Deferred();
+		const dateStr = `${this.date_.year}/${this.date_.month}/${this.date_.date}`;
 		this.incomeItemViews_ = [];
 
 		$.when(this.incomeItems_.fetch())
 		.then(() => {
 			_.each(this.incomeItems_.models, (model) => {
 				const view = new TableItemView(model);
-				this.listenTo(view, 'updatedValue', this.updateDetailValue_);
-				this.listenTo(view, 'clickedSaveIcon', this.notifyClickedSaveIcon_);
 				this.incomeItemViews_.push(view);
 			});
 
 			while(this.incomeItems_.length < 8) {
-				const model = new IncomeModel();
+				const model = new IncomeModel({date: dateStr});
 				this.incomeItems_.add(model);
 				const view = new TableItemView(model);
-				this.listenTo(view, 'updatedValue', this.updateDetailValue_);
-				this.listenTo(view, 'clickedSaveIcon', this.notifyClickedSaveIcon_);
 				this.incomeItemViews_.push(view);
 			}
 
@@ -102,23 +114,20 @@ return EditAreaView = Backbone.View.extend({
 
 	prepareTableItemViewsForExpense_: function () {
 		const dfd = $.Deferred();
+		const dateStr = `${this.date_.year}/${this.date_.month}/${this.date_.date}`;
 		this.expenseItemViews_ = [];
 
 		$.when(this.expenseItems_.fetch())
 		.then(() => {
 			_.each(this.expenseItems_.models, (model) => {
 				const view = new TableItemView(model);
-				this.listenTo(view, 'updatedValue', this.updateDetailValue_);
-				this.listenTo(view, 'clickedSaveIcon', this.notifyClickedSaveIcon_);
 				this.expenseItemViews_.push(view);
 			});
 
 			while(this.expenseItems_.length < 8) {
-				const model = new ExpenseModel();
+				const model = new ExpenseModel({date: dateStr});
 				this.expenseItems_.add(model);
 				const view = new TableItemView(model);
-				this.listenTo(view, 'updatedValue', this.updateDetailValue_);
-				this.listenTo(view, 'clickedSaveIcon', this.notifyClickedSaveIcon_);
 				this.expenseItemViews_.push(view);
 			}
 
@@ -150,15 +159,11 @@ return EditAreaView = Backbone.View.extend({
 		this.detailView_.render();
 	},
 
-	clickOnCloseButton_: function () {
+	clickOnEditAreaViewCloseButton_: function () {
 		$(this.elSelector_).attr('showing', false);
 		this.$el.empty();
 
-		this.trigger('hiddenEditView');
-	},
-
-	notifyClickedSaveIcon_: function () {
-		this.trigger('clickedSaveIcon', this.date_);
+		mediator.send('clickOnEditAreaViewCloseButton', 'recordView');
 	}
 });
 });

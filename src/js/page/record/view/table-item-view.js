@@ -2,11 +2,14 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
+	'common/mediator',
 	'text!page/record/template/record-table-item.template'
 ], function (
 	$,
 	_,
 	Backbone,
+	// var
+	mediator,
 	template
 ) {
 return TableItemView = Backbone.View.extend({
@@ -38,15 +41,15 @@ return TableItemView = Backbone.View.extend({
 
 		if (key === 'value') {
 			this.model_.set({[key]: Number(value)});
-			this.trigger('updatedValue');
+			mediator.send('updatedItemValue', 'editAreaView');
 		} else {
 			this.model_.set({[key]: value});
 		}
 	},
 
 	clickOnSaveIcon: function () {
-		this.model_.save();
-		this.trigger('clickedSaveIcon');
+		this.model_.save()
+		.then(() => mediator.send('clickOnEditItemViewSaveIcon', 'recordView'));
 	},
 
 	clickOnTrashIcon: function () {

@@ -5,6 +5,7 @@ define([
 	'page/common/view/month-selector',
 	'page/badget/view/badget-chart-view',
 	'page/badget/view/badget-table-view',
+	'common/mediator',
 	'text!page/badget/template/badget.template',
 	// no var
 	'bootstrap',
@@ -15,6 +16,8 @@ define([
 	MSelectorView,
 	BadgetChartView,
 	BadgetTableView,
+	// var
+	mediator,
 	template,
 ) {
 return BadgetView = Backbone.View.extend({

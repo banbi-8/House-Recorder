@@ -66,7 +66,7 @@ return AppRouter = Backbone.Router.extend({
 	},
 	showRecordContent: function () {
 		this.removeContents();
-		this.recordView.entry();
+		this.recordView.render();
 	},
 	showTransitionContent: function () {
 		this.removeContents();

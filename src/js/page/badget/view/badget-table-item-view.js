@@ -2,11 +2,14 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
+	'common/mediator',
 	'text!page/badget/template/badget-table-item.template'
 ], function (
 	$,
 	_,
 	Backbone,
+	// var
+	mediator,
 	template
 ) {
 return BadgetTableItemView = Backbone.View.extend({
@@ -33,7 +36,8 @@ return BadgetTableItemView = Backbone.View.extend({
 
 		if (key === 'value') {
 			this.model.set({[key]: Number(value)});
-			this.model.trigger('updatedValue');
+			mediator.send('updatedItemValue', 'badgetTableView');
+			mediator.send('updatedItemValue', 'badgetChartView');
 		} else {
 			this.model.set({[key]: value});
 		}

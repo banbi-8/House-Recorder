@@ -1,11 +1,13 @@
 define([
 	'jquery',
+	'underscore',
 	'backbone',
 	'common/db',
 	'common/util',
 	'text!page/account/template/create-account.template'
 ], function (
 	$,
+	_,
 	Backbone,
 	DB,
 	Util,
@@ -15,7 +17,7 @@ return CreateAccountView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		this.template_ = template;
+		this.template_ = _.template(template);
 	},
 	events: {
 		'click #create-user': 'createUser',

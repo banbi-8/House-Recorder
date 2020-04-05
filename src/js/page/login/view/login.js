@@ -1,5 +1,6 @@
 define([
 	'jquery',
+	'underscore',
 	'backbone',
 	'common/db',
 	'common/session',
@@ -7,6 +8,7 @@ define([
 	'text!page/login/template/login.template'
 ], function (
 	$,
+	_,
 	Backbone,
 	DB,
 	Session,
@@ -17,7 +19,7 @@ return LoginView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
-		this.template_ = template;
+		this.template_ = _.template(template);
 	},
 	events: {
 		'click #login': 'login_',

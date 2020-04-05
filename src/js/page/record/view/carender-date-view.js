@@ -4,7 +4,7 @@ define([
 	'backbone',
 	'page/record/collection/income-collection',
 	'page/record/collection/expense-collection',
-	'page/record/view/edit-area-view',
+	'common/mediator',
 	'text!page/record/template/carender-date.template'	
 ], function (
 	$,
@@ -12,7 +12,8 @@ define([
 	Backbone,
 	IncomeItems,
 	ExpenseItems,
-	EditView,
+	// var
+	mediator,
 	template
 ) {
 return CarenderView = Backbone.View.extend({
@@ -23,9 +24,9 @@ return CarenderView = Backbone.View.extend({
 		this.th_ = arg.th;
 
 		this.template_ = _.template(template);
-		this.editView_ = new EditView({elSelector: '.edit-area'});
 		this.incomeItems_ = new IncomeItems({date: this.date_});
 		this.expenseItems_ = new ExpenseItems({date: this.date_});
+		mediator.addView('carenderDateView', this);
 	},
 
 	render: function () {
@@ -54,7 +55,11 @@ return CarenderView = Backbone.View.extend({
 	},
 
 	clickOnEditButton: function () {
-		this.trigger('clickedEditButton', this.cid);
+		mediator.send('clickOnEditButton', 'recordView', {
+			date: this.date_,
+			incomeItems: this.incomeItems_,
+			expenseItems: this.expenseItems_
+		});
 	}
 });
 });

@@ -54,7 +54,6 @@ return CarenderView = Backbone.View.extend({
 		_.each(baseArr, (week, i) => {
 			_.each(week, (date) => {
 				const view = new DateView({date: {year: this.date_.year, month: this.date_.month, date: date}, th: nowMonthLastDate});
-				this.listenTo(view, 'clickedEditButton', this.showEditArea);
 				views[i].push(view);
 			});
 		});
@@ -94,25 +93,6 @@ return CarenderView = Backbone.View.extend({
 		.done(() => {
 			$('#carender-tbody').html(dom);
 		});
-	},
-
-	showEditArea: function (cid) {
-		this.trigger('showEditView', this.findDateViewWithCid_(cid));
-	},
-
-	findDateViewWithCid_: function (cid) {
-		let res = null;
-		_.each(this.dateViews_, (week) => {
-			if (!res) {
-				_.each(week, (view) => {
-					if (view.cid === cid) {
-						res = view;
-					}
-				});
-			}
-		});
-
-		return res;
 	},
 
 	shrink: function () {

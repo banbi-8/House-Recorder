@@ -2,11 +2,14 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
+	'common/mediator',
 	'text!page/record/template/edit-area-detail.template'	
 ], function (
 	$,
 	_,
 	Backbone,
+	// var
+	mediator,
 	template
 ) {
 return EditAreaDetailView = Backbone.View.extend({
@@ -14,6 +17,8 @@ return EditAreaDetailView = Backbone.View.extend({
 	initialize: function (opts) {
 		this.elSelector_ = opts.elSelector;
 		this.template_ = _.template(template);
+
+		mediator.addView('editAreaDetail', this);
 	},
 
 	render: function () {

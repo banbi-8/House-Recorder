@@ -16,7 +16,7 @@ return TransitionView = Backbone.View.extend({
 	events: {
 	},
 	render: function () {
-		this.$el.append(this.template_);
+		this.$el.html(this.template_);
 	}
 });
 });

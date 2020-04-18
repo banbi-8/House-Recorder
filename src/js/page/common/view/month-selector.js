@@ -1,26 +1,36 @@
 define([
 	'jquery',
 	'backbone',
+	'common/date-manager',
+	'common/mediator',
 	'text!page/common/template/month-selector.template'
 ], function (
 	$,
 	Backbone,
+	// var
+	dManager,
+	mediator,
 	template
 ) {
 return mSelector = Backbone.View.extend({
 	elSelector_: null,
 	template_: null,
-	initialize: function(opts) {
-		this.elSelector_ = opts.elSelector;
+	date_: {},
+	initialize: function(ctx) {
+		this.elSelector_ = ctx.elSelector;
 		this.template_ = _.template(template);
 
-		this.setDate_();
+		const date = new Date();
+		dManager.year = date.getFullYear();
+		dManager.month = date.getMonth() + 1;
+
+		mediator.addView('monthSelectorView', this);
 	},
 
 	// public
 	render: function () {
 		this.setElement(this.elSelector_);
-		this.$el.html(this.template_(this.date));
+		this.$el.html(this.template_(dManager.dataset));
 	},
 
 	// for events
@@ -30,40 +40,28 @@ return mSelector = Backbone.View.extend({
 	},
 
 	// private
-	setDate_: function () {
-		const date = new Date();
-		this.date = {
-			year: date.getFullYear(),
-			month: date.getMonth() + 1
-		};
-	},
-
 	next: function () {
-		if (this.date.month === 12) {
-			this.date.year += 1;
-			this.date.month = 1;
+		if (dManager.month === 12) {
+			dManager.year += 1;
+			dManager.month = 1;
 		} else {
-			this.date.month += 1;
+			dManager.month += 1;
 		}
 
 		this.render();
-		this.trigger('changedMonth');
+		this.trigger('chanagedMonth');
 	},
 
 	previous: function () {
-		if (this.date.month === 1) {
-			this.date.year -= 1;
-			this.date.month = 12;
+		if (dManager.month === 1) {
+			dManager.year -= 1;
+			dManager.month = 12;
 		} else {
-			this.date.month -= 1;
+			dManager.month -= 1;
 		}
 
 		this.render();
-		this.trigger('changedMonth');
-	},
-
-	getDate: function () {
-		return this.date;
+		this.trigger('chanagedMonth');
 	}
 });
 });

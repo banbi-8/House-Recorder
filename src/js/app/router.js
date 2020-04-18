@@ -3,7 +3,7 @@ define([
 	'backbone',
 	'page/login/view/login',
 	'page/account/view/create-account',
-	'page/menu',
+	'page/common/view/header-area',
 	'page/home',
 	'page/record/view/record',
 	'page/transition',
@@ -13,7 +13,7 @@ define([
 	Backbone,
 	LoginView,
 	CreateAccountView,
-	MenuView,
+	HeaderAreaView,
 	HomeView,
 	RecordView,
 	TransitionView,
@@ -24,8 +24,9 @@ return AppRouter = Backbone.Router.extend({
 		this.loginView = new LoginView();
 		this.createAccountView = new CreateAccountView();
 
-		this.showLoginContent();
+		this.start();
 	},
+
 	routes: {
 		'login': 'showLoginContent',
 		'create_account': 'showCreateAccountContent',
@@ -34,47 +35,48 @@ return AppRouter = Backbone.Router.extend({
 		'transition': 'showTransitionContent',
 		'badget': 'showBadgetContent'
 	},
+
+	start: function () {
+		this.showLoginContent();
+	},
+
 	prepareContentViews: function () {
 		if (!this.homeView) { this.homeView = new HomeView(); }
-		if (!this.menuView) { this.menuView = new MenuView(); }
+		if (!this.headerAreaView) { this.headerAreaView = new HeaderAreaView(); }
 		if (!this.badgetView) { this.badgetView = new BadgetView(); }
 		if (!this.recordView) { this.recordView = new RecordView(); }
 		if (!this.transitionView) { this.transitionView = new TransitionView(); }
 	},
-	removeHeaderContents: function() {
-		$('.header-area').empty();
-	},
-	removeContents: function() {
-		$('.contents-area').empty();
-	},
+
 	showLoginContent: function () {
-		this.removeHeaderContents();
-		this.removeContents();
+		$('.header-area').empty();
+		$('.contents-area').empty();
 		this.loginView.render();
 	},
+
 	showCreateAccountContent: function () {
-		this.removeContents();
+		$('.contents-area').empty();
 		this.createAccountView.render();
 	},
+
 	showHomeContent: function () {
 		this.prepareContentViews();
 		
-		this.removeHeaderContents();
-		this.removeContents();
-		this.menuView.render();
+		$('.header-area').empty();
+		this.headerAreaView.render();
 		this.homeView.render();
 	},
+
 	showRecordContent: function () {
-		this.removeContents();
 		this.recordView.render();
 	},
+
 	showTransitionContent: function () {
-		this.removeContents();
 		this.transitionView.render();	
 	},
+
 	showBadgetContent: function () {
-		this.removeContents();
-		this.badgetView.entry();
+		this.badgetView.render();
 	}
 });
 });

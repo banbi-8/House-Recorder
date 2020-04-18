@@ -3,18 +3,20 @@ define([
 	'underscore',
 	'backbone',
 	'page/record/view/carender-date-view',
+	'common/date-manager',
 	'text!page/record/template/carender.template'	
 ], function (
 	$,
 	_,
 	Backbone,
 	DateView,
+	// var
+	dManager,
 	template
 ) {
 return CarenderView = Backbone.View.extend({
 	initialize: function (opts) {
 		this.elSelector_ = opts.elSelector;
-		this.date_ = opts.date;
 		this.template_ = _.template(template);
 	},
 
@@ -26,12 +28,12 @@ return CarenderView = Backbone.View.extend({
 	},
 
 	getNowMonthLastDate: function () {
-		return new Date(this.date_.year, this.date_.month, 0).getDate();
+		return new Date(dManager.year, dManager.month, 0).getDate();
 	},
 
 	// 0: Sunday, 1: Monday ...
 	getNowMonthFirstDay: function () {
-		return new Date(this.date_.year, this.date_.month - 1, 1).getDay();
+		return new Date(dManager.year, dManager.month - 1, 1).getDay();
 	},
 
 	getCarenderBaseArr: function () {
@@ -53,7 +55,7 @@ return CarenderView = Backbone.View.extend({
 
 		_.each(baseArr, (week, i) => {
 			_.each(week, (date) => {
-				const view = new DateView({date: {year: this.date_.year, month: this.date_.month, date: date}, th: nowMonthLastDate});
+				const view = new DateView({date: {year: dManager.year, month: dManager.month, date: date}, th: nowMonthLastDate});
 				views[i].push(view);
 			});
 		});

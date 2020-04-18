@@ -8,12 +8,12 @@ html, body , .app {
 }
 
 .header-area {
-	height: 15%;
+	height: 25%;
 	padding-top: 20px;
 }
 
 .contents-area {
-	height: 85%;
+	height: 75%;
 }
 
 .icon {
@@ -40,16 +40,19 @@ html, body , .app {
 
 /* month selector style */
 .mselector-line {
-	height: 10%;
+	width: 100%;
+	margin-left: 20px;
 }
 
 .mselector-line > #mselector {
-	padding-top: 15px;
+	padding-top: 5px;
 	padding-bottom: 5px;	
 }
 
-.mselector-line > #mselector > h2 {
+.mselector-line > #mselector > * {
 	display: inline-block;
+	font-size: 24px;
+	font-weight: bold;
 }
 
 /* login content */
@@ -129,7 +132,7 @@ html, body , .app {
 }
 
 .record-content .content {
-	height: 90%;
+	height: 100%;
 	display: flex;
 	padding-bottom: 20px;
 }

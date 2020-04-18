@@ -19,7 +19,7 @@ return HomeView = Backbone.View.extend({
 	},
 
 	render: function () {
-		this.$el.append(this.template_);
+		this.$el.html(this.template_);
 	}
 });
 });

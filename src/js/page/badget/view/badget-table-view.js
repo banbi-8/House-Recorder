@@ -114,7 +114,7 @@ return BadgetTableView = Backbone.View.extend({
 			this.views_.push(itemView);
 		});
 
-		while (this.items_.length < 20) {
+		while (this.items_.length < 8) {
 			const item = new BadgetTableItem();
 			const itemView = new BadgetTableItemView(item);
 			

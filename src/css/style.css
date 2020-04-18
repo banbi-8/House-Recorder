@@ -208,13 +208,10 @@ html, body , .app {
 }
 
 /* badget content style */
-.badget-content {
+.badget-content,
+.badget-content .content {
 	height: 100%;
 	width: 100%;
-}
-
-.badget-content .content {
-	height: 90%;
 }
 
 .badget-content .table-container,
@@ -237,11 +234,6 @@ html, body , .app {
 
 .badget-content .table-container .table {
 	margin-bottom: 0;
-}
-
-.badget-content .table-container .tbody {
-	height: 400px;
-	overflow: auto;
 }
 
 .table-container .tbody {

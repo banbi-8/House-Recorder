@@ -49,13 +49,13 @@ return EditAreaView = Backbone.View.extend({
 
 		$(this.elSelector_).attr('showing', true);
 		this.$el.html(this.template_({month: this.date_.month, date: this.date_.date}));
-		this.adjustAreaHight();	
+		this.adjustAreaHeight();	
 
 		this.updateDetailValue_();
 		this.updateTableItems_();
 	},
 
-	adjustAreaHight: function () {
+	adjustAreaHeight: function () {
 		const areaHight = $('.edit-area').height();
 		$('.table-container').height(areaHight - 183);
 		$('.tbody').height(areaHight - 274);

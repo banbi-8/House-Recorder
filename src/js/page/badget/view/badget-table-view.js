@@ -19,7 +19,6 @@ return BadgetTableView = Backbone.View.extend({
 	views_: [],
 	initialize: function(opts) {
 		this.elSelector_ = opts.elSelector;
-		this.date_ = opts.date;
 		this.items_ = opts.items;
 		this.template_ = _.template(template);
 
@@ -54,6 +53,7 @@ return BadgetTableView = Backbone.View.extend({
 			$('tbody').append(view.render());
 		});
 
+		this.adjustTBodyHeight();
 		this.setBadgetSum_();
 	},
 
@@ -122,5 +122,10 @@ return BadgetTableView = Backbone.View.extend({
 			this.views_.push(itemView);
 		}	
 	},
+
+	adjustTBodyHeight: function () {
+		const areaHeight = $('.table-container').height();
+		$('.tbody').height(areaHeight - 164);
+	}
 });
 });

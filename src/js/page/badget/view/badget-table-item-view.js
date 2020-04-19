@@ -22,7 +22,8 @@ return BadgetTableItemView = Backbone.View.extend({
 	
 	events: {
 		'focusout td': 'updateModelWithInputValue',
-		'click #trash': 'destroy'
+		'click #save': 'clickedOnSaveIcon',
+		'click #trash': 'clickedOnTrashIcon'
 	},
 
 	render: function () {
@@ -42,9 +43,16 @@ return BadgetTableItemView = Backbone.View.extend({
 			this.model.set({[key]: value});
 		}
 	},
+	clickedOnSaveIcon: function () {
+		this.model.save();
+	},
 
-	destroy: function () {
+	clickedOnTrashIcon: function () {
 		this.model.destroy();
+		this.model.clearAttrExceptDate();
+		this.render();
+		mediator.send('updatedItemValue', 'badgetTableView');
+		mediator.send('removeCtx', 'badgetChartView', {cid: this.model.cid});
 	}
 });
 });

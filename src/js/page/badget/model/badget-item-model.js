@@ -3,17 +3,21 @@ define([
 	'underscore',
 	'backbone',
 	'page/common/model/model-base',
-	'common/mediator',
 ], function (
 	$,
 	_,
 	Backbone,
 	ModelBase,
-	// var
-	mediator
 ) {
 return BadgetItem = ModelBase.extend({
 	urlRoot: 'src/php/badget.php',
+	defaults: {
+		name: '',
+		value: null,
+		memo: '',
+		date: ''
+	},
+
 	initialize: function (attr) {
 		this.set({
 			id: _.has(attr, 'id') ? attr.id : null,
@@ -23,13 +27,20 @@ return BadgetItem = ModelBase.extend({
 			date: _.has(attr, 'date') ? attr.date : ''
 		});
 	},
+
 	isValid: function () {
 		return this.get('name') !== '' && this.get('value') !== null;
 	},
+
+	clearAttrExceptDate: function () {
+		const dateStr = this.get('date');
+		this.clear();
+		this.attributes = _.clone(this.defaults);
+		this.set({'date': dateStr});
+	},
+
 	destroy: function () {
 		Backbone.Model.prototype.destroy.call(this, {data: this.id});
-		mediator.send('destroy', 'badgetTableView', {cid: this.cid});
-		mediator.send('destroy', 'badgetChartView', {cid: this.cid});
 	}
 });
 });

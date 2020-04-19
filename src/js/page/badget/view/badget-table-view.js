@@ -3,6 +3,7 @@ define([
 	'backbone',
 	'page/badget/model/badget-item-model',
 	'page/badget/view/badget-table-item-view',
+	'common/date-manager',
 	'common/mediator',
 	'text!page/badget/template/badget-table.template'
 ], function (
@@ -11,6 +12,7 @@ define([
 	BadgetTableItem,
 	BadgetTableItemView,
 	// var
+	dManager,
 	mediator,
 	template
 ) {
@@ -27,14 +29,10 @@ return BadgetTableView = Backbone.View.extend({
 
 	events: {
 		'click #plus-button': 'addListItem_',
-		'click #save': 'saveBadgetItems_'
 	},
 
 	receive: function (event, opt_data) {
 		switch (event) {
-			case 'destroy':
-				this.removeView_(opt_data.cid);
-				break;
 			case 'updatedItemValue':
 				this.setBadgetSum_();
 				break;
@@ -59,30 +57,11 @@ return BadgetTableView = Backbone.View.extend({
 
 	// for events
 	addListItem_: function () {
-		const item = new BadgetTableItem();
+		const item = new BadgetTableItem({date: dManager.getYMStr()});
 		const itemView = new BadgetTableItemView(item);
 
 		this.views_.add(itemView);
 		$('tbody').append(itemView.render());
-	},
-
-	saveBadgetItems_: function () {
-		const dfds = [];
-		_.each((this.items_.models), (item) => {
-			if (item.isValid()) {
-				const dfd = $.Deferred();
-				item.set({
-					date: `${this.date_.year}/${this.date_.month}`
-				});
-				
-				$.when(item.save())
-				.then(() => dfd.resolve());
-
-				dfds.push(dfd);
-			}
-		});
-
-		return $.when.apply($, dfds);
 	},
 
 	setBadgetSum_: function () {
@@ -92,12 +71,6 @@ return BadgetTableView = Backbone.View.extend({
 			sum += view.model.get('value') !== null ? view.model.get('value') : 0;
 		});
 		$('tfoot #badget-sum').html(sum + ' 円');
-	},
-
-	removeView_: function (cid) {
-		const delView = this.findItemViewWithModelCid_(cid);
-		this.views_ = _.without(this.views_, delView);
-		this.render();
 	},
 
 	findItemViewWithModelCid_: function (cid) {
@@ -115,7 +88,7 @@ return BadgetTableView = Backbone.View.extend({
 		});
 
 		while (this.items_.length < 8) {
-			const item = new BadgetTableItem();
+			const item = new BadgetTableItem({date: dManager.getYMStr()});
 			const itemView = new BadgetTableItemView(item);
 			
 			this.items_.add(item);

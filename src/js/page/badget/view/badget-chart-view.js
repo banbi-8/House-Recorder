@@ -57,7 +57,7 @@ return BadgetChartView = Backbone.View.extend({
 
 	receive: function (event, opt_data) {
 		switch (event) {
-			case 'destroy':
+			case 'removeCtx':
 				this.removeChartContext_(opt_data.cid);
 				break;
 			case 'updatedItemValue':

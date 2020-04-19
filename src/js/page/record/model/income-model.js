@@ -13,7 +13,7 @@ return IncomeModel = ModelBase.extend({
 	urlRoot: 'src/php/income.php',
 	defaults: {
 		category: '',
-		value: 0,
+		value: null,
 		memo: '',
 		date: ''
 	},
@@ -21,7 +21,7 @@ return IncomeModel = ModelBase.extend({
 		if (attr) {
 			this.set({
 				'category': attr.category ? attr.category : '',
-				'value': attr.value ? attr.value : 0,
+				'value': attr.value ? attr.value : null,
 				'memo': attr.memo ? attr.memo : '',
 				'date': attr.date ? attr.date : ''
 			});

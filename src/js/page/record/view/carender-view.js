@@ -3,6 +3,7 @@ define([
 	'underscore',
 	'backbone',
 	'page/record/view/carender-date-view',
+	'common/util',
 	'common/date-manager',
 	'text!page/record/template/carender.template'	
 ], function (
@@ -10,6 +11,7 @@ define([
 	_,
 	Backbone,
 	DateView,
+	Util,
 	// var
 	dManager,
 	template
@@ -69,7 +71,9 @@ return CarenderView = Backbone.View.extend({
 		let dom = $();
 		this.dateViews_ = this.initDateViews_();
 
-		$.when()
+		$.when(
+			Util.spinner.show()
+		)	
 		.then(() => {
 			const dfds = [];
 
@@ -94,6 +98,7 @@ return CarenderView = Backbone.View.extend({
 		})
 		.done(() => {
 			$('#carender-tbody').html(dom);
+			Util.spinner.hide()
 		});
 	},
 

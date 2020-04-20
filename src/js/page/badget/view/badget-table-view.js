@@ -41,6 +41,7 @@ return BadgetTableView = Backbone.View.extend({
 
 	// public
 	render: function () {
+
 		this.setElement(this.elSelector_);
 
 		this.prepare_();

@@ -1,6 +1,7 @@
 define([
 	'jquery',
 	'backbone',
+	'common/util',
 	'page/badget/collection/badget-item-collection',
 	'page/badget/view/badget-chart-view',
 	'page/badget/view/badget-table-view',
@@ -12,6 +13,7 @@ define([
 ], function (
 	$,
 	Backbone,
+	Util,
 	BadgetItemCollection,
 	BadgetChartView,
 	BadgetTableView,
@@ -43,15 +45,18 @@ return BadgetView = Backbone.View.extend({
 
 	// public
 	render: function () {
+		Util.spinner.show();
 		this.$el.html(this.template_());
 
 		$.when(
+			Util.sleep(500), // no means
 			this.items_.fetch({date: dManager.dataset})
 		)
 		.done(() => {
 			this.tableView_.render();
 			this.chartView_.render();	
-		});
+		})
+		.always(() => Util.spinner.hide());
 	}
 });
 });

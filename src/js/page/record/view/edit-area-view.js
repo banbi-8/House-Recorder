@@ -89,7 +89,7 @@ return EditAreaView = Backbone.View.extend({
 
 	prepareTableItemViewsForIncome_: function () {
 		const dfd = $.Deferred();
-		const dateStr = `${this.date_.year}/${this.date_.month}/${this.date_.date}`;
+		const dateStr = `${this.date_.year}-${this.date_.month}-${this.date_.date}`;
 		this.incomeItemViews_ = [];
 
 		$.when(this.incomeItems_.fetch())
@@ -114,7 +114,7 @@ return EditAreaView = Backbone.View.extend({
 
 	prepareTableItemViewsForExpense_: function () {
 		const dfd = $.Deferred();
-		const dateStr = `${this.date_.year}/${this.date_.month}/${this.date_.date}`;
+		const dateStr = `${this.date_.year}-${this.date_.month}-${this.date_.date}`;
 		this.expenseItemViews_ = [];
 
 		$.when(this.expenseItems_.fetch())

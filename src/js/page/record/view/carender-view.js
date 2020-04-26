@@ -57,7 +57,7 @@ return CarenderView = Backbone.View.extend({
 
 		_.each(baseArr, (week, i) => {
 			_.each(week, (date) => {
-				const view = new DateView({date: {year: dManager.year, month: dManager.month, date: date}, th: nowMonthLastDate});
+				const view = new DateView({date: date, th: nowMonthLastDate});
 				views[i].push(view);
 			});
 		});

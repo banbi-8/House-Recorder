@@ -13,12 +13,12 @@ define([
 ) {
 return BadgetTableItems= CollectionBase.extend({
 	model: BadgetTableItem,
-	fetch: function (ctx) {	
+	fetch: function (opt) {	
 		this.reset();	
 		return $.get({
 			url: 'src/php/badget.php',
 			dataType: 'json',
-			data: {date: `${ctx.date.year}/${ctx.date.month}`},
+			data: {date: opt.date},
 			success: function (attrs) {
 				return attrs;
 			}
@@ -34,7 +34,7 @@ return BadgetTableItems= CollectionBase.extend({
 		const dfds = [];
 
 		_.each((this.models), (model) => {
-			if (this.needsSave(model)) {
+			if (model.canSave()) {
 				const dfd = $.Deferred();
 			
 				$.when(model.save())
@@ -45,15 +45,6 @@ return BadgetTableItems= CollectionBase.extend({
 		});
 
 		return $.when.apply($, dfds);
-	},
-	needsSave: function (model) {
-		let needsSave = true;
-
-		needsSave = model.get('name') !== '' ? true : false;
-		needsSave = needsSave && (model.get('value') !== null) ? true : false;
-		needsSave = needsSave && (model.get('date') !== '') ? true : false;
-
-		return needsSave;
 	}
 });
 });

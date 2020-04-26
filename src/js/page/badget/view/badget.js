@@ -50,7 +50,7 @@ return BadgetView = Backbone.View.extend({
 
 		$.when(
 			Util.sleep(500), // no means
-			this.items_.fetch({date: dManager.dataset})
+			this.items_.fetch({date: dManager.getYMStr()})
 		)
 		.done(() => {
 			this.tableView_.render();

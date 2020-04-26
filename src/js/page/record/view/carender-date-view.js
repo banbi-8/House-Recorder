@@ -4,6 +4,7 @@ define([
 	'backbone',
 	'page/record/collection/income-collection',
 	'page/record/collection/expense-collection',
+	'common/date-manager',
 	'common/mediator',
 	'text!page/record/template/carender-date.template'	
 ], function (
@@ -13,6 +14,7 @@ define([
 	IncomeItems,
 	ExpenseItems,
 	// var
+	dManager,
 	mediator,
 	template
 ) {
@@ -20,12 +22,16 @@ return CarenderView = Backbone.View.extend({
 	tagName: 'td',
 	template_: null,
 	initialize: function (arg) {
-		this.date_ = arg.date;
+		this.date_ = {
+			year: dManager.year,
+			month: dManager.month,
+			date: arg.date 
+		};
 		this.th_ = arg.th;
 
 		this.template_ = _.template(template);
-		this.incomeItems_ = new IncomeItems({date: this.date_});
-		this.expenseItems_ = new ExpenseItems({date: this.date_});
+		this.incomeItems_ = new IncomeItems({date: `${this.date_.year}-${this.date_.month}-${this.date_.date}`});
+		this.expenseItems_ = new ExpenseItems({date: `${this.date_.year}-${this.date_.month}-${this.date_.date}`});
 		mediator.addView('carenderDateView', this);
 	},
 

@@ -33,6 +33,16 @@ return IncomeModel = ModelBase.extend({
 		this.clear();
 		this.attributes = _.clone(this.defaults);
 		this.set({'date': dateStr});
-	}
+	},
+
+	canSave: function () {
+		let needsSave = true;
+
+		needsSave = this.get('category') !== '' ? true : false;
+		needsSave = needsSave && (this.get('value') !== null) ? true : false;
+		needsSave = needsSave && (this.get('date') !== '') ? true : false;
+
+		return needsSave;
+	},
 });
 });

@@ -41,6 +41,16 @@ return BadgetItem = ModelBase.extend({
 
 	destroy: function () {
 		Backbone.Model.prototype.destroy.call(this, {data: this.id});
+	},
+
+	canSave: function () {
+		let needsSave = true;
+
+		needsSave = this.get('name') !== '' ? true : false;
+		needsSave = needsSave && (this.get('value') !== null) ? true : false;
+		needsSave = needsSave && (this.get('date') !== '') ? true : false;
+
+		return needsSave;
 	}
 });
 });

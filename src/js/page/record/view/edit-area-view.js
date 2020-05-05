@@ -89,7 +89,6 @@ return EditAreaView = Backbone.View.extend({
 
 	prepareTableItemViewsForIncome_: function () {
 		const dfd = $.Deferred();
-		const dateStr = `${this.date_.year}-${this.date_.month}-${this.date_.date}`;
 		this.incomeItemViews_ = [];
 
 		$.when(this.incomeItems_.fetch())
@@ -100,7 +99,7 @@ return EditAreaView = Backbone.View.extend({
 			});
 
 			while(this.incomeItems_.length < 8) {
-				const model = new IncomeModel({date: dateStr});
+				const model = new IncomeModel({date: this.date_});
 				this.incomeItems_.add(model);
 				const view = new TableItemView(model);
 				this.incomeItemViews_.push(view);
@@ -114,7 +113,6 @@ return EditAreaView = Backbone.View.extend({
 
 	prepareTableItemViewsForExpense_: function () {
 		const dfd = $.Deferred();
-		const dateStr = `${this.date_.year}-${this.date_.month}-${this.date_.date}`;
 		this.expenseItemViews_ = [];
 
 		$.when(this.expenseItems_.fetch())
@@ -125,7 +123,7 @@ return EditAreaView = Backbone.View.extend({
 			});
 
 			while(this.expenseItems_.length < 8) {
-				const model = new ExpenseModel({date: dateStr});
+				const model = new ExpenseModel({date: this.date_});
 				this.expenseItems_.add(model);
 				const view = new TableItemView(model);
 				this.expenseItemViews_.push(view);

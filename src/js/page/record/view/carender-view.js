@@ -5,6 +5,7 @@ define([
 	'page/record/view/carender-date-view',
 	'common/util',
 	'common/date-manager',
+	'common/mediator',
 	'text!page/record/template/carender.template'	
 ], function (
 	$,
@@ -14,12 +15,21 @@ define([
 	Util,
 	// var
 	dManager,
+	mediator,
 	template
 ) {
 return CarenderView = Backbone.View.extend({
 	initialize: function (opts) {
 		this.elSelector_ = opts.elSelector;
 		this.template_ = _.template(template);
+		mediator.addView('carenderView', this);
+	},
+
+	receive: function (event, opt_data) {
+		switch (event) {
+			case 'clickOnEditItemViewSaveIcon':
+				this.updateTotalValueSpecifiedDate(opt_data);
+		}
 	},
 
 	render: function () {
@@ -108,6 +118,25 @@ return CarenderView = Backbone.View.extend({
 
 	expand: function () {
 		$(this.elSelector_).attr('shrink', false);
+	},
+
+	updateTotalValueSpecifiedDate: function (date) {
+		const view = this.findDateView(date);
+
+		view.render();
+	},
+
+	findDateView: function (date) {
+		let res = null;
+		_.each(this.dateViews_, (week) => {
+			_.each(week, (view) => {
+				if (view.date_ === date) {
+					res = view;
+				};
+			});
+		});
+
+		return res;
 	}
 });
 });

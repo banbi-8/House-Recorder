@@ -41,7 +41,6 @@ return TableItemView = Backbone.View.extend({
 
 		if (key === 'value') {
 			this.model_.set({[key]: Number(value)});
-			mediator.send('updatedItemValue', 'editAreaView');
 		} else {
 			this.model_.set({[key]: value});
 		}
@@ -49,7 +48,10 @@ return TableItemView = Backbone.View.extend({
 
 	clickOnSaveIcon: function () {
 		this.model_.save()
-		.then(() => mediator.send('clickOnEditItemViewSaveIcon', 'recordView'));
+		.then(() => {
+			mediator.send('updatedItemValue', 'editAreaView');
+			mediator.send('clickOnEditItemViewSaveIcon', 'carenderView', this.model_.get('date'));
+		});
 	},
 
 	clickOnTrashIcon: function () {

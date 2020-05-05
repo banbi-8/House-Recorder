@@ -22,16 +22,11 @@ return CarenderView = Backbone.View.extend({
 	tagName: 'td',
 	template_: null,
 	initialize: function (arg) {
-		const isValidDate = arg.date > 0 && arg.date <= arg.th ? true : false;
-		if (isValidDate) {
-			this.date_ = dManager.createYMDStr(arg.date);
-			this.incomeItems_ = new IncomeItems({date: this.date_});
-			this.expenseItems_ = new ExpenseItems({date: this.date_});
-		} else {
-			this.date_ = '';
-			this.incomeItems_ = null;
-			this.expenseItems_ = null;
-		}
+		this.isValidDate_ = arg.date > 0 && arg.date <= arg.th ? true : false;
+
+		this.date_ = dManager.createYMDStr(arg.date);
+		this.incomeItems_ = new IncomeItems({date: this.date_});
+		this.expenseItems_ = new ExpenseItems({date: this.date_});
 
 		this.template_ = _.template(template);
 	},
@@ -39,12 +34,12 @@ return CarenderView = Backbone.View.extend({
 	render: function () {
 		this.delegateEvents();
 
-		if (this.date_ !== '') {
-			return $.when(
-				this.incomeItems_.fetch(),
-				this.expenseItems_.fetch()
-			)
-			.then(() => {
+		return $.when(
+			this.isValidDate_ ? this.incomeItems_.fetch() : null,
+			this.isValidDate_ ? this.expenseItems_.fetch() : null
+		)
+		.then(() => {
+			if (this.isValidDate_) {
 				const incomeTotal = this.incomeItems_.getTotalValue();
 				const expenseTotal = this.expenseItems_.getTotalValue();
 				const value = incomeTotal - expenseTotal;
@@ -52,15 +47,17 @@ return CarenderView = Backbone.View.extend({
 				const res = this.date_.split('-');
 				this.$el.html(this.template_({date: res.pop(), value: value}));
 
-				return this.$el;	
-			});
-		} else {
-			this.$el.html(this.template_({date: '', value: ''}));
-			this.$('#edit').attr('hidden', true);
-			this.$('#value').attr('hidden', true);
+				if (value < 0) {
+					this.$('#value').css('color', 'red');
+				}
+			} else {
+				this.$el.html(this.template_({date: '', value: ''}));
+				this.$('#edit').attr('hidden', true);
+				this.$('#value').attr('hidden', true);
+			}
 
 			return this.$el;
-		}
+		});
 	},
 
 	events: {

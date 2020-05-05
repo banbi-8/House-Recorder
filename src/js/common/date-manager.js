@@ -43,6 +43,14 @@ class DateManager {
 
 		return `${yearStr}-${monthStr}`;
 	}
+
+	createYMDStr (d) {
+		const yearStr = String(this.year_);
+		const monthStr = String(this.month_);
+		const dateStr = String(d);
+
+		return `${yearStr}-${monthStr}-${d}`;
+	}
 };
 
 return new DateManager();

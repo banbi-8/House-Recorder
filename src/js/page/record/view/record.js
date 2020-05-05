@@ -40,9 +40,6 @@ return RecordView = Backbone.View.extend({
 			case 'clickOnEditAreaViewCloseButton':
 				this.closeEditView_();
 				break;
-			case 'clickOnEditItemViewSaveIcon':
-				this.updateTotalValueByClickedSaveButton_();
-				break;
 		}
 	},
 
@@ -60,10 +57,6 @@ return RecordView = Backbone.View.extend({
 	closeEditView_: function () {
 		this.editAreaView_.unsetCtx();
 		this.carenderView_.expand();
-	},
-
-	updateTotalValueByClickedSaveButton_: function (date) {
-		console.log(date);
 	}
 });
 });

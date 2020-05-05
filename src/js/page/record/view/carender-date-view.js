@@ -22,38 +22,45 @@ return CarenderView = Backbone.View.extend({
 	tagName: 'td',
 	template_: null,
 	initialize: function (arg) {
-		this.date_ = {
-			year: dManager.year,
-			month: dManager.month,
-			date: arg.date 
-		};
-		this.th_ = arg.th;
+		const isValidDate = arg.date > 0 && arg.date <= arg.th ? true : false;
+		if (isValidDate) {
+			this.date_ = dManager.createYMDStr(arg.date);
+			this.incomeItems_ = new IncomeItems({date: this.date_});
+			this.expenseItems_ = new ExpenseItems({date: this.date_});
+		} else {
+			this.date_ = '';
+			this.incomeItems_ = null;
+			this.expenseItems_ = null;
+		}
 
 		this.template_ = _.template(template);
-		this.incomeItems_ = new IncomeItems({date: `${this.date_.year}-${this.date_.month}-${this.date_.date}`});
-		this.expenseItems_ = new ExpenseItems({date: `${this.date_.year}-${this.date_.month}-${this.date_.date}`});
-		mediator.addView('carenderDateView', this);
 	},
 
 	render: function () {
 		this.delegateEvents();
-		
-		return $.when(
-			this.incomeItems_.fetch(),
-			this.expenseItems_.fetch()
-		)
-		.then(() => {
-			const date = this.date_.date > 0 && this.date_.date <= this.th_ ? String(this.date_.date) : '';
-			const incomeTotal = this.incomeItems_.getTotalValue();
-			const expenseTotal = this.expenseItems_.getTotalValue();
-			const value = incomeTotal - expenseTotal;
-			this.$el.append(this.template_({date: date, value: value}));
-			if (date === '') {
-				this.$('#edit').attr('hidden', true);
-				this.$('#value').attr('hidden', true);
-			}
-			return this.$el;	
-		})
+
+		if (this.date_ !== '') {
+			return $.when(
+				this.incomeItems_.fetch(),
+				this.expenseItems_.fetch()
+			)
+			.then(() => {
+				const incomeTotal = this.incomeItems_.getTotalValue();
+				const expenseTotal = this.expenseItems_.getTotalValue();
+				const value = incomeTotal - expenseTotal;
+
+				const res = this.date_.split('-');
+				this.$el.append(this.template_({date: res.pop(), value: value}));
+
+				return this.$el;	
+			});
+		} else {
+			this.$el.append(this.template_({date: '', value: ''}));
+			this.$('#edit').attr('hidden', true);
+			this.$('#value').attr('hidden', true);
+
+			return this.$el;
+		}
 	},
 
 	events: {

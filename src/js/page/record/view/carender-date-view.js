@@ -49,6 +49,8 @@ return CarenderView = Backbone.View.extend({
 
 				if (value < 0) {
 					this.$('#value').css('color', 'red');
+				} else if (value > 0) {
+					this.$('#value').css('color', 'blue');
 				}
 			} else {
 				this.$el.html(this.template_({date: '', value: ''}));

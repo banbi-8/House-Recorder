@@ -71,18 +71,15 @@ return BadgetTableItemView = Backbone.View.extend({
 	clickedOnTrashIcon: function () {
 		$.when(Util.spinner.show())
 		.then(() => {
-			const name = this.model.get('name');
-			if (name !== '') {
-				const isConfirmed = confirm(`${name}を削除しますか？`);
+			const isConfirmed = confirm(`項目を削除してよろしいですか？`);
 	
-				if (isConfirmed) {
-					this.model.destroy();
-					this.model.clearAttrExceptDate();
-					this.render();
-					mediator.send('updatedItemValue', 'badgetTableView');
-					mediator.send('removeCtx', 'badgetChartView', {cid: this.model.cid});		
-				}		
-			}
+			if (isConfirmed) {
+				this.model.destroy();
+				this.model.clearAttrExceptDate();
+				this.render();
+				mediator.send('updatedItemValue', 'badgetTableView');
+				mediator.send('removeCtx', 'badgetChartView', {cid: this.model.cid});		
+			}		
 		})
 		.then(() => Util.spinner.hide());
 	}

@@ -78,21 +78,18 @@ return TableItemView = Backbone.View.extend({
 	clickOnTrashIcon: function () {
 		$.when(Util.spinner.show())
 		.then(() => {
-			const category = this.model_.get('category');
-			if (category !== '') {
-				const isConfirmed = confirm(`${category}を削除しますか？`);
+			const isConfirmed = confirm('項目を削除してよろしいですか？');
 	
-				if (isConfirmed) {
-					return this.model_.destroy()
-						.then(() => {
-							this.model_.clearAttrExceptDate();
-							this.$el.html(this.template_(this.model_.attributes));
+			if (isConfirmed) {
+				return this.model_.destroy()
+					.then(() => {
+						this.model_.clearAttrExceptDate();
+						this.$el.html(this.template_(this.model_.attributes));
 
-							mediator.send('updatedItemValue', 'editAreaView');
-							mediator.send('clickOnEditItemViewTrashIcon', 'carenderView', this.model_.get('date'));
-						});
-				}		
-			}
+						mediator.send('updatedItemValue', 'editAreaView');
+						mediator.send('clickOnEditItemViewTrashIcon', 'carenderView', this.model_.get('date'));
+					});
+			}	
 		})
 		.then(() => Util.spinner.hide());
 	},

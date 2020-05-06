@@ -42,7 +42,8 @@ return TableItemView = Backbone.View.extend({
 		let value = eve.target.innerHTML;
 
 		if (key === 'value') {
-			if (_.isNumber(value)) {
+			const regex = /^([1-9]\d*|0)$/;
+			if (regex.test(value)) {
 				this.model_.set({[key]: Number(value)});
 			} else {
 				$.when(Util.spinner.show())

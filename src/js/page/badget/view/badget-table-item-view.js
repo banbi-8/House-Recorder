@@ -38,7 +38,8 @@ return BadgetTableItemView = Backbone.View.extend({
 		const value = eve.target.innerHTML;
 
 		if (key === 'value') {
-			if (_.isNumber(value)) {
+			const regex = /^([1-9]\d*|0)$/;
+			if (regex.test(value)) {
 				this.model.set({[key]: Number(value)});
 				mediator.send('updatedItemValue', 'badgetTableView');
 				mediator.send('updatedItemValue', 'badgetChartView');	

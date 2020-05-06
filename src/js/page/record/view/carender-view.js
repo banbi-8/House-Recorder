@@ -28,6 +28,7 @@ return CarenderView = Backbone.View.extend({
 	receive: function (event, opt_data) {
 		switch (event) {
 			case 'clickOnEditItemViewSaveIcon':
+			case 'clickOnEditItemViewTrashIcon':
 				this.updateTotalValueSpecifiedDate(opt_data);
 		}
 	},

@@ -2,12 +2,14 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
+	'common/util',
 	'common/mediator',
 	'text!page/badget/template/badget-table-item.template'
 ], function (
 	$,
 	_,
 	Backbone,
+	Util,
 	// var
 	mediator,
 	template
@@ -36,23 +38,52 @@ return BadgetTableItemView = Backbone.View.extend({
 		const value = eve.target.innerHTML;
 
 		if (key === 'value') {
-			this.model.set({[key]: Number(value)});
-			mediator.send('updatedItemValue', 'badgetTableView');
-			mediator.send('updatedItemValue', 'badgetChartView');
+			if (_.isNumber(value)) {
+				this.model.set({[key]: Number(value)});
+				mediator.send('updatedItemValue', 'badgetTableView');
+				mediator.send('updatedItemValue', 'badgetChartView');	
+			} else {
+				$.when(Util.spinner.show())
+				.then(() => {
+					alert('金額には数字を入力してください');
+					this.$el.html(this.template_(this.model.attributes));	
+				})
+				.done(() => Util.spinner.hide());
+			}
 		} else {
 			this.model.set({[key]: value});
 		}
 	},
+
 	clickedOnSaveIcon: function () {
-		this.model.save();
+		$.when(Util.spinner.show())
+		.then(() => {
+			if (this.model.canSave()) {
+				return this.model.save();
+			} else {
+				alert('分類または金額が入力されていないため、保存できません。');
+			}	
+		})
+		.then(() => Util.spinner.hide());
 	},
 
 	clickedOnTrashIcon: function () {
-		this.model.destroy();
-		this.model.clearAttrExceptDate();
-		this.render();
-		mediator.send('updatedItemValue', 'badgetTableView');
-		mediator.send('removeCtx', 'badgetChartView', {cid: this.model.cid});
+		$.when(Util.spinner.show())
+		.then(() => {
+			const name = this.model.get('name');
+			if (name !== '') {
+				const isConfirmed = confirm(`${name}を削除しますか？`);
+	
+				if (isConfirmed) {
+					this.model.destroy();
+					this.model.clearAttrExceptDate();
+					this.render();
+					mediator.send('updatedItemValue', 'badgetTableView');
+					mediator.send('removeCtx', 'badgetChartView', {cid: this.model.cid});		
+				}		
+			}
+		})
+		.then(() => Util.spinner.hide());
 	}
 });
 });

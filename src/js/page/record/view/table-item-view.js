@@ -42,7 +42,16 @@ return TableItemView = Backbone.View.extend({
 		let value = eve.target.innerHTML;
 
 		if (key === 'value') {
-			this.model_.set({[key]: Number(value)});
+			if (_.isNumber(value)) {
+				this.model_.set({[key]: Number(value)});
+			} else {
+				$.when(Util.spinner.show())
+				.then(() => {
+					alert('金額には数字を入力してください');
+					this.$el.html(this.template_(this.model_.attributes));	
+				})
+				.done(() => Util.spinner.hide());
+			}
 		} else {
 			this.model_.set({[key]: value});
 		}

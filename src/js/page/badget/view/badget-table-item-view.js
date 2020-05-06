@@ -38,9 +38,18 @@ return BadgetTableItemView = Backbone.View.extend({
 		const value = eve.target.innerHTML;
 
 		if (key === 'value') {
-			this.model.set({[key]: Number(value)});
-			mediator.send('updatedItemValue', 'badgetTableView');
-			mediator.send('updatedItemValue', 'badgetChartView');
+			if (_.isNumber(value)) {
+				this.model.set({[key]: Number(value)});
+				mediator.send('updatedItemValue', 'badgetTableView');
+				mediator.send('updatedItemValue', 'badgetChartView');	
+			} else {
+				$.when(Util.spinner.show())
+				.then(() => {
+					alert('金額には数字を入力してください');
+					this.$el.html(this.template_(this.model.attributes));	
+				})
+				.done(() => Util.spinner.hide());
+			}
 		} else {
 			this.model.set({[key]: value});
 		}
@@ -53,7 +62,6 @@ return BadgetTableItemView = Backbone.View.extend({
 				return this.model.save();
 			} else {
 				alert('分類または金額が入力されていないため、保存できません。');
-				return $.Deferred().resolve();
 			}	
 		})
 		.then(() => Util.spinner.hide());

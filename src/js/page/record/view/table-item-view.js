@@ -62,7 +62,7 @@ return TableItemView = Backbone.View.extend({
 		$.when(Util.spinner.show())
 		.then(() => {
 			if (this.model_.canSave()) {
-				return this.model_.save()
+				return $.when(this.model_.save())
 					.then(() => {
 						mediator.send('updatedItemValue', 'editAreaView');
 						mediator.send('clickOnEditItemViewSaveIcon', 'carenderView', this.model_.get('date'));
@@ -81,7 +81,7 @@ return TableItemView = Backbone.View.extend({
 			const isConfirmed = confirm('項目を削除してよろしいですか？');
 	
 			if (isConfirmed) {
-				return this.model_.destroy()
+				return $.when(this.model_.destroy())
 					.then(() => {
 						this.model_.clearAttrExceptDate();
 						this.$el.html(this.template_(this.model_.attributes));

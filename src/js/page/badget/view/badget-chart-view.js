@@ -96,11 +96,13 @@ return BadgetChartView = Backbone.View.extend({
 
 	removeChartContext_: function (cid) {
 		const index = this.chart_.displayingIDs.indexOf(cid);
-		this.chart_.displayingIDs.splice(index, 1);
-		this.chart_.data.labels.splice(index, 1);
-		this.chart_.data.datasets[0].data.splice(index, 1);
-		this.chart_.data.datasets[0].backgroundColor.splice(index, 1);
-		this.chart_.data.datasets[0].borderColor.splice(index, 1);
+		if (index !== -1) {
+			this.chart_.displayingIDs.splice(index, 1);
+			this.chart_.data.labels.splice(index, 1);
+			this.chart_.data.datasets[0].data.splice(index, 1);
+			this.chart_.data.datasets[0].backgroundColor.splice(index, 1);
+			this.chart_.data.datasets[0].borderColor.splice(index, 1);	
+		}
 
 		this.chart_.update();
 	},

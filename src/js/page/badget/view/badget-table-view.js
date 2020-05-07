@@ -2,6 +2,7 @@ define([
 	'jquery',
 	'backbone',
 	'page/badget/model/badget-item-model',
+	'page/badget/collection/badget-item-collection',
 	'page/badget/view/badget-table-item-view',
 	'common/date-manager',
 	'common/mediator',
@@ -10,6 +11,7 @@ define([
 	$,
 	Backbone,
 	BadgetTableItem,
+	BadgetTableItemCollection,
 	BadgetTableItemView,
 	// var
 	dManager,
@@ -21,7 +23,6 @@ return BadgetTableView = Backbone.View.extend({
 	views_: [],
 	initialize: function(opts) {
 		this.elSelector_ = opts.elSelector;
-		this.items_ = opts.items;
 		this.template_ = _.template(template);
 
 		mediator.addView('badgetTableView', this);
@@ -41,19 +42,22 @@ return BadgetTableView = Backbone.View.extend({
 
 	// public
 	render: function () {
-
 		this.setElement(this.elSelector_);
 
-		this.prepare_();
-		this.$el.html(this.template_());
-		$('tbody').empty();
-
-		_.each((this.views_), (view) => {
-			$('tbody').append(view.render());
-		});
-
-		this.adjustTBodyHeight();
-		this.setBadgetSum_();
+		return $.when()
+			.then(() => this.prepare_())
+			.done(() => {
+				this.$el.html(this.template_());
+				$('tbody').empty();
+		
+				_.each((this.views_), (view) => {
+					$('tbody').append(view.render());
+				});
+				
+				this.adjustTBodyHeight();
+				this.setBadgetSum_();
+			})
+			.done(() => mediator.send('setDisplayingTableViews' ,'badgetChartView', this.views_));
 	},
 
 	// for events
@@ -81,20 +85,24 @@ return BadgetTableView = Backbone.View.extend({
 	},
 
 	prepare_: function () {
-		this.views_ = [];
-		_.each((this.items_.models), (item) => {
-			const itemView = new BadgetTableItemView(item);
+		const items = new BadgetTableItemCollection({date: dManager.getYMStr()});
 
-			this.views_.push(itemView);
-		});
-
-		while (this.items_.length < 8) {
-			const item = new BadgetTableItem({date: dManager.getYMStr()});
-			const itemView = new BadgetTableItemView(item);
-			
-			this.items_.add(item);
-			this.views_.push(itemView);
-		}	
+		return $.when(items.fetch())
+			.then(() => {
+				this.views_ = [];
+				_.each((items.models), (item) => {
+					const itemView = new BadgetTableItemView(item);
+		
+					this.views_.push(itemView);
+				});
+		
+				while (this.views_.length < 8) {
+					const item = new BadgetTableItem({date: dManager.getYMStr()});
+					const itemView = new BadgetTableItemView(item);
+					
+					this.views_.push(itemView);
+				}	
+			});
 	},
 
 	adjustTBodyHeight: function () {

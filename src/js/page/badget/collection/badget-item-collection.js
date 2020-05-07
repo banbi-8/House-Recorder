@@ -13,12 +13,16 @@ define([
 ) {
 return BadgetTableItems= CollectionBase.extend({
 	model: BadgetTableItem,
-	fetch: function (opt) {	
+	initialize: function (attr) {
+		this.date_ = attr.date;
+	},
+
+	fetch: function () {	
 		this.reset();	
 		return $.get({
 			url: 'src/php/badget.php',
 			dataType: 'json',
-			data: {date: opt.date},
+			data: {date: this.date_},
 			success: function (attrs) {
 				return attrs;
 			}

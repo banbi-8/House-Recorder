@@ -17,7 +17,7 @@ return BadgetChartView = Backbone.View.extend({
 	chart_: null,
 	initialize: function (opts) {
 		this.elSelector_ = opts.elSelector;
-		this.items_ = opts.items;
+		this.tableViews_ = [];
 
 		this.template_ = $('<canvas></canvas>');
 		const ctx = this.template_[0].getContext('2d');
@@ -63,20 +63,24 @@ return BadgetChartView = Backbone.View.extend({
 			case 'updatedItemValue':
 				this.updateChartContext_();
 				break;
+			case 'setDisplayingTableViews':
+				this.tableViews_ = opt_data;
+				break;
 		}
 	},
 
 	updateChartContext_: function () {
-		_.each(this.items_.models, (item) => {
-			if (item.isValid()) {
-				const index = this.chart_.displayingIDs.indexOf(item.cid);
+		_.each(this.tableViews_, (view) => {
+			const model = view.model;
+			if (model.isValid()) {
+				const index = this.chart_.displayingIDs.indexOf(model.cid);
 				if (index >= 0) {
-					this.chart_.data.labels[index] = item.get('name');
-					this.chart_.data.datasets[0].data[index] = item.get('value');					
+					this.chart_.data.labels[index] = model.get('name');
+					this.chart_.data.datasets[0].data[index] = model.get('value');					
 				} else {
-					this.chart_.displayingIDs.push(item.cid);
-					this.chart_.data.labels.push(item.get('name'));
-					this.chart_.data.datasets[0].data.push(item.get('value'));
+					this.chart_.displayingIDs.push(model.cid);
+					this.chart_.data.labels.push(model.get('name'));
+					this.chart_.data.datasets[0].data.push(model.get('value'));
 					
 					const color = this.generateColor_();
 					const backgroundOption = this.optionFormatter.backgroundColor(color);

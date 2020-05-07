@@ -68,7 +68,7 @@ return MenuView = Backbone.View.extend({
 				return;
 		};
 
-		mediator.send('rerender', adress);
+		mediator.send('render', adress);
 	}
 });
 });

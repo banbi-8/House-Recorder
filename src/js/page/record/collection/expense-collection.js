@@ -13,8 +13,10 @@ define([
 ) {
 return IncomeItems = CollectionBase.extend({
 	model: ExpenseItem,
-	initialize: function (attr) {
-		this.date_ = attr.date;
+	initialize: function (opt_attr = null) {
+		if (opt_attr) {
+			this.date_ = opt_attr.date;
+		}
 	},
 
 	fetch: function () {	
@@ -59,6 +61,10 @@ return IncomeItems = CollectionBase.extend({
 		});
 
 		return res;
+	},
+
+	setDate: function (date) {
+		this.date_ = date;
 	}
 });
 });

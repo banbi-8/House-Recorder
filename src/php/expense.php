@@ -23,7 +23,7 @@
 		$db = new DB();
 		$uid = $_SESSION['LOGIN_ID'];
 		$date = $_GET['date'];
-		$sql = "select * from expense where uid='$uid' and date='$date'";
+		$sql = "select * from expense where uid='$uid' and date like '$date%'";
 			
 		$res = array();
 		foreach($db->Inst()->query($sql) as $row) {

@@ -4,7 +4,7 @@ define([
 	'page/login/view/login',
 	'page/account/view/create-account',
 	'page/common/view/header-area',
-	'page/home',
+	'page/home/view/home',
 	'page/record/view/record',
 	'page/transition',
 	'page/badget/view/badget'

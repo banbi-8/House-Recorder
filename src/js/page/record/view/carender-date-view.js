@@ -2,8 +2,8 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'page/record/collection/income-collection',
-	'page/record/collection/expense-collection',
+	'page/common/collection/income-collection',
+	'page/common/collection/expense-collection',
 	'common/date-manager',
 	'common/mediator',
 	'text!page/record/template/carender-date.template'	

@@ -2,7 +2,7 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'page/badget/model/badget-item-model',
+	'page/badget/model/badget-model',
 	'page/common/collection/collection-base'
 ], function (
 	$,
@@ -49,6 +49,15 @@ return BadgetTableItems= CollectionBase.extend({
 		});
 
 		return $.when.apply($, dfds);
+	},
+
+	totalValue: function () {
+		let res = 0;
+		_.each(this.models, (model) => {
+			res += model.get('value');
+		});
+
+		return res;
 	}
 });
 });

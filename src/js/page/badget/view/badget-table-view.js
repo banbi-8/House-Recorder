@@ -1,8 +1,8 @@
 define([
 	'jquery',
 	'backbone',
-	'page/badget/model/badget-item-model',
-	'page/badget/collection/badget-item-collection',
+	'page/badget/model/badget-model',
+	'page/common/collection/badget-collection',
 	'page/badget/view/badget-table-item-view',
 	'common/date-manager',
 	'common/mediator',

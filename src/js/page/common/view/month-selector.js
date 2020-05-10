@@ -20,10 +20,6 @@ return mSelector = Backbone.View.extend({
 		this.elSelector_ = ctx.elSelector;
 		this.template_ = _.template(template);
 
-		const date = new Date();
-		dManager.year = date.getFullYear();
-		dManager.month = date.getMonth() + 1;
-
 		mediator.addView('monthSelectorView', this);
 	},
 

@@ -65,6 +65,15 @@ return IncomeItems = CollectionBase.extend({
 
 	setDate: function (date) {
 		this.date_ = date;
+	},
+
+	totalValue: function () {
+		let res = 0;
+		_.each(this.models, (model) => {
+			res += model.get('value');
+		});
+
+		return res;
 	}
 });
 });

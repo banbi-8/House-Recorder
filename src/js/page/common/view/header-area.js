@@ -2,6 +2,7 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
+	'common/session',
 	'page/common/view/month-selector',
 	'common/mediator',
 	'text!page/common/template/header-area.template'
@@ -9,6 +10,7 @@ define([
 	$,
 	_,
 	Backbone,
+	Session,
 	MSelectorView,
 	// var
 	mediator,
@@ -26,9 +28,15 @@ return MenuView = Backbone.View.extend({
 		this.listenTo(this.mSelectorView_, 'chanagedMonth', this.sendRerenderContentEvent);
 	},
 	render: function () {
-		this.$el.html(this.template_);
-		this.mSelectorView_.render();
+		$.when(
+			Session.getUser()
+		)
+		.then((username) => {
+			this.$el.html(this.template_({username: username}));
+			this.mSelectorView_.render();
+		});
 	},
+
 	events: {
 		'click li': 'tabOnClick'
 	},

@@ -12,7 +12,7 @@ define([
 return BadgetItem = ModelBase.extend({
 	urlRoot: 'src/php/badget.php',
 	defaults: {
-		name: '',
+		category: '',
 		value: null,
 		memo: '',
 		date: ''
@@ -21,15 +21,15 @@ return BadgetItem = ModelBase.extend({
 	initialize: function (attr) {
 		this.set({
 			id: _.has(attr, 'id') ? attr.id : null,
-			name: _.has(attr, 'name') ? attr.name : '',
-			value: _.has(attr, 'value') ? attr.value : null,
+			category: _.has(attr, 'category') ? attr.category : '',
+			value: _.has(attr, 'category') ? attr.value : null,
 			memo: _.has(attr, 'memo') ? attr.memo : '',
 			date: _.has(attr, 'date') ? attr.date : ''
 		});
 	},
 
 	isValid: function () {
-		return this.get('name') !== '' && this.get('value') !== null;
+		return this.get('category') !== '' && this.get('value') !== null;
 	},
 
 	clearAttrExceptDate: function () {
@@ -46,7 +46,7 @@ return BadgetItem = ModelBase.extend({
 	canSave: function () {
 		let needsSave = true;
 
-		needsSave = this.get('name') !== '' ? true : false;
+		needsSave = this.get('category') !== '' ? true : false;
 		needsSave = needsSave && (this.get('value') !== null) ? true : false;
 		needsSave = needsSave && (this.get('date') !== '') ? true : false;
 

@@ -5,8 +5,9 @@ define([
 ) {
 class DateManager {
 	constructor () {
-		this.year_ = -1;
-		this.month_ = -1;
+		const date = new Date();
+		this.year_ = date.getFullYear();
+		this.month_ = date.getMonth() + 1;
 	}
 
 	get dataset () {
@@ -49,7 +50,7 @@ class DateManager {
 		const monthStr = String(this.month_);
 		const dateStr = String(d);
 
-		return `${yearStr}-${monthStr}-${d}`;
+		return `${yearStr}-${monthStr}-${dateStr}`;
 	}
 };
 

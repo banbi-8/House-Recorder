@@ -61,9 +61,25 @@ html, body , .app {
 }
 
 /* menu  and app name style */
-.header-area h1 {
+.header-area .title-container {
+	width: 100%;
 	margin-bottom: 10px;
 }
+
+.header-area .title-container > div,
+.header-area .title-container > div > div {
+	display: inline-block;
+}
+
+.header-area .title-container > div > #app-title {
+	font-size: 2em;
+}
+
+.header-area .title-container > #login-user {
+	float: right;
+	margin-right: 20px;
+}
+
 .header-area .menu {
 	width: 100%;
 }
@@ -125,35 +141,43 @@ html, body , .app {
 .home-content {
 	height: 100%;
 }
-.home-content .pane1,
-.home-content .pane2 {
-	height: 90%;
+
+.home-content .badget-col,
+.home-content .expense-col {
+	width: 50%;
+	float: left;
+	height: 100%;
 }
-.home-content .pane1,
-.home-content .pane2 {
-	padding-top: 15px;
-	padding-bottom: 15px;
+
+.home-content .badget-col .container,
+.home-content .expense-col .container {
+	width: 100%;
+	height: 100%;
 }
-.home-content .pane1 ul,
-.home-content .pane2 ul {
-	height: 90%
+
+.home-content .badget-col .container .total,
+.home-content .expense-col .container .total	{
+	text-align: center;
+	height: 5%;
 }
-.home-content .pane1 ul > li {
-	height: 33%;
+
+.home-content .badget-col .container .total > div,
+.home-content .expense-col .container .total > div {
+	display: inline-block;
+	font-size: 1.75em;
 }
-.home-content .pane1 ul > li > h2 + h4 {
-	padding-left: 40px;
-	padding-top: 20px;
-	text-decoration: underline;
+
+.home-content .badget-col .container .total > div + div,
+.home-content .expense-col .container .total > div + div {
+	padding-left: 15px;
 }
-.home-content .pane2 ul > li {
-	height: 50%;
-}
-.home-content .pane1 {
-	background-color: lightgoldenrodyellow;
-}
-.home-content .pane2 {
-	background-color: lightskyblue;
+
+.home-content .badget-col .container .chart-container,
+.home-content .expense-col .container .chart-container {
+	width: 100%;
+	height: 95%;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 /* record content style */

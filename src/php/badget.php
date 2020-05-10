@@ -29,7 +29,7 @@
 		foreach($db->Inst()->query($sql) as $row) {
 			$res[] = array(
 				'id'=>$row['id'],
-				'name'=>$row['name'],
+				'category'=>$row['category'],
 				'value'=>$row['value'],
 				'date'=>$row['date'],
 				'memo'=>$row['memo']
@@ -45,14 +45,14 @@
 
 		// parse data
 		$bid = (int)$putData['id'];
-		$name = (string)$putData['name'];
+		$category = (string)$putData['category'];
 		$value = (int)$putData['value'];
 		$memo = (string)$putData['memo'];
 		$date = (string)$putData['date'];
 
 		// prepare sql statement
-		$statement = $db->Inst()->prepare("UPDATE	badget SET name=:name, value=:value, memo=:memo, date=:date WHERE id=:bid");
-		$statement->bindParam(':name', $name, PDO::PARAM_STR);
+		$statement = $db->Inst()->prepare("UPDATE	badget SET category=:category, value=:value, memo=:memo, date=:date WHERE id=:bid");
+		$statement->bindParam(':category', $category, PDO::PARAM_STR);
 		$statement->bindParam(':value', $value, PDO::PARAM_INT);
 		$statement->bindParam(':memo', $memo, PDO::PARAM_STR);
 		$statement->bindParam(':date', $date, PDO::PARAM_STR);
@@ -69,15 +69,15 @@
 
 		// parse data
 		$uid = (int)$_SESSION['LOGIN_ID'];
-		$name = (string)$postedData['name'];
+		$category = (string)$postedData['category'];
 		$value = (int)$postedData['value'];
 		$memo = (string)$postedData['memo'];
 		$date = (string)$postedData['date'];
 
 		// prepare sql statement
-		$statement = $db->Inst()->prepare("INSERT INTO badget(uid, name, value, memo, date) VALUES (:uid, :name, :value, :memo, :date)");
+		$statement = $db->Inst()->prepare("INSERT INTO badget(uid, category, value, memo, date) VALUES (:uid, :category, :value, :memo, :date)");
 		$statement->bindParam(':uid', $uid, PDO::PARAM_INT);
-		$statement->bindParam(':name', $name, PDO::PARAM_STR);
+		$statement->bindParam(':category', $category, PDO::PARAM_STR);
 		$statement->bindParam(':value', $value, PDO::PARAM_INT);
 		$statement->bindParam(':memo', $memo, PDO::PARAM_STR);
 		$statement->bindParam(':date', $date, PDO::PARAM_STR);

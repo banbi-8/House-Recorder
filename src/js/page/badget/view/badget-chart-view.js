@@ -75,11 +75,11 @@ return BadgetChartView = Backbone.View.extend({
 			if (model.isValid()) {
 				const index = this.chart_.displayingIDs.indexOf(model.cid);
 				if (index >= 0) {
-					this.chart_.data.labels[index] = model.get('name');
+					this.chart_.data.labels[index] = model.get('category');
 					this.chart_.data.datasets[0].data[index] = model.get('value');					
 				} else {
 					this.chart_.displayingIDs.push(model.cid);
-					this.chart_.data.labels.push(model.get('name'));
+					this.chart_.data.labels.push(model.get('category'));
 					this.chart_.data.datasets[0].data.push(model.get('value'));
 					
 					const color = this.generateColor_();

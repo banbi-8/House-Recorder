@@ -36,7 +36,6 @@ return LoginView = Backbone.View.extend({
 		.then((user) => {
 			if (user) {
 				Session.setUser(user);
-				this.trigger('login');
 				Backbone.history.navigate('home', true);
 			} else {
 				alert('not exist input user');

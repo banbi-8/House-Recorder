@@ -31,7 +31,7 @@ return RecordView = Backbone.View.extend({
 
 	receive: function (event, opt_data) {
 		switch (event) {
-			case 'rerender':
+			case 'render':
 				this.render();
 				break;
 			case 'clickOnEditButton':

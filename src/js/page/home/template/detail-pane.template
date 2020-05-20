@@ -1,0 +1,14 @@
+<div class="container">
+	<div class="detail-income">
+		<div>収入</div>
+		<div id="income-value"><%= incomeVal %>円</div>
+	</div>
+	<div class="detail-expense">
+		<div>支出</div>
+		<div id="expense-value"><%= expenseVal %>円</div>
+	</div>
+	<div class="detail-remain">
+		<div>残</div>
+		<div id="remain-value"><%= remainVal %>円</div>
+	</div>
+</div>

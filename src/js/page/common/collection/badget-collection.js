@@ -13,8 +13,10 @@ define([
 ) {
 return BadgetTableItems= CollectionBase.extend({
 	model: BadgetTableItem,
-	initialize: function (attr) {
-		this.date_ = attr.date;
+	initialize: function (opt_attr = null) {
+		if (opt_attr) {
+			this.date_ = opt_attr.date;
+		}
 	},
 
 	fetch: function () {	

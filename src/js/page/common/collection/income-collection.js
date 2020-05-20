@@ -61,10 +61,6 @@ return IncomeItems = CollectionBase.extend({
 		});
 
 		return res;
-	},
-
-	setDate: function (date) {
-		this.date_ = date;
 	}
 });
 });

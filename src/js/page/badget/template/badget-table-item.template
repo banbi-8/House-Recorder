@@ -1,4 +1,4 @@
-<td class="tcol1" id="name" contentEditable=true><%= name %></td>
+<td class="tcol1" id="category" contentEditable=true><%= category %></td>
 <td class="tcol2" id="value" contentEditable=true><%= value %></td>
 <td class="tcol3" id="memo" contentEditable=true><%= memo %></td>
 <td class="tcol4" id="delete">

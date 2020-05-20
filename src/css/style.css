@@ -142,40 +142,55 @@ html, body , .app {
 	height: 100%;
 }
 
-.home-content .badget-col,
-.home-content .expense-col {
-	width: 50%;
+.home-content .detail-pane,
+.home-content .badget-pane,
+.home-content .expense-pane {
 	float: left;
-	height: 100%;
 }
 
-.home-content .badget-col .container,
-.home-content .expense-col .container {
+.home-content .detail-pane {
+	height: 100%;
+	width: 30%;
+}
+
+.home-content .badget-pane .container,
+.home-content .expense-pane .container,
+.home-content .detail-pane .container {
 	width: 100%;
 	height: 100%;
 }
 
-.home-content .badget-col .container .total,
-.home-content .expense-col .container .total	{
-	text-align: center;
-	height: 5%;
+.home-content .detail-pane .container > div {
+	height: 25%;
+	font-size: 1.75em;
 }
 
-.home-content .badget-col .container .total > div,
-.home-content .expense-col .container .total > div {
+.home-content .badget-pane,
+.home-content .expense-pane {
+	height: 100%;
+	width: 35%;
+}
+
+.home-content .badget-pane .container .total,
+.home-content .expense-pane .container .total	{
+	position: absolute;
+}
+
+.home-content .badget-pane .container .total > div,
+.home-content .expense-pane .container .total > div {
 	display: inline-block;
 	font-size: 1.75em;
 }
 
-.home-content .badget-col .container .total > div + div,
-.home-content .expense-col .container .total > div + div {
+.home-content .badget-pane .container .total > div + div,
+.home-content .expense-pane .container .total > div + div {
 	padding-left: 15px;
 }
 
-.home-content .badget-col .container .chart-container,
-.home-content .expense-col .container .chart-container {
+.home-content .badget-pane .container .chart-container,
+.home-content .expense-pane .container .chart-container {
 	width: 100%;
-	height: 95%;
+	height: 100%;
 	padding-left: 20px;
 	padding-right: 20px;
 }

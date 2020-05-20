@@ -20,6 +20,10 @@ return CollectionBase = Backbone.Collection.extend({
 		});
 
 		return $.when.apply($, dfds);
+	},
+
+	setDate: function (date) {
+		this.date_ = date;
 	}
 });
 });

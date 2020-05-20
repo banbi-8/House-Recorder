@@ -9,6 +9,25 @@ define([
 	Backbone,
 	Chart,
 ) {
+
+Chart.Tooltip.positioners.custom = function(elements, position) {
+	if (!elements.length) {
+		return false;
+	}
+	const ps = elements[0].tooltipPosition();
+	var offset = 0;
+	//adjust the offset left or right depending on the event position
+	if (elements[0]._chart.width / 2 > ps.x) {
+		offset = -30;
+	} else {
+		offset = 30;
+	}
+	return {
+		x: ps.x + offset,
+		y: ps.y
+	}
+};
+
 Chart.pluginService.register({
 	beforeRender: function (chart) {
 		if (chart.config.options.showAllTooltips) {
@@ -54,7 +73,9 @@ Chart.pluginService.register({
 	}
 });
 
-return BadgetColView = Backbone.View.extend({
+return ChartView = Backbone.View.extend({
+	elSelector_: null,
+	chart_: null,
 	template_: null,
 	initialize: function(opts) {
 		this.elSelector_ = opts.elSelector;
@@ -63,7 +84,7 @@ return BadgetColView = Backbone.View.extend({
 		this.template_ = $('<canvas></canvas>');
 		const ctx = this.template_[0].getContext('2d');
 		this.chart_ = new Chart(ctx, {
-			type: 'pie',
+			type: 'doughnut',
 			data: {
 				labels: [],
 				datasets: [{
@@ -80,8 +101,8 @@ return BadgetColView = Backbone.View.extend({
 					padding: {
 						left: 0,
 						right: 0,
-						top: 20,
-						bottom: 50
+						top: 10,
+						bottom: 10
 					}
 				},
 				legend: {
@@ -90,18 +111,25 @@ return BadgetColView = Backbone.View.extend({
 				tooltips: {
 					callbacks: {
 						label: function (tooltipItem, chart) {
-							// create customized label
 							const label = chart.labels[tooltipItem.index];
+							return label;
+						},
+						afterLabel: function (tooltipItem, chart) {
 							const value = chart.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-							return label + ': ' + value + '円';
+							return value + '円';
+						},
+						labelTextColor:function(tooltipItem, chart){
+							return 'white';
 						}
-					}
+					},
+					position: 'custom',
+					titleFontSize: 14,
+					bodyFontSize: 14,
+					displayColors: false,
+					backgroundColor: 'rgb(255, 255, 255, 0)'
 				}
 			}
 		});
-	},
-
-	events: {
 	},
 
 	render: function () {
@@ -114,20 +142,26 @@ return BadgetColView = Backbone.View.extend({
 			this.chart_.data.datasets[0].data.push(model.get('value'));
 			
 			const color = this.generateColor_(i);
-			const backgroundOption = this.optionFormatter.backgroundColor(color);
-			this.chart_.data.datasets[0].backgroundColor.push(backgroundOption);
-			const borderOption = this.optionFormatter.borderColor(color);
-			this.chart_.data.datasets[0].borderColor.push(borderOption);	
+			this.chart_.data.datasets[0].backgroundColor.push(color);
+			this.chart_.data.datasets[0].borderColor.push(color);	
 		});
 
 		this.chart_.update();
 	},
 
-	generateColor_: function () {
-		const r = Math.floor(Math.random() * 255);
-    const g = Math.floor(Math.random() * 255);
-  	const b = Math.floor(Math.random() * 255);
-    return {r, g, b};
+	generateColor_: function (index) {
+		const colors = [
+			'#FF6384',
+			'#36A2EB',
+			'#FFCE56',
+			'#339900',
+			'#ff6633',
+			'#0099FF',
+			'#FFCC00'			
+		];
+
+		const num = index % colors.length;
+		return colors[num];
 	},
 
 	resetChart: function () {
@@ -135,15 +169,6 @@ return BadgetColView = Backbone.View.extend({
 		this.chart_.data.datasets[0].data = [];		
 		this.chart_.data.datasets[0].backgroundColor = [];
 		this.chart_.data.datasets[0].borderColor = [];	
-	},
-
-	optionFormatter: {
-		backgroundColor: function (color) {
-			return `rgba(${color.r}, ${color.g}, ${color.b}, 0.2)`;			
-		},
-		borderColor: function (color) {
-			return `rgba(${color.r}, ${color.g}, ${color.b}, 1)`;
-		}
 	}
 });
 });

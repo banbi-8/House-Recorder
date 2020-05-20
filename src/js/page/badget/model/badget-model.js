@@ -22,7 +22,7 @@ return BadgetItem = ModelBase.extend({
 		this.set({
 			id: _.has(attr, 'id') ? attr.id : null,
 			category: _.has(attr, 'category') ? attr.category : '',
-			value: _.has(attr, 'category') ? attr.value : null,
+			value: _.has(attr, 'value') ? attr.value : null,
 			memo: _.has(attr, 'memo') ? attr.memo : '',
 			date: _.has(attr, 'date') ? attr.date : ''
 		});

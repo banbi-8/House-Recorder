@@ -1,7 +1,6 @@
 <div class="container">
 	<div class="total">
-		<div><%= month %>月の支出合計</div>
-		<div><%= total %>円</div>
+		<div>支出内訳</div>
 	</div>
 	<div class="chart-container"></div>	
 </div>

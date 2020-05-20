@@ -2,19 +2,17 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'chart',
+	'page/common/view/chart-view',	
 	'common/mediator'
 ], function (
 	$,
 	_,
 	Backbone,
-	Chart,
+	ChartView,
 	// var
 	mediator
 ) {
-return BadgetChartView = Backbone.View.extend({
-	elSelector_: null,
-	chart_: null,
+return BadgetChartView = ChartView.extend({
 	initialize: function (opts) {
 		this.elSelector_ = opts.elSelector;
 		this.tableViews_ = [];
@@ -22,7 +20,7 @@ return BadgetChartView = Backbone.View.extend({
 		this.template_ = $('<canvas></canvas>');
 		const ctx = this.template_[0].getContext('2d');
 		this.chart_ = new Chart(ctx, {
-			type: 'pie',
+			type: 'doughnut',
 			data: {
 				labels: [],
 				datasets: [{
@@ -34,6 +32,7 @@ return BadgetChartView = Backbone.View.extend({
 			options: {
 				maintainAspectRatio: false,
 				responsible: true,
+				showAllTooltips: true,
 				layout: {
 					padding: {
 						left: 0,
@@ -41,6 +40,29 @@ return BadgetChartView = Backbone.View.extend({
 						top: 50,
 						bottom: 50
 					}
+				},
+				legend: {
+					display: false
+				},
+				tooltips: {
+					callbacks: {
+						label: function (tooltipItem, chart) {
+							const label = chart.labels[tooltipItem.index];
+							return label;
+						},
+						afterLabel: function (tooltipItem, chart) {
+							const value = chart.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+							return value + '円';
+						},
+						labelTextColor:function(tooltipItem, chart){
+							return 'white';
+						}
+					},
+					position: 'custom',
+					titleFontSize: 14,
+					bodyFontSize: 14,
+					displayColors: false,
+					backgroundColor: 'rgb(255, 255, 255, 0)'
 				}
 			}
 		});
@@ -70,7 +92,7 @@ return BadgetChartView = Backbone.View.extend({
 	},
 
 	updateChartContext_: function () {
-		_.each(this.tableViews_, (view) => {
+		_.each(this.tableViews_, (view, i) => {
 			const model = view.model;
 			if (model.isValid()) {
 				const index = this.chart_.displayingIDs.indexOf(model.cid);
@@ -82,11 +104,9 @@ return BadgetChartView = Backbone.View.extend({
 					this.chart_.data.labels.push(model.get('category'));
 					this.chart_.data.datasets[0].data.push(model.get('value'));
 					
-					const color = this.generateColor_();
-					const backgroundOption = this.optionFormatter.backgroundColor(color);
-					this.chart_.data.datasets[0].backgroundColor.push(backgroundOption);
-					const borderOption = this.optionFormatter.borderColor(color);
-					this.chart_.data.datasets[0].borderColor.push(borderOption);	
+					const color = this.generateColor_(i);
+					this.chart_.data.datasets[0].backgroundColor.push(color);
+					this.chart_.data.datasets[0].borderColor.push(color);	
 				}
 			}
 		});
@@ -107,28 +127,12 @@ return BadgetChartView = Backbone.View.extend({
 		this.chart_.update();
 	},
 
-	generateColor_: function () {
-		const r = Math.floor(Math.random() * 255);
-    const g = Math.floor(Math.random() * 255);
-  	const b = Math.floor(Math.random() * 255);
-    return {r, g, b};
-	},
-
 	resetContext: function () {
 		this.chart_.displayingIDs = [];
 		this.chart_.data.labels = [];
 		this.chart_.data.datasets[0].data = [];		
 		this.chart_.data.datasets[0].backgroundColor = [];
 		this.chart_.data.datasets[0].borderColor = [];	
-	},
-
-	optionFormatter: {
-		backgroundColor: function (color) {
-			return `rgba(${color.r}, ${color.g}, ${color.b}, 0.2)`;			
-		},
-		borderColor: function (color) {
-			return `rgba(${color.r}, ${color.g}, ${color.b}, 1)`;
-		}
 	}
 });
 })

@@ -61,7 +61,7 @@ return MenuView = Backbone.View.extend({
 
 		switch (this.selectingTab) {
 			case 'home':
-				adress = '';
+				adress = 'homeView';
 				break;
 			case 'badget':
 				adress = 'badgetView';

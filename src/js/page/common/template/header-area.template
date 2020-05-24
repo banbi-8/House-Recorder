@@ -1,10 +1,13 @@
 <div class="container-fluid">
-	<div class="title-container">
-		<div>
+	<div>
+		<div class="app-info inline-items">
 			<div id="app-title">わが家の家計簿</div>
 			<div id="app-ver">ver1.0.0</div>
 		</div>
-		<div id="login-user">ユーザー： <%= username %></div>
+		<div class="user inline-items">
+			<div id="login-user">ユーザー： <%= username %></div>
+			<a id="logout" href="javascript:void(0)">ログアウト</a>
+		</div>
 	</div>
 	<div class="mselector-line"></div>
 	<div class="menu">

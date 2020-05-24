@@ -9,9 +9,9 @@
 		<input id="password" class="form-control icon" type="password" placeholder="&#xf084; Password" value="ysaito"/>
 	</div>
 	<div class="form-box mx-auto">
-		<div class="form-check inline-items" id="checkbox-remember">
-			<input type="checkbox" class="form-check-input" id="remember">
-			<label class="form-check-label" for="remember">ログイン情報を記憶する</label>
+		<div class="form-check inline-items" id="localstorage">
+			<input type="checkbox" class="form-check-input" id="check-value">
+			<label class="form-check-label" for="check-value">ログイン情報を記憶する</label>
 		</div>
 		<div class="inline-items float-right">
 			<button type="button" class="btn btn-primary" id="login"><i class="fas fa-sign-in-alt"></i> ログイン</button>

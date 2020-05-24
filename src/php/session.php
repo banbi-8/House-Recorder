@@ -14,11 +14,20 @@
 			print_r($result['name']);
 			break;
 		case 'POST':
-			$_SESSION['LOGIN_ID'] = $_POST['id'];
-			$_SESSION['LOGIN_NAME'] = $_POST['name'];
-		
-			print_r($_SESSION);
-			echo 'ログインユーザーの情報を格納しました';
+			$method = $_POST['method'];
+
+			if ($method == 'set') {
+				$_SESSION['LOGIN_ID'] = $_POST['id'];
+				$_SESSION['LOGIN_NAME'] = $_POST['name'];
+			
+				print_r($_SESSION);
+				echo 'ログインユーザーの情報を格納しました';	
+			} else {
+				$_SESSION['LOGIN_ID'] = '';
+				$_SESSION['LOGIN_NAME'] = '';
+			
+				echo 'ログインユーザーの情報を削除しました';
+			}
 			break;
 	}
 

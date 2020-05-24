@@ -38,7 +38,8 @@ return MenuView = Backbone.View.extend({
 	},
 
 	events: {
-		'click li': 'tabOnClick'
+		'click li': 'tabOnClick',
+		'click #logout': 'logout'
 	},
 
 	tabOnClick: function (eve) {
@@ -48,6 +49,11 @@ return MenuView = Backbone.View.extend({
 			this.toggleTab(this.selectingTab, next);
 			Backbone.history.navigate(next, true);		
 		}
+	},
+
+	logout: function () {
+		$.when(Session.resetUser())
+		.always(() => Backbone.history.navigate('login', true));
 	},
 
 	toggleTab: function (current, next) {

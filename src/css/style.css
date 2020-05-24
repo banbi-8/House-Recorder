@@ -60,24 +60,26 @@ html, body , .app {
 	}
 }
 
-/* menu  and app name style */
-.header-area .title-container {
-	width: 100%;
-	margin-bottom: 10px;
-}
-
-.header-area .title-container > div,
-.header-area .title-container > div > div {
+.inline-items {
 	display: inline-block;
 }
 
-.header-area .title-container > div > #app-title {
+/* menu  and app name style */
+.header-area .app-info > div {
+	display: inline-block;
+}
+
+.header-area .app-info > #app-title {
 	font-size: 2em;
 }
 
-.header-area .title-container > #login-user {
+.header-area .user {
 	float: right;
 	margin-right: 20px;
+}
+
+.header-area #logout {
+	float: right;
 }
 
 .header-area .menu {
@@ -108,11 +110,7 @@ html, body , .app {
 	margin-bottom: 15px;	
 }
 
-.login-content .inline-items {
-	display: inline-block;
-}
-
-.login-content #checkbox-remember {
+.login-content #localstorage {
 	padding-top: 7px;
 }
 
@@ -131,10 +129,6 @@ html, body , .app {
 .create-account-content #title {
 	margin-bottom: 15px;
 	height: 48px;
-}
-
-.create-account-content .inline-items {
-	display: inline-block;
 }
 
 /* home content style */

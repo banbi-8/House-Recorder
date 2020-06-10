@@ -263,11 +263,10 @@ html, body , .app {
 }
 
 /* transition content style */
-.transition-content {
+.transition-content,
+.transition-content .chart-container {
 	height: 100%;
-}
-.transition-content .tansition-table {
-	height: 90%;
+	width: 100%;
 }
 
 /* badget content style */

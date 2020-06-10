@@ -2,7 +2,7 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'page/common/view/chart-view',	
+	'page/common/view/doughnut-chart-view',	
 	'common/mediator'
 ], function (
 	$,

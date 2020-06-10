@@ -3,7 +3,7 @@ define([
 	'underscore',
 	'backbone',
 	'page/common/collection/badget-collection',
-	'page/common/view/chart-view',
+	'page/common/view/doughnut-chart-view',
 	'common/date-manager',
 	'text!page/home/template/badget-pane.template'
 ], function (

@@ -3,7 +3,7 @@ define([
 	'underscore',
 	'backbone',
 	'page/common/collection/expense-collection',
-	'page/common/view/chart-view',
+	'page/common/view/doughnut-chart-view',
 	'common/date-manager',
 	'text!page/home/template/expense-pane.template'
 ], function (

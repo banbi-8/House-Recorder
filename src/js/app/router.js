@@ -6,7 +6,7 @@ define([
 	'page/common/view/header-area',
 	'page/home/view/home',
 	'page/record/view/record',
-	'page/transition',
+	'page/transition/view/transition',
 	'page/badget/view/badget'
 ], function (
 	$,

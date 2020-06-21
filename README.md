@@ -23,4 +23,8 @@ Webアプリケーションとして作成。
 2. vscodeでF5で起動
 
 ### リリース手順
-1. FileZillaでサーバーにファイルを設置
+- herokuで公開
+  - herokuはjavascriptアプリの公開ができなかったのでphpアプリとして公開(index.phpでindex.htmlを読み込む)
+  - mysqlがdefaultでは使用できないのでアドオンを追加(参考：https://blog.nakamu.life/posts/heroku-mysql)
+- terminalで`heroku login`を実行
+- repositoryのURLが表示されるので、sousetreeからpush

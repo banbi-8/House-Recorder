@@ -12,6 +12,7 @@ define([
 return BadgetItem = ModelBase.extend({
 	urlRoot: 'src/php/badget.php',
 	defaults: {
+		id: null,
 		category: '',
 		value: null,
 		memo: '',

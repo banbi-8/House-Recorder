@@ -131,6 +131,18 @@ html, body , .app {
 	height: 48px;
 }
 
+/* change password content style */
+.change-password-content .form-box {
+	width: 400px;
+	height: 38px;
+	margin-bottom: 15px;	
+}
+
+.change-password-content #title {
+	margin-bottom: 15px;
+	height: 48px;
+}
+
 /* home content style */
 .home-content {
 	height: 100%;

@@ -29,7 +29,7 @@ return MenuView = Backbone.View.extend({
 	},
 	render: function () {
 		$.when(
-			Session.getUser()
+			Session.get()
 		)
 		.then((username) => {
 			this.$el.html(this.template_({username: username}));
@@ -52,7 +52,7 @@ return MenuView = Backbone.View.extend({
 	},
 
 	logout: function () {
-		$.when(Session.resetUser())
+		$.when(Session.restore())
 		.always(() => Backbone.history.navigate('login', true));
 	},
 

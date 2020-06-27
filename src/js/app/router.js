@@ -2,7 +2,8 @@ define([
 	'jquery',
 	'backbone',
 	'page/login/view/login',
-	'page/account/view/create-account',
+	'page/login/view/create-account',
+	'page/login/view/change-password',
 	'page/common/view/header-area',
 	'page/home/view/home',
 	'page/record/view/record',
@@ -13,6 +14,7 @@ define([
 	Backbone,
 	LoginView,
 	CreateAccountView,
+	ChnagePasswordView,
 	HeaderAreaView,
 	HomeView,
 	RecordView,
@@ -23,13 +25,15 @@ return AppRouter = Backbone.Router.extend({
 	initialize: function () {
 		this.loginView = new LoginView();
 		this.createAccountView = new CreateAccountView();
+		this.changePasswordView = new ChnagePasswordView();
 
 		this.start();
 	},
 
 	routes: {
 		'login': 'showLoginContent',
-		'create_account': 'showCreateAccountContent',
+		'account': 'showCreateAccountContent',
+		'password': 'showChangePasswordContent',
 		'home': 'showHomeContent',
 		'record': 'showRecordContent',
 		'transition': 'showTransitionContent',
@@ -57,6 +61,16 @@ return AppRouter = Backbone.Router.extend({
 	showCreateAccountContent: function () {
 		$('.contents-area').empty();
 		this.createAccountView.render();
+	},
+
+	showChangePasswordContent: function () {
+		$('.contents-area').empty();
+		this.changePasswordView.render();
+	},
+
+	showSendMailContent: function () {
+		$('.contents-area').empty();
+		this.sendMailView.render();
 	},
 
 	showHomeContent: function () {

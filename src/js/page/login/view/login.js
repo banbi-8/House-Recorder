@@ -2,67 +2,78 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'common/db',
 	'common/session',
 	'common/util',
+	'page/login/collection/users',
 	'text!page/login/template/login.template'
 ], function (
 	$,
 	_,
 	Backbone,
-	DB,
 	Session,
 	Util,
+	Users,
 	template
 ) {
 return LoginView = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
+		this.users_ = new Users();
 		this.template_ = _.template(template);
-		this.needsSaveLoginUserInfo = localStorage.getItem('isStorageCheckboxChecked') === 'true' ? true : false;
+		this.stateOfStorageCheckbox = localStorage.getItem('isStorageCheckboxChecked') === 'true' ? true : false;
 	},
 	events: {
 		'click #login': 'loginButtonOnClick',
+		'click #change-password': 'changePasswordButtonOnClick',
 		'click #create-account': 'createAccountButtonOnClick',
 		'click #localstorage > input': 'localstrageCheckboxOnClick'
 	},
 
 	// public
 	render: function () {
-		this.$el.html(this.template_);
-
-		$('#localstorage > input').prop('checked', this.needsSaveLoginUserInfo);
+		$.when(this.users_.fetch())
+		.then(() => {
+			this.$el.html(this.template_);
+			$('#localstorage > input').prop('checked', this.stateOfStorageCheckbox);
+			if (this.stateOfStorageCheckbox) {
+				$('#user-name').val(localStorage.getItem('userName'));
+			}
+		});
 	},
 	
 	// for events
 	loginButtonOnClick: function () {
-		this.findUser(this.getInputValue_())
-		.then((user) => {
-			if (user) {
-				Session.setUser(user);
+		const input = this.getInputValue_();
+		const user = this.users_.findWhere({name: input.name, password: input.password});
+		
+		if (user) {
+			Session.store(user.attributes);
 
-				if (this.needsSaveLoginUserInfo) {
-					localStorage.setItem('isStorageCheckboxChecked', 'true')
-					localStorage.setItem('loginUser', user.name);
-				} else {
-					localStorage.setItem('isStorageCheckboxChecked', 'false')
-					localStorage.setItem('loginUser', '');
-				}
-
-				Backbone.history.navigate('home', true);
+			if (this.stateOfStorageCheckbox) {
+				localStorage.setItem('isStorageCheckboxChecked', 'true')
+				localStorage.setItem('userName', user.get('name'));
 			} else {
-				alert('not exist input user');
+				localStorage.setItem('isStorageCheckboxChecked', 'false')
+				localStorage.setItem('userName', '');
 			}
-		});
+
+			Backbone.history.navigate('home', true);
+		} else {
+			alert('ユーザー名またはパスワードが間違っています。');
+		}
+	},
+
+	changePasswordButtonOnClick: function () {
+		Backbone.history.navigate('password', true);
 	},
 
 	createAccountButtonOnClick: function () {
-		Backbone.history.navigate('create_account', true);
+		Backbone.history.navigate('account', true);
 	},
 
 	localstrageCheckboxOnClick: function (eve) {
-		this.needsSaveLoginUserInfo = $(eve.target).prop('checked');
+		this.stateOfStorageCheckbox = $(eve.target).prop('checked');
 	},
 
 	// private
@@ -72,13 +83,6 @@ return LoginView = Backbone.View.extend({
 			password: Util.createHash($('#password').val())
 		};
 		return value;
-	},
-
-	findUser: function (input) {
-		return $.when(DB.getTable('user'))
-			.then((users) => {
-				return _.findWhere((users), {name: input.name, password: input.password});
-			})
 	}
 });
 });

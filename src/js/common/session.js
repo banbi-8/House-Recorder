@@ -7,7 +7,7 @@ function (
 	_
 ) {
 return Session = {
-	setUser: function (user) {
+	store: function (user) {
 		return $.post({
 			url: 'src/php/session.php',
 			dataType: 'json',
@@ -21,7 +21,7 @@ return Session = {
 			}
 		});
 	},
-	resetUser: function () {
+	restore: function () {
 		return $.post({
 			url: 'src/php/session.php',
 			dataType: 'json',
@@ -33,7 +33,7 @@ return Session = {
 			}
 		});
 	},
-	getUser: function () {
+	get: function () {
 		return $.get({
 			url: 'src/php/session.php',
 			dataType: 'text',

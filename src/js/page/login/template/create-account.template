@@ -3,10 +3,10 @@
 		<h1 class="text-center" id="title">わが家の家計簿</h1>
 	</div>
 	<div class="form-box mx-auto">
-		<input id="user-name" class="form-control icon" type="text" placeholder="&#xf007; User name"/>
+		<input id="user-name" class="form-control icon" type="text" placeholder="&#xf007; User name" autocomplete="off"/>
 	</div>
 	<div class="form-box mx-auto">
-		<input id="password" class="form-control icon" type="text" placeholder="&#xf084; Password"/>
+		<input id="password" class="form-control icon" type="text" placeholder="&#xf084; Password" autocomplete="off"/>
 	</div>
 	<div class="form-box mx-auto">
 		<div class="inline-items float-right">

@@ -1,25 +1,24 @@
 <?php
 	class DB {
+		private $dbh = null;
 		function __construct () {
 			$dsn = 'mysql:dbname=house_recorder;host=localhost;charset=utf8mb4';
 			$user = 'mamp';
 			$pass = 'root';
 	
 			try {
-				$this->$dbh = new PDO($dsn, $user, $pass);
+				$this->dbh = new PDO($dsn, $user, $pass);
 			} catch (PDOException $err) {
 				print('Error:'.$err->getMessage());
 			}	
 		}
 
 		function __destruct () {
-			$this->$dbh = null;
+			$this->dbh = null;
 		}
 
 		function Inst () {
-			return $this->$dbh;
+			return $this->dbh;
 		}
-
-		private $dbh;
 	}
 ?>

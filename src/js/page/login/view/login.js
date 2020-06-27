@@ -21,11 +21,11 @@ return LoginView = Backbone.View.extend({
 	initialize: function() {
 		this.users_ = new Users();
 		this.template_ = _.template(template);
-		this.needsSaveLoginUserInfo = localStorage.getItem('isStorageCheckboxChecked') === 'true' ? true : false;
+		this.stateOfStorageCheckbox = localStorage.getItem('isStorageCheckboxChecked') === 'true' ? true : false;
 	},
 	events: {
 		'click #login': 'loginButtonOnClick',
-		'click #change-password': 'resetPasswordButtonOnClick',
+		'click #change-password': 'changePasswordButtonOnClick',
 		'click #create-account': 'createAccountButtonOnClick',
 		'click #localstorage > input': 'localstrageCheckboxOnClick'
 	},
@@ -35,7 +35,10 @@ return LoginView = Backbone.View.extend({
 		$.when(this.users_.fetch())
 		.then(() => {
 			this.$el.html(this.template_);
-			$('#localstorage > input').prop('checked', this.needsSaveLoginUserInfo);
+			$('#localstorage > input').prop('checked', this.stateOfStorageCheckbox);
+			if (this.stateOfStorageCheckbox) {
+				$('#user-name').val(localStorage.getItem('userName'));
+			}
 		});
 	},
 	
@@ -47,12 +50,12 @@ return LoginView = Backbone.View.extend({
 		if (user) {
 			Session.store(user.attributes);
 
-			if (this.needsSaveLoginUserInfo) {
+			if (this.stateOfStorageCheckbox) {
 				localStorage.setItem('isStorageCheckboxChecked', 'true')
-				localStorage.setItem('loginUser', user.get('name'));
+				localStorage.setItem('userName', user.get('name'));
 			} else {
 				localStorage.setItem('isStorageCheckboxChecked', 'false')
-				localStorage.setItem('loginUser', '');
+				localStorage.setItem('userName', '');
 			}
 
 			Backbone.history.navigate('home', true);
@@ -61,16 +64,16 @@ return LoginView = Backbone.View.extend({
 		}
 	},
 
-	resetPasswordButtonOnClick: function () {
-		Backbone.history.navigate('change_password', true);
+	changePasswordButtonOnClick: function () {
+		Backbone.history.navigate('password', true);
 	},
 
 	createAccountButtonOnClick: function () {
-		Backbone.history.navigate('send_mail', true);
+		Backbone.history.navigate('account', true);
 	},
 
 	localstrageCheckboxOnClick: function (eve) {
-		this.needsSaveLoginUserInfo = $(eve.target).prop('checked');
+		this.stateOfStorageCheckbox = $(eve.target).prop('checked');
 	},
 
 	// private

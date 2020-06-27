@@ -11,30 +11,33 @@ define([
 	Util,
 	template
 ) {
-return ResetPassword = Backbone.View.extend({
+return ChangePassword = Backbone.View.extend({
 	el: '.contents-area',
 	template_: null,
 	initialize: function() {
+		this.users_ = new Users();
 		this.template_ = _.template(template);
 	},
 	events: {
-		'click #reset': 'resetPassword',
+		'click #reset': 'updatePassword',
 		'click #cancel': 'cancel'
 	},
 
 	// public
 	render: function () {
-		this.$el.html(this.template_);
+		$.when(this.users_.fetch())
+		.then(() => this.$el.html(this.template_));
 	},
 
-	resetPassword: function () {
-		const value = this.getInputValue();
+	updatePassword: function () {
+		const input = this.getInputValue();
+		const user = this.users_.findWhere({name: input.name});
 		
-		$.when(this.findUser(value.name))
-		.then((user) => {
+		$.when()
+		.then(() => {
 			if (user) {
-				user.password = value.password;
-				return DB.putTable('user', user)
+				user.set({ 'password': input.password });
+				return user.save()
 					.done(() => {
 						alert('パスワードの再設定が成功しました。');
 						Backbone.history.navigate('login', true);				

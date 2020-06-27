@@ -8,7 +8,7 @@
 			getAllUsers();
 		break;
 		case 'PUT': // already exist model
-			updateExpenseItem();
+			updateUser();
 		break;
 		case 'POST': // model is not saved yet
 			saveUser();
@@ -21,33 +21,39 @@
 		$db = new DB();
 		$sql = 'select * from user';
 			
-		$user = array();
+		$users = array();
 		foreach($db->Inst()->query($sql) as $row) {
-			$user[] = array(
+			$users[] = array(
 				'id'=>$row['id'],
 				'name'=>$row['name'],
-				'password'=>$row['password'],
-				'mailadress'=>$row['mailadress']
+				'password'=>$row['password']
 			);
 		}
-		print json_encode($user);	
+		print json_encode($users);	
 	}
 	
-	function updateExpenseItem() {
+	function updateUser() {
+		$db = new DB();
+		$data = json_decode(file_get_contents('php://input'), TRUE);
+	
+		$statement = $db->Inst()->prepare("UPDATE	user SET name=:name, password=:password WHERE id=:id");
+		$statement->bindParam(':id', $data['id'], PDO::PARAM_INT);
+		$statement->bindParam(':name', $data['name'], PDO::PARAM_STR);
+		$statement->bindParam(':password', $data['password'], PDO::PARAM_STR);
+		$statement->execute();
+		
+		print json_encode($data);
 	}
 
 	function saveUser() {
 		$db = new DB();
-		$postedData = json_decode(file_get_contents('php://input'), TRUE);
+		$data = json_decode(file_get_contents('php://input'), TRUE);
 	
-		$statement = $db->Inst()->prepare("INSERT INTO user(name, password, mailadress) VALUES (:name, :password, :mailadress)");
-		$statement->bindParam(':name', $postedData['name'], PDO::PARAM_STR);
-		$statement->bindParam(':password', $postedData['password'], PDO::PARAM_STR);
-		$statement->bindParam(':mailadress', $postedData['mailadress'], PDO::PARAM_STR);
-		
+		$statement = $db->Inst()->prepare("INSERT INTO user(name, password) VALUES (:name, :password)");
+		$statement->bindParam(':name', $data['name'], PDO::PARAM_STR);
+		$statement->bindParam(':password', $data['password'], PDO::PARAM_STR);
 		$statement->execute();
 		
-		// 失敗した時にstatus=500を返すようにする
-		print json_encode([]);
+		print json_encode($data);
 	}
 ?>

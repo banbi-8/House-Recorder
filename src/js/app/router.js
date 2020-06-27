@@ -32,8 +32,8 @@ return AppRouter = Backbone.Router.extend({
 
 	routes: {
 		'login': 'showLoginContent',
-		'create_account': 'showCreateAccountContent',
-		'change_password': 'showChangePasswordContent',
+		'account': 'showCreateAccountContent',
+		'password': 'showChangePasswordContent',
 		'home': 'showHomeContent',
 		'record': 'showRecordContent',
 		'transition': 'showTransitionContent',

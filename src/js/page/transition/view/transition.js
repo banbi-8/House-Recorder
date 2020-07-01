@@ -1,7 +1,7 @@
 define([
 	'jquery',
 	'backbone',
-	'page/common/collection/income-collection',
+	'page/common/model/income-model',
 	'page/common/collection/expense-collection',
 	'page/common/view/line-chart-view',
 	'common/date-manager',
@@ -9,7 +9,7 @@ define([
 ], function (
 	$,
 	Backbone,
-	IncomeCollection,
+	IncomeModel,
 	ExpenseCollection,
 	LineChartView,
 	dManager,
@@ -22,7 +22,7 @@ return TransitionView = Backbone.View.extend({
 	initialize: function() {
 		this.template_ = template;
 
-		this.incomCollection_ = new IncomeCollection();
+		this.incomModel_ = new IncomeModel();
 		this.expenseCollection_ = new ExpenseCollection();
 		this.lineChart_ = new LineChartView({elSelector: '.chart-container'});
 	},

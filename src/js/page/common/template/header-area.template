@@ -14,7 +14,7 @@
 		<ul class="nav nav-justified nav-tabs menu" role="tablists">
 			<li class="nav-item"><a class="nav-link active" role="tab" href="javascript:void(0)" id="home">HOME</a></li>
 			<li class="nav-item"><a class="nav-link" role="tab" href="javascript:void(0)" id="badget">予算決め</a></li>
-			<li class="nav-item"><a class="nav-link" role="tab" href="javascript:void(0)" id="record">収支記録</a></li>
+			<li class="nav-item"><a class="nav-link" role="tab" href="javascript:void(0)" id="record">支出の記録</a></li>
 			<li class="nav-item"><a class="nav-link" role="tab" href="javascript:void(0)" id="transition">収支推移</a></li>
 		</ul>
 	</div>

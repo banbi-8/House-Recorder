@@ -61,6 +61,10 @@ return IncomeItems = CollectionBase.extend({
 		});
 
 		return res;
+	},
+
+	getModelFromDate: function (date) {
+		return this.findWhere({'date': date});
 	}
 });
 });

@@ -23,16 +23,14 @@
 		$db = new DB();
 		$uid = $_SESSION['LOGIN_ID'];
 		$date = $_GET['date'];
-		$sql = "select * from income where uid='$uid' and date like '$date%'";
+		$sql = "select * from income where uid='$uid'";
 			
 		$res = array();
 		foreach($db->Inst()->query($sql) as $row) {
 			$res[] = array(
 				'id'=>$row['id'],
-				'category'=>$row['category'],
 				'value'=>$row['value'],
 				'date'=>$row['date'],
-				'memo'=>$row['memo']
 			);
 		}
 

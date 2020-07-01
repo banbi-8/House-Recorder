@@ -1,6 +1,9 @@
 <div class="badget-content">
 	<div class="content">
-		<div class="table-container"></div>
+		<div>
+			<div class="income-container"></div>
+			<div class="table-container"></div>
+		</div>
 		<div class="chart-container"></div>
 	</div>
 </div>

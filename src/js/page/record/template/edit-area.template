@@ -3,10 +3,6 @@
 	<span id="close-button"><i class="fas fa-times"></i></span>
 </div>
 <div id="detail"></div>
-<div class="btn-group btn-group-toggle" data-toggle="buttons" id="selector">
-  <label class="btn btn-outline-primary active"><input type="radio" autocomplete="off" value="income">収入</label>
-  <label class="btn btn-outline-primary"><input type="radio" autocomplete="off" value="expense">支出</label>
-</div>
 <div class="table-container">
 	<div class="thead">
 		<span class="float-right mr-2 mb-3">

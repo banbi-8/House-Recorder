@@ -10,8 +10,8 @@ define([
 	$,
 	_,
 	Backbone,
-	IncomeCollection,
-	ExpenseCollection,
+	Incomes,
+	Expenses,
 	// var
 	dManager,
 	template
@@ -21,8 +21,8 @@ return DetailPaneView = Backbone.View.extend({
 	initialize: function(opts) {
 		this.elSelector_ = opts.elSelector;
 
-		this.incomeCollection_ = new IncomeCollection({date: dManager.getYMStr()});
-		this.expenseCollection_ = new ExpenseCollection({date: dManager.getYMStr()});
+		this.incomes_ = new Incomes();
+		this.expenses_ = new Expenses();
 
 		this.template_ = _.template(template);
 	},
@@ -31,22 +31,23 @@ return DetailPaneView = Backbone.View.extend({
 	},
 
 	render: function () {
-		this.incomeCollection_.setDate(dManager.getYMStr());
-		this.expenseCollection_.setDate(dManager.getYMStr());
+		this.incomes_.setDate(dManager.getYMStr());
+		this.expenses_.setDate(dManager.getYMStr());
 
 		$.when(
-			this.incomeCollection_.fetch(),
-			this.expenseCollection_.fetch()
-			)
+			this.incomes_.fetch(),
+			this.expenses_.fetch()
+		)
 		.then(() =>{
-			const incomeVal = this.incomeCollection_.getTotalValue();
-			const expenseVal = this.expenseCollection_.getTotalValue();
-
 			this.setElement(this.elSelector_);
+			const imodel = this.incomes_.findWhere({date: dManager.getYMStr()});
+			const iVal = imodel.get('value');
+			const eVal = this.expenses_.getTotalValue();
+
 			this.$el.html(this.template_({
-				incomeVal: incomeVal,
-				expenseVal: expenseVal,
-				remainVal: incomeVal - expenseVal
+				incomeVal: iVal,
+				expenseVal: eVal,
+				remainVal: iVal - eVal
 			}));
 		});
 	},

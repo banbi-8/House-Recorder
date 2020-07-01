@@ -288,13 +288,27 @@ html, body , .app {
 	width: 100%;
 }
 
-.badget-content .table-container,
-.badget-content .chart-container {
+.badget-content .content > div {
 	width: 50%;
 	height: 100%;
 	float: left;
 	padding-left: 20px;
 	padding-right: 20px;
+}
+
+.badget-content .income-container #total {
+	text-align: center;
+}
+
+.badget-content .income-container #total > * {
+	display: inline-block;
+	font-size: 20px;
+	text-align: center;
+}
+
+.badget-content .income-container #total > input {
+	width: 50%;
+	border: 0;
 }
 
 /* badget table style */

@@ -39,11 +39,11 @@ return DetailPaneView = Backbone.View.extend({
 			this.expenses_.fetch()
 		)
 		.then(() =>{
-			this.setElement(this.elSelector_);
 			const imodel = this.incomes_.findWhere({date: dManager.getYMStr()});
-			const iVal = imodel.get('value');
+			const iVal = imodel ? imodel.get('value') : 0;
 			const eVal = this.expenses_.getTotalValue();
 
+			this.setElement(this.elSelector_);
 			this.$el.html(this.template_({
 				incomeVal: iVal,
 				expenseVal: eVal,

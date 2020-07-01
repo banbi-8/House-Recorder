@@ -1,7 +1,7 @@
 define([
 	'jquery',
 	'backbone',
-	'page/common/model/income-model',
+	'page/common/collection/income-collection',
 	'page/common/collection/expense-collection',
 	'page/common/view/line-chart-view',
 	'common/date-manager',
@@ -9,7 +9,7 @@ define([
 ], function (
 	$,
 	Backbone,
-	IncomeModel,
+	Incomes,
 	ExpenseCollection,
 	LineChartView,
 	dManager,
@@ -22,7 +22,7 @@ return TransitionView = Backbone.View.extend({
 	initialize: function() {
 		this.template_ = template;
 
-		this.incomModel_ = new IncomeModel();
+		this.incomes_ = new Incomes();
 		this.expenseCollection_ = new ExpenseCollection();
 		this.lineChart_ = new LineChartView({elSelector: '.chart-container'});
 	},
@@ -89,25 +89,17 @@ return TransitionView = Backbone.View.extend({
 	},
 
 	createIncomeData: function () {
-		const dfds = [];
-		const data = [];
-
-		for (let index = 1; index <= 12; index++) {
-			const prms = $.when.apply($,dfds)
-				.then(() => {
+		return $.when(this.incomes_.fetch())
+			.then(() => {
+				const data = [];
+				for (let index = 1; index <= 12; index++) {
 					const ym = String(dManager.year + '-' + index);
-					this.incomCollection_.setDate(ym);
-					return this.incomCollection_.fetch();
-				})
-				.done(() => {
-					data.push(this.incomCollection_.getTotalValue());
-				});
-			
-			dfds.push(prms);
-		}
-
-		return $.when.apply($, dfds)
-			.then(() => data);
+					const model = this.incomes_.getModelFromDate(ym);
+					data.push(model ? model.get('value') : 0);
+				}
+				
+				return data;
+			});
 	},
 
 	createExpenseData: function () {

@@ -2,7 +2,7 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'page/record/model/income-model',
+	'page/common/model/income-model',
 	'page/common/collection/collection-base'
 ], function (
 	$,

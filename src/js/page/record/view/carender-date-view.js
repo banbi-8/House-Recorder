@@ -39,9 +39,9 @@ return CarenderView = Backbone.View.extend({
 				const expenseTotal = this.expenseItems_.getTotalValue();
 
 				const res = this.date_.split('-');
-				this.$el.html(this.template_({date: res.pop(), value: expenseTotal}));
+				this.$el.html(this.template_({date: res.pop(), value: -(expenseTotal)}));
 
-				if (expenseTotal < 0) {
+				if (expenseTotal > 0) {
 					this.$('#value').css('color', 'red');
 				}
 			} else {

@@ -137,14 +137,17 @@ return ChartView = Backbone.View.extend({
 		this.$el.html(this.template_);
 
 		this.resetChart();
-		_.each(this.collection_.models, (model, i) => {
-			this.chart_.data.labels.push(model.get('category'));
-			this.chart_.data.datasets[0].data.push(model.get('value'));
-			
-			const color = this.generateColor_(i);
-			this.chart_.data.datasets[0].backgroundColor.push(color);
-			this.chart_.data.datasets[0].borderColor.push(color);	
-		});
+
+		if (this.collection_.size() > 0) {
+			_.each(this.collection_.models, (model, i) => {
+				this.chart_.data.labels.push(model.get('category'));
+				this.chart_.data.datasets[0].data.push(model.get('value'));
+				
+				const color = this.generateColor_(i);
+				this.chart_.data.datasets[0].backgroundColor.push(color);
+				this.chart_.data.datasets[0].borderColor.push(color);	
+			});	
+		}
 
 		this.chart_.update();
 	},

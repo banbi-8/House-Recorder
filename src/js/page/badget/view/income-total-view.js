@@ -1,6 +1,7 @@
 define([
 	'jquery',
 	'backbone',
+	'page/common/model/income-model',
 	'page/common/collection/income-collection',
 	'common/date-manager',
 	'common/mediator',
@@ -10,6 +11,7 @@ define([
 ], function (
 	$,
 	Backbone,
+	Income,
 	Incomes,
 	// var
 	dManager,
@@ -23,6 +25,7 @@ return IncomeTotalView = Backbone.View.extend({
 		this.template_ = _.template(template);
 
 		this.collection_ = new Incomes();
+		this.model_ = null;
 	},
 
 	// public
@@ -33,13 +36,24 @@ return IncomeTotalView = Backbone.View.extend({
 		.then(() =>{
 			this.$el.html(this.template_());
 			const model = this.collection_.getModelFromDate(dManager.getYMStr());
-			const value = model ? model.get('value') : 0;
-			$('#income-total').val(value);
+			if (model) {
+				this.model_ = model;
+			} else {
+				this.model_ = new Income();
+				this.model_.set({'date': dManager.getYMStr()});
+			}
+			$('#income-total').val(this.model_.get('value'));
 		});
 	},
 
 	events: {
-
+		'click #save': 'clickedOnSaveButton'
 	},
+
+	clickedOnSaveButton: function () {
+		const value = $('#income-total').val();
+		this.model_.set({'value': value});
+		this.model_.save();
+	}
 });
 });

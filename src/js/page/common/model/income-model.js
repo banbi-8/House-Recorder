@@ -12,16 +12,8 @@ define([
 return IncomeModel = ModelBase.extend({
 	urlRoot: 'src/php/income.php',
 	defaults: {
-		value: null,
+		value: 0,
 		date: ''
-	},
-	initialize: function (attr) {
-		if (attr) {
-			this.set({
-				'value': attr.value ? attr.value : null,
-				'date': attr.date ? attr.date : ''
-			});
-		}
 	},
 
 	clearAttrExceptDate: function () {

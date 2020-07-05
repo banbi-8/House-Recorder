@@ -174,6 +174,7 @@ return ChartView = Backbone.View.extend({
 	},
 
 	resetChart: function () {
+		this.chart_.options.showAllTooltips = true;
 		this.chart_.data.labels = [];
 		this.chart_.data.datasets[0].data = [];		
 		this.chart_.data.datasets[0].backgroundColor = [];

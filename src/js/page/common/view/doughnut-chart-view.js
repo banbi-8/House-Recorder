@@ -139,21 +139,31 @@ return ChartView = Backbone.View.extend({
 		this.resetChart();
 
 		if (this.collection_.size() > 0) {
-			_.each(this.collection_.models, (model, i) => {
-				this.chart_.data.labels.push(model.get('category'));
-				this.chart_.data.datasets[0].data.push(model.get('value'));
+			const keys = _.uniq(this.collection_.pluck('category'));
+			_.each(keys, (key, i) => {
+				const mArray = this.collection_.filter((model) => {
+					return model.get('category') == key;
+				});
+
+				let sum = 0;
+				_.each(mArray, (model) => {
+					sum += model.get('value');
+				});
+
+				this.chart_.data.labels.push(key);
+				this.chart_.data.datasets[0].data.push(sum);
 				
 				const color = this.generateColor_(i);
 				this.chart_.data.datasets[0].backgroundColor.push(color);
 				this.chart_.data.datasets[0].borderColor.push(color);	
-			});	
+			});
 		} else {
 			this.chart_.options.showAllTooltips = false;
 			this.chart_.data.datasets[0].data.push(1);
 			const color = '#8f8f8f'; // gray
 			this.chart_.data.datasets[0].backgroundColor.push(color);
 			this.chart_.data.datasets[0].borderColor.push(color);	
-	}
+		}
 
 		this.chart_.update();
 	},

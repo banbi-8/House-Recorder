@@ -2,7 +2,7 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'page/record/model/income-model',
+	'page/common/model/income-model',
 	'page/common/collection/collection-base'
 ], function (
 	$,
@@ -61,6 +61,10 @@ return IncomeItems = CollectionBase.extend({
 		});
 
 		return res;
+	},
+
+	getModelFromDate: function (date) {
+		return this.findWhere({'date': date});
 	}
 });
 });

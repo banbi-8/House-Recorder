@@ -12,20 +12,8 @@ define([
 return IncomeModel = ModelBase.extend({
 	urlRoot: 'src/php/income.php',
 	defaults: {
-		category: '',
-		value: null,
-		memo: '',
+		value: 0,
 		date: ''
-	},
-	initialize: function (attr) {
-		if (attr) {
-			this.set({
-				'category': attr.category ? attr.category : '',
-				'value': attr.value ? attr.value : null,
-				'memo': attr.memo ? attr.memo : '',
-				'date': attr.date ? attr.date : ''
-			});
-		}
 	},
 
 	clearAttrExceptDate: function () {
@@ -38,7 +26,6 @@ return IncomeModel = ModelBase.extend({
 	canSave: function () {
 		let needsSave = true;
 
-		needsSave = this.get('category') !== '' ? true : false;
 		needsSave = needsSave && (this.get('value') !== null) ? true : false;
 		needsSave = needsSave && (this.get('date') !== '') ? true : false;
 

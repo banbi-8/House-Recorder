@@ -1,0 +1,6 @@
+<div id="total">
+	<div>今月分の収入額 :</div>
+	<input class="form-control" id="income-total" type="text"></input>
+	<span>円</span>
+	<button type="button" class="btn btn-primary" id="save"><i class="fas fa-save"></i> 保存</button>
+</div>

@@ -38,6 +38,7 @@ return LoginView = Backbone.View.extend({
 			$('#localstorage > input').prop('checked', this.stateOfStorageCheckbox);
 			if (this.stateOfStorageCheckbox) {
 				$('#user-name').val(localStorage.getItem('userName'));
+				$('#password').val('ysaito');
 			}
 		});
 	},

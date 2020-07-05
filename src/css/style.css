@@ -288,8 +288,7 @@ html, body , .app {
 	width: 100%;
 }
 
-.badget-content .table-container,
-.badget-content .chart-container {
+.badget-content .content > div {
 	width: 50%;
 	height: 100%;
 	float: left;
@@ -297,7 +296,35 @@ html, body , .app {
 	padding-right: 20px;
 }
 
+.badget-content .income-container #total {
+	text-align: center;
+}
+
+.badget-content .income-container #total > * {
+	display: inline-block;
+	text-align: center;
+}
+
+.badget-content .income-container #total > div,
+.badget-content .income-container #total > input,
+.badget-content .income-container #total > span {
+	font-size: 20px;
+}
+
+.badget-content .income-container #total > input {
+	width: 50%;
+	border: 0;
+}
+
+.badget-content .income-container #total > button {
+	margin-left: 20px;
+}
+
 /* badget table style */
+.badget-content .table-container {
+	margin-top: 10px;
+}
+
 .badget-content .table-container #edit-button {
 	margin-right: 1em;
 }

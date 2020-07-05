@@ -28,7 +28,6 @@ return EditAreaDetailView = Backbone.View.extend({
 
 	setValue: function (value) {
 		this.value_ = {
-			income: value.income,
 			expense: value.expense
 		}
 	}

@@ -1,9 +1,7 @@
 define([
 	'jquery',
 	'backbone',
-	'page/record/model/income-model',
 	'page/record/model/expense-model',
-	'page/common/collection/income-collection',
 	'page/common/collection/expense-collection',
 	'page/record/view/table-item-view',
 	'page/record/view/edit-area-detail-view',
@@ -12,9 +10,7 @@ define([
 ], function (
 	$,
 	Backbone,
-	IncomeModel,
 	ExpenseModel,
-	IncomeCollection,
 	ExpenseCollection,
 	TableItemView,
 	DetailView,
@@ -32,14 +28,12 @@ return EditAreaView = Backbone.View.extend({
 		this.template_ = _.template(template);
 
 		this.detailView_ = new DetailView({elSelector: '#detail'});
-		this.incomeItems_ = new IncomeCollection();
 		this.expenseItems_ = new ExpenseCollection();
 
 		mediator.addView('editAreaView', this);
 	},
 
 	events: {
-		'click #selector > label > input': 'clickOnSelector_',
 		'click #close-button': 'clickOnEditAreaViewCloseButton_'
 	},
 
@@ -47,7 +41,6 @@ return EditAreaView = Backbone.View.extend({
 		switch (event) {
 			case 'updatedItemValue':
 				$.when(
-					this.incomeItems_.fetch(),
 					this.expenseItems_.fetch()
 				)
 				.done(() => {
@@ -61,7 +54,6 @@ return EditAreaView = Backbone.View.extend({
 		this.setElement(this.elSelector_);
 
 		return $.when(
-			this.incomeItems_.fetch(),
 			this.expenseItems_.fetch()
 		)
 		.done(() => {
@@ -77,13 +69,12 @@ return EditAreaView = Backbone.View.extend({
 
 	adjustAreaHeight: function () {
 		const areaHight = $('.edit-area').height();
-		$('.table-container').height(areaHight - 183);
-		$('.tbody').height(areaHight - 274);
+		$('.table-container').height(areaHight - 123);
+		$('.tbody').height(areaHight - 214);
 	},
 
 	setCtx: function (ctx) {
 		this.date_ = ctx.date;
-		this.incomeItems_.setDate(ctx.date);
 		this.expenseItems_.setDate(ctx.date);
 	},
 
@@ -93,39 +84,14 @@ return EditAreaView = Backbone.View.extend({
 
 	updateTableItems_: function () {
 		return $.when(
-				this.prepareTableItemViewsForIncome_(),
 				this.prepareTableItemViewsForExpense_()
 			)
 			.then(() => {
 				$('#edit-tbody').empty();
-				const dispViews = this.selector_ === 'income' ? this.incomeItemViews_ : this.expenseItemViews_;
-				_.each((dispViews), (view) => {
+				_.each((this.expenseItemViews_), (view) => {
 					$('#edit-tbody').append(view.render());
 				});	
 			});
-	},
-
-	prepareTableItemViewsForIncome_: function () {
-		const dfd = $.Deferred();
-		this.incomeItemViews_ = [];
-
-		$.when(this.incomeItems_.fetch())
-		.then(() => {
-			_.each(this.incomeItems_.models, (model) => {
-				const view = new TableItemView(model);
-				this.incomeItemViews_.push(view);
-			});
-
-			while(this.incomeItemViews_.length < 8) {
-				const model = new IncomeModel({date: this.date_});
-				const view = new TableItemView(model);
-				this.incomeItemViews_.push(view);
-			}
-
-			dfd.resolve();
-		});
-
-		return dfd.promise();
 	},
 
 	prepareTableItemViewsForExpense_: function () {
@@ -151,23 +117,8 @@ return EditAreaView = Backbone.View.extend({
 		return dfd.promise();
 	},
 
-	clickOnSelector_: function (eve) {
-		const value = $(eve.target).attr('value');
-		if (!this.isChangedSelector_(value)) {
-			return;
-		}
-		
-		this.selector_ = value;
-		this.updateTableItems_();
-	},
-
-	isChangedSelector_: function (value) {
-		return this.selector_ !== value;
-	},
-
 	updateDetailValue_: function () {
 		this.detailView_.setValue({
-			income: this.incomeItems_.getTotalValue(),
 			expense: this.expenseItems_.getTotalValue()
 		});
 		this.detailView_.render();

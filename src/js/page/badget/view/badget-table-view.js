@@ -107,7 +107,7 @@ return BadgetTableView = Backbone.View.extend({
 
 	adjustTBodyHeight: function () {
 		const areaHeight = $('.table-container').height();
-		$('.tbody').height(areaHeight - 164);
+		$('.tbody').height(areaHeight - 208);
 	}
 });
 });

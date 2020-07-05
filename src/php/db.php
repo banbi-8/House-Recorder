@@ -8,6 +8,7 @@
 	
 			try {
 				$this->dbh = new PDO($dsn, $user, $pass);
+				$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $err) {
 				print('Error:'.$err->getMessage());
 			}	

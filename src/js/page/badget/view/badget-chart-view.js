@@ -73,7 +73,7 @@ return BadgetChartView = ChartView.extend({
 	render: function () {
 		this.setElement(this.elSelector_);
 		this.$el.html(this.template_);
-		this.resetContext();
+		this.resetChart();
 		this.updateChartContext_();
 	},
 
@@ -83,7 +83,7 @@ return BadgetChartView = ChartView.extend({
 				this.removeChartContext_(opt_data.cid);
 				break;
 			case 'updatedItemValue':
-				this.updateChartContext_();
+				this.render();
 				break;
 			case 'setDisplayingTableViews':
 				this.tableViews_ = opt_data;
@@ -111,6 +111,14 @@ return BadgetChartView = ChartView.extend({
 			}
 		});
 
+		if (this.chart_.displayingIDs.length == 0) {
+			this.chart_.options.showAllTooltips = false;
+			this.chart_.data.datasets[0].data.push(1);
+			const color = '#8f8f8f'; // gray
+			this.chart_.data.datasets[0].backgroundColor.push(color);
+			this.chart_.data.datasets[0].borderColor.push(color);		
+		}
+
 		this.chart_.update();
 	},
 
@@ -127,12 +135,13 @@ return BadgetChartView = ChartView.extend({
 		this.chart_.update();
 	},
 
-	resetContext: function () {
+	resetChart: function () {
 		this.chart_.displayingIDs = [];
 		this.chart_.data.labels = [];
 		this.chart_.data.datasets[0].data = [];		
 		this.chart_.data.datasets[0].backgroundColor = [];
-		this.chart_.data.datasets[0].borderColor = [];	
+		this.chart_.data.datasets[0].borderColor = [];
+		this.chart_.options.showAllTooltips = true;	
 	}
 });
 })

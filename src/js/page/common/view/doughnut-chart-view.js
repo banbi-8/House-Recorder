@@ -147,20 +147,26 @@ return ChartView = Backbone.View.extend({
 				this.chart_.data.datasets[0].backgroundColor.push(color);
 				this.chart_.data.datasets[0].borderColor.push(color);	
 			});	
-		}
+		} else {
+			this.chart_.options.showAllTooltips = false;
+			this.chart_.data.datasets[0].data.push(1);
+			const color = '#8f8f8f'; // gray
+			this.chart_.data.datasets[0].backgroundColor.push(color);
+			this.chart_.data.datasets[0].borderColor.push(color);	
+	}
 
 		this.chart_.update();
 	},
 
 	generateColor_: function (index) {
 		const colors = [
-			'#FF6384',
-			'#36A2EB',
-			'#FFCE56',
-			'#339900',
-			'#ff6633',
-			'#0099FF',
-			'#FFCC00'			
+			'#FF6384', // pink
+			'#36A2EB', // light blue
+			'#FFCE56', // light yellow
+			'#339900', // green
+			'#ff6633', // orange
+			'#0099FF', // blue
+			'#FFCC00'	 // yellow
 		];
 
 		const num = index % colors.length;
